@@ -6,16 +6,21 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:16:37 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/15 17:37:30 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:07:51 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
+================================================================================
 DESCRIPTION
-	The  memcpy() function copies 'n' bytes from 'src' to 'dst' avoiding the
-	overlapping.
+	The  memcpy() function copies 'n' bytes from 'src' to 'dest'. The
+	overlapping could happen. It copies values independing of their values (i.e:
+	'\0' is copied as a value not considering what it means).
+	If the number of copied bytes are greater than the length of 'dest', buffer
+	overflow or segmentation fault can happen but this function does not check
+	this scenario.
 	Prototype:
 	void *memcpy(void *dest, const void *src, size_t n);
 
@@ -25,39 +30,21 @@ PARAMETERS
 
 	src --> source string.
 
-	n --> quantity of bytes from 'src' to be copied in 'dst'.
+	n --> quantity of bytes from 'src' to be copied in 'dest'.
 
 RETURN VALUE
-       None
+	None
+================================================================================
 */
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
 
+	if (dest == NULL || src == NULL)
+		return (NULL);
 	i = -1;
 	while (++i < n)
-	{
-		((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-	}
+		((unsigned char *)dest)[i] = ((const unsigned char *)src)[i];
 	return (dest);
-}
-
-int	main(void)
-{
-	char	s[15] = "Hola Hola";
-	char	dst[2];
-	int		i = 0;
-
-	// printf("-------- ESTANDAR ---------\n");
-	// printf("Cadena Original: %s\n", s2);
-	// memset(s2, '*', 15);
-	// printf("Cadena modificada: %s\n", s2);
-	printf("-------- IMPLEMENTACION ---------\n");
-	printf("Cadena Original: %s\n", dst);
-	ft_memcpy(dst, s, 4);
-	while (++i < 11)
-		//printf("%02X ", (unsigned char)s[i]);
-		printf("%c ", (unsigned char)dst[i]);
-	return (0);
 }

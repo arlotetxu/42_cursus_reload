@@ -6,13 +6,14 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:39:00 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/15 17:16:07 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:45:45 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
+================================================================================
 DESCRIPTION
 	The  bzero() function fills the first 'n' bytes of the memory area
 	pointed to by 's' with zeros or bytes containing '\0'.
@@ -26,9 +27,11 @@ PARAMETERS
 		begining of the string.
 
 RETURN VALUE
-       None
+	None
+================================================================================
 */
 void	ft_bzero(void *s, size_t n)
 {
-	ft_memset(s, 0, n);
+	if (n > 0)
+		ft_memset(s, 0, n);
 }
