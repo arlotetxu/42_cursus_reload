@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:56:41 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/16 17:07:09 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/17 10:49:40 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 /*
 ================================================================================
 DESCRIPTION
-	The  ft_strlcpy() function appends 'size' - 1 characters from the string
-	'src' to the string 'dst', Null terminating the result. It copies 'size' -1
-	characters or untill '\0' is found in src string.
-	The strlcat() function appends the NUL-terminated string src to the end of
-	dst. It will append at most size - strlen(dst) - 1 bytes, NUL-terminating
+	The ft_strlcat() function appends the NUL-terminated string src to the end
+	of dst. It will append at most size - strlen(dst) - 1 bytes, NUL-terminating
 	the result.
 
 	Prototype:
@@ -31,7 +28,7 @@ PARAMETERS
 
 	src --> source string to be copied into dst.
 
-	size -->
+	size --> Total bytes to be appended.
 
 RETURN VALUE
 	the number of characters the function would copied independing of the
