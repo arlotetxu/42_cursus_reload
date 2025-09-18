@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:56:41 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/17 10:49:40 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/18 13:50:25 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ PARAMETERS
 
 	src --> source string to be copied into dst.
 
-	size --> Total bytes to be appended.
+	size --> Total bytes of the resulted string.
 
 RETURN VALUE
 	the number of characters the function would copied independing of the
