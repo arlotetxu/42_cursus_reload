@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 10:50:40 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/17 12:12:06 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/18 14:43:11 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,4 @@ char	*ft_strchr(const char *s, int c)
 		s++;
 	}
 	return (NULL);
-}
-
-int	main(void)
-{
-	const char	*str;
-	char		c;
-
-	str = "This is a string test";
-	c = 'i';
-	printf("Returned created: %s\n", ft_strchr(str, c));
-	printf("Returned standard: %s\n", strchr(str, c));
-	return (0);
 }
