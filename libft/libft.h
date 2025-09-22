@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 12:24:36 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/21 10:11:32 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/22 17:04:38 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define LIBFT_H
 
 //===========STD LIBRARIES===========
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
 //=============PROTOTYPES=============
 int		ft_isalpha(int c);
