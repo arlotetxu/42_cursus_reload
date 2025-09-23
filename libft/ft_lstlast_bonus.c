@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 16:43:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/23 11:50:03 by joflorid         ###   ########.fr       */
+/*   Created: 2025/09/23 11:31:45 by joflorid          #+#    #+#             */
+/*   Updated: 2025/09/23 11:51:37 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,23 @@
 /*
 ================================================================================
 DESCRIPTION
-	The function ft_lstnew() creates a new node in a linked list using malloc.
-	The node variable 'content' if initialize with the function's parameter
-	'content'
+	The function ft_lstlast() returns the last node from the list 'lst'.
 	Prototype:
-	t_list	*ft_lstnew(void *content);
+	t_list	*ft_lstlast(t_list *lst);
 
 PARAMETERS
-	content --> Data the node stores.
+	lst --> Pointer to the first node of the list.
 
 RETURN VALUE
-	The new created node
+	The last node.
 ================================================================================
 */
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
+	if (!lst)
 		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

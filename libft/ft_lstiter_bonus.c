@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 16:43:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/23 11:50:03 by joflorid         ###   ########.fr       */
+/*   Created: 2025/09/23 16:27:17 by joflorid          #+#    #+#             */
+/*   Updated: 2025/09/23 17:03:40 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 /*
 ================================================================================
 DESCRIPTION
-	The function ft_lstnew() creates a new node in a linked list using malloc.
-	The node variable 'content' if initialize with the function's parameter
-	'content'
+	The function ft_lstiter() applies the function 'f' passed as an argument
+	to all the nodes content of the list 'lst'
 	Prototype:
-	t_list	*ft_lstnew(void *content);
+	void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 PARAMETERS
-	content --> Data the node stores.
+	lst --> A pointer to the list.
+
+	(*f) --> A pointer to a function to apply to all nodes content.
 
 RETURN VALUE
-	The new created node
+	Nothing.
 ================================================================================
 */
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	if (!lst || !f)
+		return ;
+	while (lst != NULL)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }

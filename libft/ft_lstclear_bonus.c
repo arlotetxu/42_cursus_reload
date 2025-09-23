@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 16:43:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/23 11:50:03 by joflorid         ###   ########.fr       */
+/*   Created: 2025/09/23 15:38:47 by joflorid          #+#    #+#             */
+/*   Updated: 2025/09/23 16:25:10 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,36 @@
 /*
 ================================================================================
 DESCRIPTION
-	The function ft_lstnew() creates a new node in a linked list using malloc.
-	The node variable 'content' if initialize with the function's parameter
-	'content'
+	The function ft_lstclear() deletes from a given node pointer on. The content
+	is deleted using the function given as parameter 'del' and the node is 
+	freed with free().
 	Prototype:
-	t_list	*ft_lstnew(void *content);
+	void	ft_lstclear(t_list **lst, void (*del)(void*));
 
 PARAMETERS
-	content --> Data the node stores.
+	lst --> A pointer to the node from the deletion process must start.
+
+	del --> Function to delete the node content
 
 RETURN VALUE
-	The new created node
+	Nothing.
 ================================================================================
 */
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	t_list	*new_node;
+	t_list	*current;
+	t_list	*next_node;
 
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	if (!lst || !del)
+		return ;
+	current = *lst;
+	while (current != NULL)
+	{
+		next_node = current->next;
+		del(current->content);
+		free(current);
+		current = next_node;
+	}
+	*lst = NULL;
 }
