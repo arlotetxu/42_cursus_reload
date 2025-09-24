@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 12:24:36 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/24 10:49:45 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:50:25 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 # define LIBFT_H
 
 //===========STD LIBRARIES===========
-# include <stdio.h>
 # include <unistd.h>
-# include <string.h>
 # include <stdlib.h>
-# include <fcntl.h>
 
 //=============DEFINITIONS=============
 typedef struct s_list

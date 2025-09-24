@@ -6,7 +6,7 @@
 #    By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 11:11:03 by joflorid          #+#    #+#              #
-#    Updated: 2025/09/24 11:17:32 by joflorid         ###   ########.fr        #
+#    Updated: 2025/09/24 11:23:35 by joflorid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,9 +89,8 @@ clean:
 	rm -R $(OBJ_DIR)
 
 fclean: clean
-	@echo "$(CYAN)Removing *.o files & $(NAME) file...$(DEF_COLOR)"
+	@echo "$(CYAN)Removing $(NAME) file...$(DEF_COLOR)"
 	rm -rf $(NAME)
-
 
 re: fclean all
 
