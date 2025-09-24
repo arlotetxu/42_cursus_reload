@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:26:10 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/17 16:26:24 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:30:04 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 	i = 0;
 	j = 0;
-	if (!little[j])
+	if (!little[j] || !little[0])
 		return ((char *)big);
 	while (i < len && big[i])
 	{

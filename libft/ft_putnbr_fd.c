@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:00:02 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/21 10:11:55 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:21:06 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_putnbr_fd() sends the number 'n' to the file descriptor
+	The function ft_putnbr_fd() sends the number 'n' to the file descriptor
 	(fd). A file descriptor is an integer value that represents a file in the
 	system.
 	Prototype:

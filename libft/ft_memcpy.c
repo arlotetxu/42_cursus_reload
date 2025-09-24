@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:16:37 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/16 17:07:51 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:12:29 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The  memcpy() function copies 'n' bytes from 'src' to 'dest'. The
+	The ft_memcpy() function copies 'n' bytes from 'src' to 'dest'. The
 	overlapping could happen. It copies values independing of their values (i.e:
 	'\0' is copied as a value not considering what it means).
 	If the number of copied bytes are greater than the length of 'dest', buffer

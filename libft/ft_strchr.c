@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 10:50:40 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/18 14:43:11 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:03:37 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_strchr() returns a pointer to the first occurrence of the
+	The function ft_strchr() returns a pointer to the first occurrence of the
 	character 'c' in the string 's'.
 	The terminating null character is also considered as part of the string 's'
 	Prototype:

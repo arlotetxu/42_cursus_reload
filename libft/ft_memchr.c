@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 13:14:55 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/17 14:16:41 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:12:38 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_memchr() checks for the first occurrence of 'c' in the 'n'
+	The function ft_memchr() checks for the first occurrence of 'c' in the 'n'
 	first bytes of the string pointed by 's'. Both 'c' and the bytes of the
 	memory area pointed to by 's' are interpreted as unsigned char.
 	Prototype:

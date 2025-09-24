@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 08:34:03 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/24 10:51:16 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 12:04:53 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ================================================================================
 DESCRIPTION
 	The function ft_lstnew() adds the node 'new' at the beginning of the list
-	(lst).
+	'lst'.
 	Prototype:
 	void	ft_lstadd_front(t_list **lst, t_list *new);
 

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 17:28:44 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/19 17:52:14 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:21:21 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_strmapi() passes a function received as parameter to all the
+	The function ft_strmapi() passes a function received as parameter to all the
 	characters of the string pointed by 's'. The arguments the function 'f'
 	receives are the index of the string and the value of the index.
 	Prototype:
@@ -29,7 +29,7 @@ PARAMETERS
 		--> char - character from 's'
 
 RETURN VALUE
-	A pointer to the string created after function 'f' application.
+	A pointer to the NEW string created after function 'f' application.
 ================================================================================
 */
 

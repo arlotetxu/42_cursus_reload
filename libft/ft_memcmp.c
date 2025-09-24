@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:56:34 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/17 15:15:47 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:12:43 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_memcmp() compares the first 'n' values (interpreted as
+	The function ft_memcmp() compares the first 'n' values (interpreted as
 	unsigned char) of the strings 's1' and 's2'
 	Prototype:
 	int	ft_memcmp(const void *s1, const void *s2, size_t n);

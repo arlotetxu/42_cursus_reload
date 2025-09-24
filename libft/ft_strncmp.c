@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 12:14:01 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/17 13:06:01 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:22:53 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_strncmp() compares the string 's1' and 's2' and returns the
-	difference. The comparison will never be greater than 'n' bytes or
+	The function ft_strncmp() compares the string 's1' and 's2' and returns the
+	difference. The comparison will never be greater than 'n' bytes of
 	characters.
 	Prototype:
 	int	ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -29,7 +29,7 @@ PARAMETERS
 	n --> number of bytes or characters to compare.
 
 RETURN VALUE
-	0 --> if 's1' and 's2' are equal.
+	0 --> if 's1' and 's2' are identical.
 
 	(int)Difference between both strings (s1 - s2) --> the strings are not
 		similar

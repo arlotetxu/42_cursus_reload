@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 11:36:15 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/17 12:11:04 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:32:33 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_strrchr() returns a pointer to the last occurrence of the
+	The function ft_strrchr() returns a pointer to the last occurrence of the
 	character 'c' in the string 's'.
 	The terminating null character is also considered as part of the string 's'
 	Prototype:

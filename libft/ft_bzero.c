@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:39:00 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/16 11:45:45 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:58:12 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The  bzero() function fills the first 'n' bytes of the memory area
+	The ft_bzero() function fills the first 'n' bytes of the memory area
 	pointed to by 's' with zeros or bytes containing '\0'.
 	Prototype:
 	void bzero(void *s, size_t n);

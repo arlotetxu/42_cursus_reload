@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:30:31 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/16 15:55:54 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:18:34 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ DESCRIPTION
 	The  memset() function fills the first n bytes of the memory area
 	pointed to by s with the constant byte c.
 	Prototype:
-	void *memset(void *s, int c, size_t n);
+	void	*memset(void *s, int c, size_t n);
 
 PARAMETERS
 	s --> string to add the 'c' value to. WARNING!! As the string is declared

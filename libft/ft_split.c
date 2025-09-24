@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:25:16 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/19 13:41:36 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 13:54:52 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ================================================================================
 DESCRIPTION
-	The fuction ft_split() takes a string and split it into words. The 'c'
+	The function ft_split() takes a string and split it into words. The 'c'
 	parameter acts as delimiter between words. The words are saved in a new
 	array that it is returned with a null pointer at the end.
 	Prototype:
