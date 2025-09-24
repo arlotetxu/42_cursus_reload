@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:38:47 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/23 16:25:10 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:51:23 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_bonus.h"
+#include "libft.h"
 
 /*
 ================================================================================
 DESCRIPTION
 	The function ft_lstclear() deletes from a given node pointer on. The content
-	is deleted using the function given as parameter 'del' and the node is 
+	is deleted using the function given as parameter 'del' and the node is
 	freed with free().
 	Prototype:
 	void	ft_lstclear(t_list **lst, void (*del)(void*));

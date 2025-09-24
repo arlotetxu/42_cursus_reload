@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:52:36 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/23 15:39:29 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:51:28 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_bonus.h"
+#include "libft.h"
 
 /*
 ================================================================================
 DESCRIPTION
 	The function ft_lstdelone() deletes the content of a given node passed as
-	an argument 'lst' using the function 'del' passed as parameter. The node is 
+	an argument 'lst' using the function 'del' passed as parameter. The node is
 	freed.
 	Prototype:
 	void	ft_lstdelone(t_list *lst, void (*del)(void*));

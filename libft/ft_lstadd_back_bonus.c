@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:56:27 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/23 12:41:58 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:51:10 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_bonus.h"
+#include "libft.h"
 
 /*
 ================================================================================
@@ -22,7 +22,7 @@ DESCRIPTION
 
 PARAMETERS
 	lst --> Pointer to the first node of the list.
-	
+
 	new --> New node to be added at the end of the list.
 
 RETURN VALUE
