@@ -4,9 +4,9 @@ int	main(void)
 	unsigned int	start;
 	unsigned int	len;
 
-	src = "This is a test string";
-	start = 2;
-	len = 25;
+	src = "lorem ipsum dolor sit amet";
+	start = 400;
+	len = 20;
 	printf("Return created: %s\n", ft_substr(src, start, len));
 	return (0);
 }

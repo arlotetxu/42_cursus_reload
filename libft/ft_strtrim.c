@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 14:06:32 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/18 16:15:27 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/25 15:00:53 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 /*
 ================================================================================
@@ -34,48 +35,17 @@ RETURN VALUE
 	NULL --> If the allocation process fails.
 ================================================================================
 */
-static int	ft_cut_left(const char *s1, const char *set)
+
+static int	ft_check_char(char c, char const *set)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (s1[i] != '\0')
+	while (set[i])
 	{
-		j = 0;
-		while (set[j] != '\0')
-		{
-			if (s1[i] == set[j])
-				break ;
-			if (s1[i] != set[j])
-				j++;
-			if (set[j] == '\0')
-				return (i);
-		}
+		if (c == set[i])
+			return (1);
 		i++;
-	}
-	return (i);
-}
-
-static int	ft_cut_right(const char *s1, const char *set)
-{
-	int	i;
-	int	j;
-
-	i = ft_strlen(s1) - 1;
-	while (i >= 0)
-	{
-		j = 0;
-		while (set[j] != '\0')
-		{
-			if (s1[i] == set[j])
-				break ;
-			if (s1[i] != set[j])
-				j++;
-			if (set[j] == '\0')
-				return (i);
-		}
-		i--;
 	}
 	return (0);
 }
@@ -84,27 +54,19 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		end;
-	int		i;
-	char	*cut;
+	char	*s1_cut;
 
-	if (!s1)
+	if (!s1 || !set)
 		return (NULL);
-	if (!set || !set[0])
-	{
-		cut = (char *)s1;
-		return (cut);
-	}
-	start = ft_cut_left(s1, set);
-	end = ft_cut_right(s1, set);
-	cut = malloc(sizeof(char) * (end - start + 2));
-	if (!cut)
-		return (NULL);
-	i = 0;
-	while (start <= end)
-	{
-		cut[i] = s1[start];
-		i++;
+	start = 0;
+	while (s1[start] && ft_check_char(s1[start], set))
 		start++;
-	}
-	return (cut);
+	end = ft_strlen(s1);
+	while (end > start && ft_check_char(s1[end - 1], set))
+		end--;
+	s1_cut = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (!s1_cut)
+		return (NULL);
+	ft_strlcpy(s1_cut, s1 + start, end - start + 1);
+	return (s1_cut);
 }

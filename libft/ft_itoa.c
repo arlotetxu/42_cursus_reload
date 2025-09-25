@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 15:16:34 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/19 17:09:28 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/25 12:16:34 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_count_digits(int n)
 		n = n * (-1);
 	}
 	if (n < 10)
-		return (1);
+		return (++count);
 	while (n > 0)
 	{
 		count++;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+         #
+#    By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 11:11:03 by joflorid          #+#    #+#              #
-#    Updated: 2025/09/24 11:23:35 by joflorid         ###   ########.fr        #
+#    Updated: 2025/09/25 15:25:09 by joflorid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ bonus: $(OBJS) $(OBJS_BONUS)
 clean:
 	@echo "$(CYAN)Removing source files...$(DEF_COLOR)"
 	rm -rf $(OBJS) $(OBJS_BONUS)
-	rm -R $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@echo "$(CYAN)Removing $(NAME) file...$(DEF_COLOR)"
