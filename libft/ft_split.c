@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:25:16 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/24 13:54:52 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/26 15:19:44 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ RETURN VALUE
 	A pointer to the strings array.
 ================================================================================
 */
+
+void	ft_free_double(int n_words, char **ptr_w)
+{
+	int	i;
+
+	i = 0;
+	while (i < n_words)
+	{
+		free(ptr_w[i]);
+		i++;
+	}
+	free(ptr_w);
+}
 
 static int	ft_count_words(char const *s, char c)
 {
@@ -91,6 +104,8 @@ char	**ft_split(char const *s, char c)
 	int		n_words;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	n_words = ft_count_words(s, c);
 	ptr_w = malloc(sizeof(char *) * (n_words + 1));
 	if (!ptr_w)
@@ -99,6 +114,11 @@ char	**ft_split(char const *s, char c)
 	while (i < n_words)
 	{
 		ptr_w[i] = ft_load_word(&s, c);
+		if (!ptr_w[i])
+		{
+			ft_free_double(i, ptr_w);
+			return (NULL);
+		}
 		i++;
 	}
 	ptr_w[i] = NULL;

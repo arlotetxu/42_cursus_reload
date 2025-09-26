@@ -5,7 +5,7 @@ int	main(void)
 
 	n = -2147483648;
 	// El tercer argumento 0644 da permisos de lectura/escritura al propietario.
-	fd = open("../../../../Temp/ft_putnbr_fd.txt", O_CREAT | O_WRONLY, 0644);
+	fd = open("../../temp/ft_putnbr_fd.txt", O_CREAT | O_WRONLY, 0644);
 	if (fd < 0)
 		return (1);
 	ft_putnbr_fd(n, fd);

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 17:28:44 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/24 14:21:21 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:56:13 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	unsigned int	i;
 	char			*f_apply;
 
-	if (!s)
+	if (!s || !f)
 		return (NULL);
 	f_apply = malloc (sizeof(char) * (ft_strlen(s) + 1));
 	if (!f_apply)

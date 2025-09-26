@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:00:02 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/24 13:21:06 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/26 12:54:48 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,8 @@ void	ft_putnbr_fd(int n, int fd)
 	if (fd < 0)
 		return ;
 	nbr = ft_itoa(n);
+	if (nbr == NULL)
+		return ;
 	ft_putstr_fd(nbr, fd);
+	free(nbr);
 }
