@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 11:36:15 by joflorid          #+#    #+#             */
-/*   Updated: 2025/09/24 14:32:33 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/09/28 08:20:55 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ RETURN VALUE
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*find;
+	char	c_char;
 
+	c_char = (unsigned char)c;
 	find = NULL;
-	if (c == 0)
+	if (c_char == '\0')
 		return (&((char *)s)[ft_strlen(s)]);
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == c_char)
 			find = (char *)s;
 		s++;
 	}
-	if (find)
-		return (find);
-	return (NULL);
+	return (find);
 }

@@ -1,11 +1,11 @@
 int	main(void)
 {
 	const char	*str;
-	char		c;
+	//char		c;
 
-	str = "This is a string test";
-	c = 'i';
-	printf("Returned created: %s\n", ft_strchr(str, c));
-	printf("Returned standard: %s\n", strchr(str, c));
+	str = "tripouille";
+	//c = 'i';
+	printf("Returned created: %s\n", ft_strchr(str, 't' + 256));
+	printf("Returned standard: %s\n", strchr(str, 't' + 256));
 	return (0);
 }
