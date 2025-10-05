@@ -6,39 +6,26 @@
 /*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:00:17 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/05 09:44:51 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:38:36 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "printf.h"
+
 /*
-
+%c --> OK
+%s --> OK
+%p
+%d
+%i
+%u
+%x
+%X
+%% --> OK
 */
-static void	ft_print_string(char *str)
-{
-	int	i;
 
-	if (!str)
-		str = "(null)";
-	i = 0;
-		while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
 
-static void	ft_print_char(int c)
-{
-	char	c_c;
-
-	c_c = (char)c;
-	write(1, &c_c, 1);
-}
-
-static void	ft_distributor(int c, va_list *args)
+void	ft_distributor(int c, va_list *args)
 {
 	//printf("valor de c en distributor: %d\n", c);
 	if (c == 's')
@@ -46,6 +33,8 @@ static void	ft_distributor(int c, va_list *args)
 		//printf("Valor de va_arg: %d\n", va_arg(args, int));
 	else if (c == 'c')
 		ft_print_char(va_arg(*args, int));
+	else if (c == '%')
+		write(1, "%", 1);
 }
 
 int	ft_printf(char const *str, ...)
@@ -78,6 +67,6 @@ int	ft_printf(char const *str, ...)
 
 int	main(void)
 {
-	ft_printf("%s -- %s %c", "Hello", " World!!", 'X');
+	ft_printf("%s -- %s %c %% end.", "Hello", " World!!", 'X');
 	return (0);
 }
