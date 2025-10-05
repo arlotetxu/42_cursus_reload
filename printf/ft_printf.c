@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:00:17 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/05 12:50:41 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:49:18 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ int	ft_printf(char const *str, ...)
 
 int	main(void)
 {
-	printf("Retorno: %i\n", ft_printf("%s -- %s %c %% end.", "Hello", "World!!", 'X'));
+	int	p = -5345;
+	//printf("Retorno: %i\n", ft_printf("%s -- %s %c %% end.", "Hello", "World!!", 'X'));
+	printf("p en pointer: %p\n", &p);
+	printf("p en hexa estandar: %x\n", p);
+	printf("p en hexa creada: %s\n", ft_int_hexa(p));
 	return (0);
 }
