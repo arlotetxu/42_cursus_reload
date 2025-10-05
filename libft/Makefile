@@ -6,7 +6,7 @@
 #    By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 11:11:03 by joflorid          #+#    #+#              #
-#    Updated: 2025/09/25 15:25:09 by joflorid         ###   ########.fr        #
+#    Updated: 2025/10/05 09:50:27 by joflorid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,4 +94,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean re bonus
+.PHONY: all clean fclean re bonus
