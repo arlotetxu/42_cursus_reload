@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 13:08:02 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/05 14:48:22 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:23:34 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ char	*ft_int_hexa(unsigned long n)
 		result[len] = hex_chars[n % 16];
 		n /= 16;
 	}
-	return (result);
+	return (result); //!!Ojo que hay que retornar los caracteres imprimidos en pantalla
 }
 
