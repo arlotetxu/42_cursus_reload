@@ -10,4 +10,4 @@
 ![42 Badge](https://github.com/arlotetxu/42_Badges/blob/main/born2beroot_bonus.webp)</a> <img src="born2beroot/born2beroot_mark.png" alt="Logo" height="175"/>
 
 
-- [ ] #**PRINTF**: Emulate the standard C library "**printf**" function.
+- [ ] #**PRINTF**: An implementation of printf standard function. Lesson learnt: How to use functions with a variable number of arguments.
