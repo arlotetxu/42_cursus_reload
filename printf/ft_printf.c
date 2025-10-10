@@ -6,21 +6,22 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:00:17 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/06 10:16:04 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/10 16:34:46 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
+
 
 /*
 %c --> OK
 %s --> OK
-%p
+%p --> OK
 %d
-%i
+%i --> OK
 %u
-%x
-%X
+%x --> OK
+%X --> OK
 %% --> OK
 */
 
@@ -28,15 +29,18 @@
 int	ft_distributor(int c, va_list *args)
 {
 	if (c == 's')
-		return(ft_print_string(va_arg(*args, char *)));
-		//printf("Valor de va_arg: %d\n", va_arg(args, int));
+		return (ft_print_string(va_arg(*args, char *)));
 	else if (c == 'c')
-		return(ft_print_char(va_arg(*args, int)));
+		return (ft_print_char(va_arg(*args, int)));
 	else if (c == '%')
-	{
-		write(1, "%", 1);
-		return (1);
-	}
+		return (ft_print_char('%'));
+	else if (c == 'x' || c == 'X')
+		return (ft_print_hexa(va_arg(*args, unsigned long), c));
+	else if (c == 'p')
+		return (ft_print_string("0x") +
+			ft_print_hexa(va_arg(*args, unsigned long), 'x')); //!! Cuidado, debe ser un long long?
+	else if (c == 'i')
+		return (ft_print_int(va_arg(*args, int)));
 	return (0);
 }
 
@@ -45,29 +49,23 @@ int	ft_printf(char const *str, ...)
 	char	p_h;
 	va_list	args;
 	int		count;
-	//va_list copy_args;
 
-	//printf("str: %s\n", str);
 	va_start(args, str);
-	//va_copy(copy_args, args);
 	count = 0;
 	while(*str)
 	{
-		    //printf("Procesando carácter: '%c' (ASCII: %d)\n", *str, *str);  // DEBUG
 		if (*str == '%')
 		{
 			p_h = *(++str);
-			//printf("Especificador encontrado: '%c'\n", p_h);  // DEBUG
-			//printf("valor de p_h en ft_print: %c\n", p_h);
 			count += ft_distributor(p_h, &args);
-			//str++;
+			str++;
 		}
 		else
 		{
 			write(1, str, 1);
 			count++;
+			str++;
 		}
-		str++;
 	}
 	va_end(args);
 	return (count);
@@ -75,10 +73,45 @@ int	ft_printf(char const *str, ...)
 
 int	main(void)
 {
-	unsigned long	p = 5345;
-	//printf("Retorno: %i\n", ft_printf("%s -- %s %c %% end.", "Hello", "World!!", 'X'));
-	printf("p en pointer: %p\n", &p);
-	printf("p en hexa estandar: %lx\n", p);
-	printf("p en hexa creada: %s\n", ft_int_hexa(p));
+	//unsigned long	p = 999874;
+	int	i = -15918;
+
+	//printf("Retorno: %i\n", ft_printf("%s -- %s %c %% %x %X end.", "Hello", "World!!", 'X', p, p));
+	// printf("\n===========impresion de memoria===========\n");
+	// printf("p en pointer: %p\n", &p);
+	// fflush(stdout);
+	// ft_printf("p en creada: %p\n", &p);
+
+	// printf("\n===========impresion hexadecimal min===========\n");
+	// printf("\np en hexa estandar: %lx\n", p);
+	// fflush(stdout);
+	// ft_printf("p en hexa creada: %x\n", p);
+
+	// printf("\n===========impresion hexadecimal may===========\n");
+	// printf("\np en hexa estandar: %lx\n", p);
+	// fflush(stdout);
+	// ft_printf("%X\n", p);
+
+	// printf("\n===========impresion cadena===========\n");
+	// printf("%s\n", "Esto es una cadena");
+	// fflush(stdout);
+	// ft_printf("%s\n", "Esto es una cadena");
+
+	// printf("\n===========impresion caracter===========\n");
+	// printf("Caracter: %c\n", 'E');
+	// fflush(stdout);
+	// ft_printf("Caracter: %c\n", 'E');
+
+	printf("\n===========impresion int===========\n");
+	printf("int: %i\n", i);
+	fflush(stdout);
+	ft_printf("int: %i\n", i);
+
+	// printf("\n===========impresion de porcentage===========\n");
+	// fflush(stdout);
+	// printf("%% probando\n");
+	// fflush(stdout);
+	// ft_printf("%% probando\n");
+
 	return (0);
 }
