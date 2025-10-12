@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:17:29 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/12 10:35:14 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:46:53 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_print_string(char *str)
 	if (!str)
 		str = "(null)";
 	i = 0;
-		while (str[i])
+	while (str[i])
 	{
 		write(1, &str[i], 1);
 		i++;

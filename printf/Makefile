@@ -6,7 +6,7 @@
 #    By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 11:11:03 by joflorid          #+#    #+#              #
-#    Updated: 2025/10/11 11:43:58 by joflorid         ###   ########.fr        #
+#    Updated: 2025/10/12 12:40:30 by joflorid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ WHITE 		= \033[0;97m
 
 AR = ar
 
-AFLAGS = -rc
+AFLAGS = rcs
 
 CC = cc
 
@@ -54,15 +54,13 @@ SRC = ft_printf.c ft_prints_1.c ft_utils_1.c
 OBJ_DIR = ./obj
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-OBJS_BONUS = $(addprefix $(OBJ_DIR)/, $(SRC_BONUS:.c=.o))
+
+#OBJS_BONUS = $(addprefix $(OBJ_DIR)/, $(SRC_BONUS:.c=.o))
 
 H_FILES = ft_printf.h
 
 #=========================TARGETS========================
-all: libft $(NAME)
-
-libft:
-	cd libft && make
+all: libft_make $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -71,14 +69,18 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(H_FILES) | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
+	@cp libft/libft.a $(NAME)
 	@$(AR) $(AFLAGS) $(NAME) $^
 	@echo "$(YELLOW)$$HEADER$(DEF_COLOR)"
 	@echo "$(GREEN) Compilation process finished successly!!$(DEF_COLOR)"
 
-bonus: $(OBJS) $(OBJS_BONUS)
-	@$(AR) $(AFLAGS) $(NAME) $^
-	@echo "$$HEADER"
-	@echo "$(GREEN) Compilation process finished successly!!$(DEF_COLOR)"
+libft_make:
+	cd libft && make
+
+#bonus: $(OBJS) $(OBJS_BONUS)
+#	@$(AR) $(AFLAGS) $(NAME) $^
+#	@echo "$$HEADER"
+#	@echo "$(GREEN) Compilation process finished successly!!$(DEF_COLOR)"
 
 clean: libft_clean
 	@echo "$(CYAN)Removing source files...$(DEF_COLOR)"
@@ -97,4 +99,4 @@ libft_fclean:
 
 re: fclean all
 
-.PHONY: all libft clean libft_clean fclean libft_fclean re bonus
+.PHONY: all libft_make clean libft_clean fclean libft_fclean re bonus
