@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prints_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:17:29 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/10 16:33:31 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/12 10:35:14 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,16 @@ int	ft_print_int(int n)
 	len = ft_print_string(res);
 	free(res);
 	return (len);
+}
+
+int	ft_print_uint(unsigned int nbr)
+{
+	if (nbr >= 0 && nbr <= 9)
+		ft_print_char(nbr + '0');
+	if (nbr > 9)
+	{
+		ft_print_uint(nbr / 10);
+		ft_print_uint(nbr % 10);
+	}
+	return (ft_nbr_uint_len(nbr));
 }

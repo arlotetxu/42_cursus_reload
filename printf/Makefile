@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+         #
+#    By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 11:11:03 by joflorid          #+#    #+#              #
-#    Updated: 2025/10/10 13:39:51 by joflorid         ###   ########.fr        #
+#    Updated: 2025/10/11 11:43:58 by joflorid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:00:17 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/10 16:34:46 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/12 11:16:05 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 %x --> OK
 %X --> OK
 %% --> OK
+
+	- Manejo de punteros: Corregido el casting para %p usando void *
+	- //TODO comprobar no excederse de los limites de las variables (limits.h)
 */
 
 
@@ -35,12 +38,14 @@ int	ft_distributor(int c, va_list *args)
 	else if (c == '%')
 		return (ft_print_char('%'));
 	else if (c == 'x' || c == 'X')
-		return (ft_print_hexa(va_arg(*args, unsigned long), c));
+		return (ft_print_hexa(va_arg(*args, unsigned int), c));
 	else if (c == 'p')
 		return (ft_print_string("0x") +
 			ft_print_hexa(va_arg(*args, unsigned long), 'x')); //!! Cuidado, debe ser un long long?
-	else if (c == 'i')
+	else if (c == 'i' || c == 'd')
 		return (ft_print_int(va_arg(*args, int)));
+	else if (c == 'u')
+		return (ft_print_uint(va_arg(*args, unsigned int)));
 	return (0);
 }
 
@@ -70,11 +75,11 @@ int	ft_printf(char const *str, ...)
 	va_end(args);
 	return (count);
 }
-
+/*
 int	main(void)
 {
 	//unsigned long	p = 999874;
-	int	i = -15918;
+	//unsigned int	i = 159181717989;
 
 	//printf("Retorno: %i\n", ft_printf("%s -- %s %c %% %x %X end.", "Hello", "World!!", 'X', p, p));
 	// printf("\n===========impresion de memoria===========\n");
@@ -102,16 +107,22 @@ int	main(void)
 	// fflush(stdout);
 	// ft_printf("Caracter: %c\n", 'E');
 
-	printf("\n===========impresion int===========\n");
-	printf("int: %i\n", i);
-	fflush(stdout);
-	ft_printf("int: %i\n", i);
+	// printf("\n===========impresion int===========\n");
+	// printf("int: %i\n", i);
+	// fflush(stdout);
+	// ft_printf("int: %i\n", i);
 
 	// printf("\n===========impresion de porcentage===========\n");
 	// fflush(stdout);
 	// printf("%% probando\n");
 	// fflush(stdout);
 	// ft_printf("%% probando\n");
+	
+	printf("\n===========impresion unsigned int (%%u)===========\n");
+	printf("u_int: %u\n", (unsigned int)-1);
+	fflush(stdout);
+	ft_printf("u_int: %u\n", (unsigned int)-1);
 
 	return (0);
 }
+*/
