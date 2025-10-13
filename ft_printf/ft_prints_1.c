@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prints_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:17:29 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/12 12:46:53 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:06:03 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/*==============================================================================
+DESCRIPTION:
+	This function prints a string using the write() function. If there is not a
+	string, it prints "(null)". Same behaviour than standar printf() function.
+
+PARAMETER:
+	str --> a pointer to the string to be printed.
+
+RETURN:
+	The number of characters printed.
+==============================================================================*/
 int	ft_print_string(char *str)
 {
 	int	i;
@@ -27,6 +38,16 @@ int	ft_print_string(char *str)
 	return (i);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	This function prints a character using the write() function.
+
+PARAMETER:
+	c --> the character to be printed.
+
+RETURN:
+	The number of characters printed. In this case, always 1.
+==============================================================================*/
 int	ft_print_char(int c)
 {
 	char	c_c;
@@ -36,6 +57,19 @@ int	ft_print_char(int c)
 	return (1);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	This function prints an unsigned long variable in its hexadecimal
+	equivalence.
+
+PARAMETER:
+	n --> the number to be printed in hexadecimal.
+
+	c --> placeholder. 'x' to print in lowercase 6 'X' to print in uppercase.
+
+RETURN:
+	The number of characters printed.
+==============================================================================*/
 int	ft_print_hexa(unsigned long n, char c)
 {
 	char	*hex_chars;
@@ -65,6 +99,17 @@ int	ft_print_hexa(unsigned long n, char c)
 	return (ret);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	This function prints an integer value. To do this, it uses the ft_itoa()
+	function from libft library that converts an integer value in a string.
+
+PARAMETER:
+	n --> the number to be printed.
+
+RETURN:
+	The number of characters printed.
+==============================================================================*/
 int	ft_print_int(int n)
 {
 	char	*res;
@@ -76,6 +121,16 @@ int	ft_print_int(int n)
 	return (len);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	This function prints an unsigned int number. It uses recursivity to do it.
+
+PARAMETER:
+	nbr --> unsigned int to be printed.
+
+RETURN:
+	The number of characters printed.
+==============================================================================*/
 int	ft_print_uint(unsigned int nbr)
 {
 	if (nbr >= 0 && nbr <= 9)
