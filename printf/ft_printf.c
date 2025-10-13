@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:00:17 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/13 11:10:12 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:51:50 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	ft_distributor(int c, va_list *args)
 		n = va_arg(*args, unsigned long);
 		if (n == 0)
 			return (ft_print_string("(nil)"));
-		return (ft_print_string("0x")
-			+ ft_print_hexa(n,'x'));
+		return (ft_print_string("0x") + ft_print_hexa(n, 'x'));
 	}
 	else if (c == 'i' || c == 'd')
 		return (ft_print_int(va_arg(*args, int)));
@@ -125,4 +124,3 @@ int	ft_printf(char const *str, ...)
 
 // 	return (0);
 // }
-
