@@ -3,5 +3,6 @@
 		"*.c": "c",
 		"bitset": "cpp",
 		"climits": "cpp"
-	}
+	},
+	"makefile.configureOnOpen": false
 }
