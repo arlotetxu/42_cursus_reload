@@ -98,7 +98,7 @@ int	ft_printf(char const *str, ...)
 	return (count);
 }
 
-/* int	main(void)
+int	main(void)
 {
 	unsigned long	p = NULL;
 	unsigned int	i = 1591817179;
@@ -156,4 +156,4 @@ int	ft_printf(char const *str, ...)
 	ft_printf("u_int: %u\n", i);
 
 	return (0);
-} */
+}
