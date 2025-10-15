@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/14 20:12:15 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:45:35 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,54 +24,86 @@ char	*ft_fill_line(char *stack)
 	char	*line;
 	int		len;
 
+	if (!stack)
+		return (NULL);
 	len = 0;
 	while (stack[len] != '\n')
 		len++;
-	line = malloc(sizeof(char) * (len + 1));
+	//printf("Valor de stack[%i]: %c\n", len, stack[len]); //!!PRINTF
+	line = malloc(sizeof(char) * (len + 2));
 	if (!line)
 		return (NULL);
 	len = -1;
 	while (stack[++len] != '\n')
 		line[len] = stack[len];
-	line[len] = '\n';
+	//printf("Valor de line en fill_line: %s\n", line); //!!PRINTF
+	//printf("Valor de len: %i\n", len); //!!PRINTF
+	if (stack[len] == '\n')
+		line[len++] = '\n';
+	line[len] = '\0';
 	return (line);
 }
 
 char	*ft_clean_stack(char *stack)
 {
-	int		start;
-	int		stop;
 	int		i;
+	int		j;
 	char	*new_stack;
 
-	start = 0;
-	while (stack[start] != '\n')
-		start++;
-	start++;
-	stop = start;
-	while (stack[stop])
-		stop++;
-	new_stack = malloc(sizeof(char) * (stop - start + 1));
-	if (!new_stack)
+	if (!stack)
 		return (NULL);
 	i = 0;
-	while (start < stop)
-		new_stack[i++] = stack[start++];
-	new_stack[i] = '\0';
+	while (stack[i] != '\n')
+		i++;
+	if (!stack[i])
+		return(free(stack), NULL);
+	new_stack = malloc(sizeof(char) * (ft_strlen(stack) - i));
+	if (!new_stack)
+		return (free(stack), NULL);
+	i++;
+	j = 0;
+	while (stack[i])
+		new_stack[j++] = stack[i++];
+	new_stack[j] = '\0';
 	//printf("Valor de new_stack: %s\n", new_stack); //!!PRINTF
 	free(stack);
-	return(new_stack); 
+	stack = NULL;
+	return(new_stack);
 }
 
+char	*ft_init_gnl(char *buffer, char **stack, int fd)
+{
+	int			bytes_r;
+	char		*line;
+
+	while (!ft_check_char(*stack) && (bytes_r = read(fd, buffer, BUFFER_SIZE)) > 0)
+	{
+		buffer[bytes_r] = '\0';
+		*stack = ft_strjoin(*stack, buffer);
+		if (!(*stack))
+			return (free(buffer), buffer = NULL, NULL);
+	}
+	free(buffer);
+	if (bytes_r < 0 || !(*stack)[0])
+		return (free(*stack), *stack = NULL, NULL);
+	if (ft_check_char(*stack))
+	{
+		line = ft_fill_line(*stack);
+		if (!line)
+			return (free(*stack), *stack = NULL, NULL);
+		*stack = ft_clean_stack(*stack);
+		return (line);
+	}
+	return (line = *stack, *stack = NULL, line);
+}
 
 char	*get_next_line(int fd)
 {
 	static char	*stack;
 	char		*buffer;
 	char		*line;
-	int			bytes_r;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stack)
 	{
@@ -82,24 +114,9 @@ char	*get_next_line(int fd)
 	}
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
-		return (free(stack), NULL);
-	while ((bytes_r = read(fd, buffer, BUFFER_SIZE)) > 0 || stack[0])
-	{
-		buffer[bytes_r] = '\0';
-		stack = ft_strjoin(stack, buffer); //!!MALLOC
-		if (!stack)
-			return (free(buffer), NULL);
-		//printf("Valor de stack: \n%s\n", stack); //!PRINTF
-		if (ft_check_char(stack) == 1)
-		{
-			line = ft_fill_line(stack);
-			stack = ft_clean_stack(stack);//clean stack
-			//printf("Valor nuevo de stack: \n%s", stack); //!PRINTF
-			//printf("Valor de line: \n%s", line); //!!PRINTF
-			return (free(buffer), line);
-		}
-	}
-	return (free(stack), stack = NULL, free(buffer), NULL); //TODO: Liberar stack??
+		return (free(stack), stack = NULL, NULL);
+	line = ft_init_gnl(buffer, &stack, fd);
+	return(line);
 }
 
 int	main(void)
@@ -114,6 +131,7 @@ int	main(void)
 	{
 		line = get_next_line(fd);
 		printf("Valor de line en main: %s\n", line); //!!PRINTF
+		free(line);
 		i++;
 	}
 	close(fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:41 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/14 20:00:24 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:42:19 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 //============DEFINITIONS============
-#define BUFFER_SIZE 8
+#define BUFFER_SIZE 2
 
 //============LIBRARIES============
 #include <stdlib.h>
@@ -24,8 +24,9 @@
 
 //============PROTOTYPES============
 char	*get_next_line(int fd);
+char	*ft_init_gnl(char *buffer, char **stack, int fd);
 char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen(char *s);
 int		ft_check_char(char *str);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:50 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/14 19:52:06 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:03:21 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ RETURN VALUE
 ================================================================================
 */
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	len;
 
@@ -77,9 +77,26 @@ char	*ft_strjoin(char *s1, char *s2)
 		s3[i + j] = s2[j];
 	s3[i + j] = '\0';
 	free(s1);
+	s1 = NULL;
 	return (s3);
 }
 
+/*
+================================================================================
+DESCRIPTION
+	The ft_check_char() checks if the special character '\n' is in a string.
+	Prototype:
+	int	ft_check_char(char *str);
+
+PARAMETERS
+	str --> String to search for the character in.
+
+RETURN VALUE
+	1 --> If the character is found.
+
+	0 --> If the character is NOT found.
+================================================================================
+*/
 int	ft_check_char(char *str)
 {
 	if (!str)
