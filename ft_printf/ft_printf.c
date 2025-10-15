@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:00:17 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/13 14:15:58 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/15 10:20:41 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ int	ft_printf(char const *str, ...)
 	return (count);
 }
 
-int	main(void)
+/* int	main(void)
 {
-	unsigned long	p = NULL;
+	unsigned long	p = 1548622588;
 	unsigned int	i = 1591817179;
 
 	printf("Retorno: %i\n", ft_printf("%s -- %s %c %% %x %X end.", "Hello",
@@ -112,7 +112,7 @@ int	main(void)
 	ft_printf("p en creada: %p\n", &p);
 	printf("p en estandar: %p\n", (void *)0);
 	fflush(stdout);
-	ft_printf("p en creada: %p\n", 0);
+	ft_printf("p en creada: %p\n", (void *)0);
 
 	printf("\n===========impresion hexadecimal min===========\n");
 	printf("\np en hexa estandar: %lx\n", p);
@@ -156,4 +156,4 @@ int	main(void)
 	ft_printf("u_int: %u\n", i);
 
 	return (0);
-}
+} */

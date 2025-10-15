@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 10:17:29 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/13 14:06:03 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/15 10:23:51 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_print_hexa(unsigned long n, char c)
 	if (c == 'X')
 		hex_chars = hex_chars_u;
 	len = ft_hex_len(n);
-	ret = len;
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (0);
@@ -94,7 +93,7 @@ int	ft_print_hexa(unsigned long n, char c)
 		result[len] = hex_chars[n % 16];
 		n /= 16;
 	}
-	ft_print_string(result);
+	ret = ft_print_string(result);
 	free(result);
 	return (ret);
 }
