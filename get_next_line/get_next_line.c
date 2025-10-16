@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/15 17:45:35 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/16 10:56:52 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ char	*ft_clean_stack(char *stack)
 	if (!stack)
 		return (NULL);
 	i = 0;
-	while (stack[i] != '\n')
+	while (stack[i] && stack[i] != '\n')
 		i++;
-	if (!stack[i])
+	if (!stack[i] || !stack[++i])
 		return(free(stack), NULL);
-	new_stack = malloc(sizeof(char) * (ft_strlen(stack) - i));
+	//i++;
+	new_stack = malloc(sizeof(char) * (ft_strlen(stack) - i + 1));
 	if (!new_stack)
 		return (free(stack), NULL);
-	i++;
 	j = 0;
 	while (stack[i])
 		new_stack[j++] = stack[i++];
@@ -76,6 +76,7 @@ char	*ft_init_gnl(char *buffer, char **stack, int fd)
 	int			bytes_r;
 	char		*line;
 
+	bytes_r = 1;
 	while (!ft_check_char(*stack) && (bytes_r = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[bytes_r] = '\0';
@@ -127,7 +128,7 @@ int	main(void)
 	if (fd < 0)
 		return (0);
 	int i = 0;
-	while (i < 4)
+	while (i < 6)
 	{
 		line = get_next_line(fd);
 		printf("Valor de line en main: %s\n", line); //!!PRINTF

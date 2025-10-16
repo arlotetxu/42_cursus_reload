@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:41 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/15 17:50:23 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/16 10:56:57 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 //============DEFINITIONS============
-#define BUFFER_SIZE 2
+# define BUFFER_SIZE 1000
 
 //============LIBRARIES============
 #include <stdlib.h>
