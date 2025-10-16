@@ -6,21 +6,23 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:41 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/16 10:56:57 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:08:47 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-//============DEFINITIONS============
-# define BUFFER_SIZE 1000
+//============DEFINITIONS===========
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10000000
+# endif
 
 //============LIBRARIES============
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 //============PROTOTYPES============
 char	*get_next_line(int fd);

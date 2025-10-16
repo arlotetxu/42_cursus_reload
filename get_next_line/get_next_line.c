@@ -6,19 +6,23 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/16 10:56:52 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:09:11 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*==============================================================================
+DESCRIPTION
+	The function ft_fill_line() fills and return the first line the 'stack'
+	string contains.
 
-// 0 - Leer buffer_size a buffer
-// 1 - Append buffer a stack
-// 2 - chequear si stack tiene /n
-// 3 - si tiene /n, sacar la linea a line y actualizar stack
-// 4 - si no tiene, volver a punto 0
+PARAMETERS
+	stack --> The string in which to get the line if there is a line in it.
 
+RETURN
+	line --> The line found in the 'stack' string null terminated.
+==============================================================================*/
 char	*ft_fill_line(char *stack)
 {
 	char	*line;
@@ -29,21 +33,31 @@ char	*ft_fill_line(char *stack)
 	len = 0;
 	while (stack[len] != '\n')
 		len++;
-	//printf("Valor de stack[%i]: %c\n", len, stack[len]); //!!PRINTF
 	line = malloc(sizeof(char) * (len + 2));
 	if (!line)
 		return (NULL);
 	len = -1;
-	while (stack[++len] != '\n')
+	while (stack[++len] != '\n' && stack[len])
 		line[len] = stack[len];
-	//printf("Valor de line en fill_line: %s\n", line); //!!PRINTF
-	//printf("Valor de len: %i\n", len); //!!PRINTF
 	if (stack[len] == '\n')
 		line[len++] = '\n';
 	line[len] = '\0';
 	return (line);
 }
 
+/*==============================================================================
+DESCRIPTION
+	The function ft_clean_stack() removes from the 'stack' string the first line
+	found on it. //!If the string only contains '\n' or if the string is
+	//!empty ('\0), there is nothing to be returned.
+
+PARAMETERS
+	stack --> The string in which the line has to be removed.
+
+RETURN
+	new_stack --> A string cleaned. This string will be asigned to the 'stack'
+		string later on.
+==============================================================================*/
 char	*ft_clean_stack(char *stack)
 {
 	int		i;
@@ -56,8 +70,7 @@ char	*ft_clean_stack(char *stack)
 	while (stack[i] && stack[i] != '\n')
 		i++;
 	if (!stack[i] || !stack[++i])
-		return(free(stack), NULL);
-	//i++;
+		return (free(stack), NULL);
 	new_stack = malloc(sizeof(char) * (ft_strlen(stack) - i + 1));
 	if (!new_stack)
 		return (free(stack), NULL);
@@ -65,20 +78,41 @@ char	*ft_clean_stack(char *stack)
 	while (stack[i])
 		new_stack[j++] = stack[i++];
 	new_stack[j] = '\0';
-	//printf("Valor de new_stack: %s\n", new_stack); //!!PRINTF
 	free(stack);
 	stack = NULL;
-	return(new_stack);
+	return (new_stack);
 }
 
+/*==============================================================================
+DESCRIPTION
+	The function ft_init_gnl() starts the process. It gets the static variable
+		'stack' and buffer, appending 'buffer' to the 'stack'. It calls the
+		function ft_fill_line() to get the line from the stack and cleans the
+		'stack' string calling to the function ft_clean_stack().
+
+PARAMETERS
+	**stack --> The static variable where all the reads are stored. As it is
+		static and it is not declared in this function, it must be treated as a
+		double pointer
+
+	*buffer --> Contains the reads from the file
+
+	fd --> File descriptor (id of the file to read)
+
+RETURN
+	line --> The line got from 'stack'.
+
+	NULL in case of errors
+==============================================================================*/
 char	*ft_init_gnl(char *buffer, char **stack, int fd)
 {
 	int			bytes_r;
 	char		*line;
 
 	bytes_r = 1;
-	while (!ft_check_char(*stack) && (bytes_r = read(fd, buffer, BUFFER_SIZE)) > 0)
+	while (!ft_check_char(*stack) && bytes_r > 0)
 	{
+		bytes_r = read(fd, buffer, BUFFER_SIZE); //!! Si recibo bytes_r < 0??
 		buffer[bytes_r] = '\0';
 		*stack = ft_strjoin(*stack, buffer);
 		if (!(*stack))
@@ -98,6 +132,21 @@ char	*ft_init_gnl(char *buffer, char **stack, int fd)
 	return (line = *stack, *stack = NULL, line);
 }
 
+/*==============================================================================
+DESCRIPTION
+	The function get_next_line() does initial checks before call the
+	ft_init_gnl(). It checks if the file descriptor and BUFFER_SIZE (in header
+	file) are OK. It initializes the 'stack' static variable and reserves
+	memory for 'buffer' where the reads from the 'fd' is stored.
+
+PARAMETERS
+	fd --> File descriptor (id of the file to read)
+
+RETURN
+	line --> The line got from 'stack'.
+
+	NULL in case of errors
+==============================================================================*/
 char	*get_next_line(int fd)
 {
 	static char	*stack;
@@ -117,7 +166,7 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (free(stack), stack = NULL, NULL);
 	line = ft_init_gnl(buffer, &stack, fd);
-	return(line);
+	return (line);
 }
 
 int	main(void)
