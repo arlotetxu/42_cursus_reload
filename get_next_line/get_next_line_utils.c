@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:50 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/16 17:08:40 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:13:09 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ size_t	ft_strlen(char *s)
 /*
 ================================================================================
 DESCRIPTION
-	The ft_strjoin() concatenates 2 strings in a new one.
-	Prototype:
-	char	*ft_strjoin(char const *s1, char const *s2);
+	The ft_strjoin() concatenates 2 strings in a new one. s1 corrresponds to
+	stack and s2 to buffer. The functions checks initially if 's1' exists and
+	books memory if not to proceed with the process
 
 PARAMETERS
 	s1 --> String 1.
@@ -59,16 +59,21 @@ RETURN VALUE
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
-	size_t	s3_len;
 	int		i;
 	int		j;
 
-	if (!s1 || !s2)
-		return (NULL);
-	s3_len = ft_strlen(s1) + ft_strlen(s2);
-	s3 = malloc(sizeof(char) * (s3_len + 1));
+	if (!s1)
+	{
+		s1 = malloc(1);
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
+	}
+	if (!s2)
+		return (free(s1), NULL);
+	s3 = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!s3)
-		return (NULL);
+		return (free(s1), NULL);
 	i = -1;
 	while (s1[++i] != '\0')
 		s3[i] = s1[i];
@@ -77,7 +82,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		s3[i + j] = s2[j];
 	s3[i + j] = '\0';
 	free(s1);
-	s1 = NULL;
 	return (s3);
 }
 

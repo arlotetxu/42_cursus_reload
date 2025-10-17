@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:41 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/16 17:08:47 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:57:32 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //============DEFINITIONS===========
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10000000
+#  define BUFFER_SIZE 15
 # endif
 
 //============LIBRARIES============
@@ -26,7 +26,6 @@
 
 //============PROTOTYPES============
 char	*get_next_line(int fd);
-char	*ft_init_gnl(char *buffer, char **stack, int fd);
 char	*ft_clean_stack(char *stack);
 char	*ft_fill_line(char *stack);
 char	*ft_strjoin(char *s1, char *s2);

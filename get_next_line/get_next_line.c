@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/16 17:09:11 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:55:40 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,59 +85,49 @@ char	*ft_clean_stack(char *stack)
 
 /*==============================================================================
 DESCRIPTION
-	The function ft_init_gnl() starts the process. It gets the static variable
-		'stack' and buffer, appending 'buffer' to the 'stack'. It calls the
-		function ft_fill_line() to get the line from the stack and cleans the
-		'stack' string calling to the function ft_clean_stack().
+	The function ft_read_file() reads the file descriptor 'fd' and save each
+	read in 'stack' while '\n' character is not found and a read is successful
+	(bytes_r > 0. Otherwise bytes_r < 0).
 
 PARAMETERS
-	**stack --> The static variable where all the reads are stored. As it is
-		static and it is not declared in this function, it must be treated as a
-		double pointer
-
-	*buffer --> Contains the reads from the file
-
 	fd --> File descriptor (id of the file to read)
 
+	stack --> The string in which the line has to be removed.
+
 RETURN
-	line --> The line got from 'stack'.
-
-	NULL in case of errors
+	stack --> The string where all the characters received from read function
+		are stored.
 ==============================================================================*/
-char	*ft_init_gnl(char *buffer, char **stack, int fd)
+static char	*ft_read_file(int fd, char *stack)
 {
+	char		*buffer;
 	int			bytes_r;
-	char		*line;
 
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
 	bytes_r = 1;
-	while (!ft_check_char(*stack) && bytes_r > 0)
+	while (!ft_check_char(stack) && bytes_r > 0)
 	{
-		bytes_r = read(fd, buffer, BUFFER_SIZE); //!! Si recibo bytes_r < 0??
+		bytes_r = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_r < 0)
+			return (free(buffer), NULL);
 		buffer[bytes_r] = '\0';
-		*stack = ft_strjoin(*stack, buffer);
-		if (!(*stack))
-			return (free(buffer), buffer = NULL, NULL);
+		stack = ft_strjoin(stack, buffer);
+		if (!stack)
+			return (free(buffer), NULL);
 	}
 	free(buffer);
-	if (bytes_r < 0 || !(*stack)[0])
-		return (free(*stack), *stack = NULL, NULL);
-	if (ft_check_char(*stack))
-	{
-		line = ft_fill_line(*stack);
-		if (!line)
-			return (free(*stack), *stack = NULL, NULL);
-		*stack = ft_clean_stack(*stack);
-		return (line);
-	}
-	return (line = *stack, *stack = NULL, line);
+	return (stack);
 }
 
 /*==============================================================================
 DESCRIPTION
 	The function get_next_line() does initial checks before call the
-	ft_init_gnl(). It checks if the file descriptor and BUFFER_SIZE (in header
-	file) are OK. It initializes the 'stack' static variable and reserves
-	memory for 'buffer' where the reads from the 'fd' is stored.
+	ft_read_file(). It checks if the file descriptor and BUFFER_SIZE (in header
+	file) are OK. It load in the 'stack' static variable the reads. Then,
+	depeding on the value of 'stack' return the line through it load with
+	function ft_fill_line() or NULL
 
 PARAMETERS
 	fd --> File descriptor (id of the file to read)
@@ -150,26 +140,21 @@ RETURN
 char	*get_next_line(int fd)
 {
 	static char	*stack;
-	char		*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!stack)
-	{
-		stack = malloc(1);
-		if (!stack)
-			return (NULL);
-		stack[0] = '\0';
-	}
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
+	stack = ft_read_file(fd, stack);
+	if (!stack || !stack[0])
 		return (free(stack), stack = NULL, NULL);
-	line = ft_init_gnl(buffer, &stack, fd);
+	if (!ft_check_char(stack))
+		return (line = stack, stack = NULL, line);
+	line = ft_fill_line(stack);
+	stack = ft_clean_stack(stack);
 	return (line);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	int	fd = open("joflorid.txt", O_RDONLY);
 	char	*line;
@@ -186,4 +171,4 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-}
+} */
