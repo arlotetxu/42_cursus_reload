@@ -10,4 +10,6 @@
 ![42 Badge](https://github.com/arlotetxu/42_Badges/blob/main/born2beroot_bonus.webp)</a> <img src="born2beroot/born2beroot_mark.png" alt="Logo" height="175"/>
 
 
-- [ ] #**PRINTF**: An implementation of printf standard function. Lesson learnt: How to use functions with a variable number of arguments.
+- [X] #**PRINTF**: An implementation of printf standard function. Lesson learnt: How to use functions with a variable number of arguments.
+
+![42 Badge](https://github.com/arlotetxu/42_Badges/blob/main/get_next_line_bonus_max.webp)</a> <img src="born2beroot/born2beroot_mark.png" alt="Logo" height="175"/>
