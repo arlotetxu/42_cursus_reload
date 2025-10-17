@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/17 12:24:20 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/17 13:20:13 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/* int	main(void)
+int	main(void)
 {
 	int	fd = open("joflorid.txt", O_RDONLY);
 	char	*line;
@@ -100,4 +100,4 @@ char	*get_next_line(int fd)
 	}
 	close(fd);
 	return (0);
-} */
+}
