@@ -15,7 +15,7 @@
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/ft_printf.webp" alt="Logo" height="175"/> <img src="ft_printf/ft_printf_mark.png" alt="Logo" height="175"/>
 ==
 
-- [X] #**GET NEXT LINE**: .
+- [X] #**GET NEXT LINE**: Read from a file descriptor (file) and return each line read considering the BUFFER_SIZE macro definition (number of bytes to be read each time). In this project a static variable is used to store the reads untill there is not a read or a '\n' is found.
 
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/get_next_line_bonus_max.webp" alt="Logo" height="175"/> <img src="get_next_line/get_next_line_mark.png" alt="Logo" height="175"/>
 ==
