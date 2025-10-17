@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/17 12:24:20 by joflorid         ###   ########.fr       */
+/*   Created: 2025/10/17 12:03:39 by joflorid          #+#    #+#             */
+/*   Updated: 2025/10/17 12:24:52 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*==============================================================================
 DESCRIPTION
@@ -68,36 +68,63 @@ RETURN
 ==============================================================================*/
 char	*get_next_line(int fd)
 {
-	static char	*stack;
+	static char	*stack[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stack = ft_read_file(fd, stack);
-	if (!stack || !stack[0])
-		return (free(stack), stack = NULL, NULL);
-	if (!ft_check_char(stack))
-		return (line = stack, stack = NULL, line);
-	line = ft_fill_line(stack);
-	stack = ft_clean_stack(stack);
+	stack[fd] = ft_read_file(fd, stack[fd]);
+	if (!stack[fd] || !stack[fd][0])
+		return (free(stack[fd]), stack[fd] = NULL, NULL);
+	if (!ft_check_char(stack[fd]))
+		return (line = stack[fd], stack[fd] = NULL, line);
+	line = ft_fill_line(stack[fd]);
+	stack[fd] = ft_clean_stack(stack[fd]);
 	return (line);
 }
 
 /* int	main(void)
 {
-	int	fd = open("joflorid.txt", O_RDONLY);
+	int	fd1 = open("joflorid_bonus1.txt", O_RDONLY);
+	int	fd2 = open("joflorid_bonus2.txt", O_RDONLY);
+	int	fd3 = open("joflorid_bonus3.txt", O_RDONLY);
+	int	fd4 = open("joflorid_bonus4.txt", O_RDONLY);
+	int	fd5 = open("joflorid_bonus5.txt", O_RDONLY);
 	char	*line;
 
-	if (fd < 0)
+	if (fd1 < 0 || fd2 < 0 || fd3 < 0 || fd4 < 0 || fd5 < 0)
 		return (0);
 	int i = 0;
-	while (i < 6)
+	while (i < 5)
 	{
-		line = get_next_line(fd);
-		printf("Valor de line en main: %s\n", line); //!!PRINTF
+		line = get_next_line(fd1);
+		printf("Valor de line en fd(%i): %s\n", fd1, line); //!!PRINTF
+		free(line);
+		line = get_next_line(fd2);
+		printf("Valor de line en fd(%i): %s\n", fd2, line); //!!PRINTF
+		free(line);
+		line = get_next_line(fd1);
+		printf("Valor de line en fd(%i): %s\n", fd1, line); //!!PRINTF
+		free(line);
+		line = get_next_line(fd3);
+		printf("Valor de line en fd(%i): %s\n", fd3, line); //!!PRINTF
+		free(line);
+		line = get_next_line(fd3);
+		printf("Valor de line en fd(%i): %s\n", fd3, line); //!!PRINTF
+		free(line);
+		line = get_next_line(fd4);
+		printf("Valor de line en fd(%i): %s\n", fd4, line); //!!PRINTF
+		free(line);
+		line = get_next_line(fd5);
+		printf("Valor de line en fd(%i): %s\n", fd5, line); //!!PRINTF
+		printf("==========================================================\n");
 		free(line);
 		i++;
 	}
-	close(fd);
+	close(fd1);
+	close(fd2);
+	close(fd3);
+	close(fd4);
+	close(fd5);
 	return (0);
 } */
