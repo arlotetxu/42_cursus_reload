@@ -39,4 +39,6 @@
 ==
 
 - [X] #**EXAM RANK 02**: Success!!
- 
+
+<img src="exams/Exam_Rank02_mark.png" height="175"/>
+==
