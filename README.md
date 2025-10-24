@@ -37,3 +37,6 @@
 
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/get_next_line_bonus_max.webp" alt="Logo" height="175"/> <img src="get_next_line/get_next_line_mark.png" alt="Logo" height="175"/>
 ==
+
+- [X] #**EXAM RANK 02**: Success!!
+ 
