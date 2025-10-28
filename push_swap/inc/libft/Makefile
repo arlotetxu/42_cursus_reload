@@ -6,7 +6,7 @@
 #    By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 11:11:03 by joflorid          #+#    #+#              #
-#    Updated: 2025/10/27 17:05:25 by joflorid         ###   ########.fr        #
+#    Updated: 2025/10/28 16:54:11 by joflorid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ NAME = $(SRC_DIR)/libft.a
 
 SRC_DIR = .
 
-SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
+SRC = ft_atoi.c ft_atoi_2.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c \
 ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c \
 ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_split_2.c ft_strchr.c ft_strdup.c \
