@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:29:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/28 14:20:37 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:21:18 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,31 @@
 # include "../inc/libft/libft.h"
 
 //=============DEFINITIONS=============
-typedef	struct	s_node
+typedef	struct	s_n_data
 {
 	int	nb;
 	int	index;
-}	t_node;
+	int	target;
+	int	ra;
+	int	rb;
+	int	rra;
+	int	rrb;
+	int	total;
+}	t_n_data;
 
 
-typedef	struct	s_stack
+typedef	struct	s_node
 {
-	t_node			node;
-	struct s_stack	*prev;
-	struct s_stack	*next;
-}	t_stack;
+	t_n_data		node_data;
+	struct s_node	*prev;
+	struct s_node	*next;
+}	t_node;
 
 
 //=============PROTOTYPES=============
 //====================================
 //=============ps_initial_checks.c=============
-int	ft_check_chars_argv(char *str);
-// int	*ft_load_nbr_arr(char **argv, int *len);
-// int	ft_check_duplicates(char **argv);
+int		ft_check_chars_argv(char *str);
 char	*ft_strjoin_2(int argc, char **argv);
 int		*ft_load_nbr_arr(char *full_args, int *len);
 int		ft_check_dupli(char *full_args);
@@ -54,5 +58,12 @@ int		ft_check_dupli(char *full_args);
 
 //=============ps_utils_1.c=============
 void	ft_free_double(char **d_pointer);
+void	ft_print_stack(t_node *stack);
+int		ft_check_sorting(t_node *stack);
+
+//=============ps_load_stack_a.c=============
+void	ft_insert_end(t_node **stack_a, int nbr);
+int	ft_load_stack_a(char *full_args, t_node **stack_a);
+
 
 #endif

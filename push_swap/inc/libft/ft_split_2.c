@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:25:16 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/27 17:01:26 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/29 07:38:13 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,10 @@ char	*ft_get_word(const char *str, int *pos)
 {
 	char	*word;
 	int		start;
-	int		i;
 
 	while (str[*pos] && (str[*pos] == 32 || str[*pos] == 9))
 		(*pos)++;
 	start = *pos;
-	i = 0;
 	while (str[*pos] && str[*pos] != 32 && str[*pos] != 9)
 		(*pos)++;
 	word = ft_substr(str, start, *pos - start);

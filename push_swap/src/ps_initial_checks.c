@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ps_initial_checks.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:47:13 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/28 16:56:24 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/29 15:42:12 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,24 @@ int	*ft_load_nbr_arr(char *full_args, int *len)
 
 	args_split = ft_split_2(full_args);
 	if (!args_split)
-		return (free(full_args), NULL); //!Error
+		//return (free(full_args), NULL); //!Error
+		return (NULL); //!Error
 	*len = 0;
 	while (args_split[*len])
 		(*len)++;
 	args_arr = malloc(sizeof(int) * (*len)); //!MALLOC
 	if (!args_arr)
-		return (free(full_args), ft_free_double(args_split), NULL);
+		//return (free(full_args), ft_free_double(args_split), NULL);
+		return (ft_free_double(args_split), NULL);
 	i = -1;
 	while (args_split[++i])
 	{
 		args_arr[i] = ft_atoi_2(args_split[i]);
 		if (args_arr[i] == 0 && ft_strncmp(args_split[i], "0", 1) != 0)
-			return (free(full_args), ft_free_double(args_split), NULL); //!Error. Ft_atoi devuelve 0 en caso de error
+			//return (free(full_args), ft_free_double(args_split), NULL); //!Error. Ft_atoi devuelve 0 en caso de error
+			return (ft_free_double(args_split), NULL); //!Error. Ft_atoi devuelve 0 en caso de error
 	}
-	free(full_args);
+	//free(full_args);
 	ft_free_double(args_split);
 	return (args_arr);
 }
@@ -126,7 +129,7 @@ int	ft_check_chars_argv(char *str)
 		if (str[i] != '+' && str[i] != '-' && str[i] != 32 && str[i] != 9
 			&& !(ft_isdigit(str[i])))
 			return (1); //!Error
- 		if ((str[i] == '+' || str[i] == '-') && !(ft_isdigit(str[i + 1]))
+		if ((str[i] == '+' || str[i] == '-') && !(ft_isdigit(str[i + 1]))
 			&& str[i])
 			return (1); //!Error
 	}
