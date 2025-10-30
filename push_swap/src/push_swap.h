@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:29:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/29 16:21:18 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:37:43 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,22 @@ int		ft_check_dupli(char *full_args);
 void	ft_free_double(char **d_pointer);
 void	ft_print_stack(t_node *stack);
 int		ft_check_sorting(t_node *stack);
+void	ft_free_stack(t_node **stack);
 
 //=============ps_load_stack_a.c=============
 void	ft_insert_end(t_node **stack_a, int nbr);
 int	ft_load_stack_a(char *full_args, t_node **stack_a);
+
+//=============ps_moves_1.c=============
+void	ft_rotate(t_node **stack, char stack_id);
+void	ft_rotate_2(t_node **stack_a, t_node **stack_b, char stack_id);
+void	ft_rotate_r(t_node **stack, char stack_id);
+void	ft_rotate_r_2(t_node **stack_a, t_node **stack_b, char stack_id);
+
+//=============ps_moves_2.c=============
+void	ft_push_b(t_node **stack_a, t_node **stack_b);
+void	ft_push_a(t_node **stack_a, t_node **stack_b);
+void	ft_swap(t_node **stack, char stack_id);
 
 
 #endif

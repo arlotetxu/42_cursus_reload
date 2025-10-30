@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ps_load_stack_a.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:35:54 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/29 16:22:29 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:59:14 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int	ft_load_stack_a(char *full_args, t_node **stack_a)
 	while (++i < len)
 		ft_insert_end(stack_a, args_arr[i]);
 	if (!ft_check_sorting(*stack_a))
-		return (6);
-	return (0);
+		return (free(args_arr), 6);
+	return (free(args_arr), 0);
 }

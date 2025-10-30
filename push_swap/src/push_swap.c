@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:41:59 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/29 16:51:02 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:38:02 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,16 @@ TASK LIST
 
 	#Cargar numeros en nodos en stack a //?OK
 	#Comprobar si la lista esta ordenada //?OK
-	#Funcion para liberar stack (lista)
+	#Funcion para liberar stack (lista) //?OK
 	#Funciones con los movimientos permitidos
+		#ra/b //?OK
+		#rr //?OK
+		#rra/b //?OK
+		#rrr //?OK
+		#pb //?OK
+		#pa//?OK
+		#sa
+		#sb
 	#Pasar 2 a stack_b
 	#Calcular target de cada numero en stack_a y cargarlo en sus datos
 	#Calcular cuantos movimientos de cada tipo se necesitan para poner el nodo
@@ -40,6 +48,7 @@ TASK LIST
 4 --> Cannot get the string with all the arguments with ft_strjoin_2()
 5 --> The arr_args couldn't nbe created at ft_load_stack_a()
 6 --> The list is already sorted.
+7 --> The stack_b couldn't be created
 */
 
 static int	ft_input_check(char *full_args)
@@ -64,20 +73,34 @@ int	main(int argc, char **argv)
 	int		ret;
 	char	*full_args;
 	t_node	*stack_a;
-	// t_node	*stack_b;
+	t_node	*stack_b;
 
 	if (argc < 2)
 		return (1); //!Error
 	full_args = ft_strjoin_2(argc, argv);
 	stack_a = NULL;
-	// stack_b = NULL;
+	stack_b = NULL;
 	ret = 0;
 	if (argc >= 2)
 		ret = ft_input_check(full_args);
 	if (ret)
 		return(free(full_args), ret);
 	ret = ft_load_stack_a(full_args, &stack_a);
+	if (ret)
+		return(free(full_args), ret);
+	//ft_rotate(&stack_a, 'a');
+	//ft_rotate_r(&stack_a, 'a');
+	ft_push_b(&stack_a, &stack_b);
+	ft_swap(&stack_a, 'a');
+	ft_printf("============STACK_A=================\n");
 	ft_print_stack(stack_a);
+	fflush(stdout);
+	ft_printf("============STACK_B=================\n");
+	ft_print_stack(stack_b);
+	fflush(stdout);
+
 	free(full_args);
+	ft_free_stack(&stack_a);
+	ft_free_stack(&stack_b);
 	return (ret);
 }

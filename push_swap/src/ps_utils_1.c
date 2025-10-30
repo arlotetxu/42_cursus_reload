@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ps_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:56:12 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/29 16:12:49 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/30 14:16:01 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,23 @@ void	ft_free_double(char **d_pointer)
 		i++;
 	}
 	free(d_pointer);
+}
+
+void	ft_free_stack(t_node **stack)
+{
+	t_node	*temp;
+	t_node	*current;
+
+	if (!stack || !*stack)
+		return ;
+	current = *stack;
+	while (current != NULL)
+	{
+		temp = current;
+		current = current->next;
+		free(temp);
+	}
+	*stack = NULL;
 }
 
 void	ft_print_stack(t_node *stack)
@@ -64,3 +81,4 @@ int	ft_check_sorting(t_node *stack)
 	}
 	return (0);
 }
+
