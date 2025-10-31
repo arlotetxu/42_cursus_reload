@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 14:14:37 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/30 16:49:26 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:37:56 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_push_b(t_node **stack_a, t_node **stack_b)
 	t_node	*aux;
 
 	if (!stack_a || !stack_b || !*stack_a)
-		return;
+		return ;
 	aux = *stack_a;
 	*stack_a = (*stack_a)->next;
 	if (*stack_a)
@@ -28,6 +28,8 @@ void	ft_push_b(t_node **stack_a, t_node **stack_b)
 	if (*stack_b)
 		(*stack_b)->prev = aux;
 	*stack_b = aux;
+	ft_apply_index(*stack_a);
+	ft_apply_index(*stack_b);
 	ft_printf("pb\n");
 }
 
@@ -36,7 +38,7 @@ void	ft_push_a(t_node **stack_a, t_node **stack_b)
 	t_node	*aux;
 
 	if (!stack_b || !stack_a || !*stack_b)
-		return;
+		return ;
 	aux = *stack_b;
 	*stack_b = (*stack_b)->next;
 	if (*stack_b)
@@ -46,6 +48,8 @@ void	ft_push_a(t_node **stack_a, t_node **stack_b)
 	if (*stack_a)
 		(*stack_a)->prev = aux;
 	*stack_a = aux;
+	ft_apply_index(*stack_a);
+	ft_apply_index(*stack_b);
 	ft_printf("pa\n");
 }
 
@@ -58,7 +62,6 @@ void	ft_swap(t_node **stack, char stack_id)
 		return ;
 	first = *stack;
 	second = (*stack)->next;
-
 	first->next = second->next;
 	if (second->next != NULL)
 		second->next->prev = first;
@@ -66,6 +69,7 @@ void	ft_swap(t_node **stack, char stack_id)
 	second->next = first;
 	first->prev = second;
 	*stack = second;
+	ft_apply_index(*stack);
 	if (stack_id == 'a' || stack_id == 'b')
 		ft_printf("s%c\n", stack_id);
 }

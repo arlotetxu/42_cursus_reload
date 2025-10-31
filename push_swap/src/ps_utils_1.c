@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:56:12 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/30 14:16:01 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:56:24 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,23 @@ void	ft_print_stack(t_node *stack)
 	int		i;
 
 	if (!stack)
-	{
-		//printf("La lista está vacía.\n"); //!PRINTF
 		return ;
-	}
 	current = stack;
 	i = 0;
 	while (current != NULL)
 	{
 		ft_printf("=============Node[%i]=============\n", i);
-		ft_printf("\tnbr: %i\n", current->node_data.nb);
-		ft_printf("\ttarget: %i\n", current->node_data.target);
+		ft_printf("\tnbr: %i\n", current->n_data.nb);
+		ft_printf("\ttarget: %i\n", current->n_data.target);
+		ft_printf("\tindex: %i\n", current->n_data.index);
 		ft_printf("\tprev node: %p\n", current->prev);
 		ft_printf("\tcurr node: %p\n", current);
 		ft_printf("\tnext node: %p\n", current->next);
-		ft_printf("\tTotal movements: %i\n", current->node_data.total);
+		ft_printf("\tra: %p\n", current->n_data.ra);
+		ft_printf("\trb: %p\n", current->n_data.rb);
+		ft_printf("\trra: %p\n", current->n_data.rra);
+		ft_printf("\trrb: %p\n", current->n_data.rrb);
+		ft_printf("\tTotal movements: %i\n", current->n_data.total);
 		current = current->next;
 		i++;
 	}
@@ -75,10 +77,20 @@ int	ft_check_sorting(t_node *stack)
 {
 	while (stack->next != NULL)
 	{
-		if (stack->node_data.nb > stack->next->node_data.nb)
-			return(1);
+		if (stack->n_data.nb > stack->next->n_data.nb)
+			return (1);
 		stack = stack->next;
 	}
 	return (0);
 }
 
+int	ft_check_sorting_r(t_node *stack)
+{
+	while (stack->next != NULL)
+	{
+		if (stack->n_data.nb < stack->next->n_data.nb)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}

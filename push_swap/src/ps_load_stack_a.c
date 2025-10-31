@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:35:54 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/30 11:59:14 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:32:08 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ static t_node	*ft_create_node(int nbr)
 	new_node = malloc (sizeof(t_node)); //!MALLOC
 	if (!new_node)
 		return (NULL);
-	new_node->node_data.nb = nbr;
-	new_node->node_data.index = 0;
-	new_node->node_data.target = 0;
-	new_node->node_data.ra = 0;
-	new_node->node_data.rb = 0;
-	new_node->node_data.rra = 0;
-	new_node->node_data.rrb = 0;
-	new_node->node_data.total = new_node->node_data.ra + new_node->node_data.rb
-		+ new_node->node_data.rra+ new_node->node_data.rrb;
+	new_node->n_data.nb = nbr;
+	new_node->n_data.index = 0;
+	new_node->n_data.target = 0;
+	new_node->n_data.ra = 0;
+	new_node->n_data.rb = 0;
+	new_node->n_data.rra = 0;
+	new_node->n_data.rrb = 0;
+	new_node->n_data.total = new_node->n_data.ra + new_node->n_data.rb
+		+ new_node->n_data.rra + new_node->n_data.rrb;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
@@ -67,6 +67,7 @@ int	ft_load_stack_a(char *full_args, t_node **stack_a)
 	i = -1;
 	while (++i < len)
 		ft_insert_end(stack_a, args_arr[i]);
+	ft_apply_index(*stack_a);
 	if (!ft_check_sorting(*stack_a))
 		return (free(args_arr), 6);
 	return (free(args_arr), 0);

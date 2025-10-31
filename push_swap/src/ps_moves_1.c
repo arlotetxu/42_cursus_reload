@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:02:24 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/30 14:14:23 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:41:00 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_rotate(t_node **stack, char stack_id)
 	last->next = first;
 	first->prev = last;
 	first->next = NULL;
+	ft_apply_index(*stack);
 	if (stack_id == 'a' || stack_id == 'b')
 		ft_printf("r%c\n", stack_id);
 }
@@ -43,6 +44,8 @@ void	ft_rotate_2(t_node **stack_a, t_node **stack_b, char stack_id)
 		return ;
 	ft_rotate(stack_a, stack_id);
 	ft_rotate(stack_b, stack_id);
+	ft_apply_index(*stack_a);
+	ft_apply_index(*stack_b);
 	ft_printf("rr%c\n", stack_id);
 }
 
@@ -66,6 +69,7 @@ void	ft_rotate_r(t_node **stack, char stack_id)
 	last->next = first;
 	first->prev = last;
 	*stack = last;
+	ft_apply_index(*stack);
 	ft_printf("rr%c\n", stack_id);
 }
 
@@ -79,5 +83,7 @@ void	ft_rotate_r_2(t_node **stack_a, t_node **stack_b, char stack_id)
 		return ;
 	ft_rotate_r(stack_a, stack_id);
 	ft_rotate_r(stack_b, stack_id);
+	ft_apply_index(*stack_a);
+	ft_apply_index(*stack_b);
 	ft_printf("rr%c\n", stack_id);
 }
