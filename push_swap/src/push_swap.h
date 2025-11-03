@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:29:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/31 16:02:21 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:50:39 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ typedef struct s_n_data
 	int	target;
 	int	ra;
 	int	rb;
+	int	rr;
 	int	rra;
 	int	rrb;
+	int	rrr;
 	int	total;
 }	t_n_data;
 
@@ -66,6 +68,10 @@ int		ft_get_stack_size(t_node *stack);
 
 //=============ps_utils_3.c=============
 int		ft_get_max_index(t_node *stack);
+void	ft_init_moves(t_node *node);
+void	ft_get_moves(t_node **stack_a, t_node **stack_b);
+void	ft_get_moves_t(t_node **stack_a, t_node **stack_b);
+void	ft_opti_moves(t_node **stack);
 
 //=============ps_load_stack_a.c=============
 void	ft_insert_end(t_node **stack_a, int nbr);
@@ -85,5 +91,9 @@ void	ft_swap(t_node **stack, char stack_id);
 //=============ps_algorithim_3_2.c=============
 void	ft_sort_3(t_node **stack, char stack_id);
 void	ft_sort_2(t_node **stack, char stack_id);
+
+//=============ps_move_a2b.c=============
+t_node	*ft_node2pass(t_node **stack);
+void	ft_do_moves(t_node **stack_a, t_node **stack_b);
 
 #endif

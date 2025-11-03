@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:02:24 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/31 15:41:00 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:17:48 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	ft_rotate_r(t_node **stack, char stack_id)
 	first->prev = last;
 	*stack = last;
 	ft_apply_index(*stack);
-	ft_printf("rr%c\n", stack_id);
+	if (stack_id == 'a' || stack_id == 'b')
+		ft_printf("rr%c\n", stack_id);
 }
 
 void	ft_rotate_r_2(t_node **stack_a, t_node **stack_b, char stack_id)

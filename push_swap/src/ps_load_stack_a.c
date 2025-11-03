@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:35:54 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/31 15:32:08 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/03 10:33:54 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static t_node	*ft_create_node(int nbr)
 	new_node->n_data.target = 0;
 	new_node->n_data.ra = 0;
 	new_node->n_data.rb = 0;
+	new_node->n_data.rr = 0;
 	new_node->n_data.rra = 0;
 	new_node->n_data.rrb = 0;
-	new_node->n_data.total = new_node->n_data.ra + new_node->n_data.rb
-		+ new_node->n_data.rra + new_node->n_data.rrb;
+	new_node->n_data.rrr = 0;
+	new_node->n_data.total = 0;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);

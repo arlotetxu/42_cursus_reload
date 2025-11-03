@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:56:12 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/31 15:56:24 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/03 10:36:53 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	ft_print_stack(t_node *stack)
 	if (!stack)
 		return ;
 	current = stack;
-	i = 0;
-	while (current != NULL)
+	i = -1;
+	while (current != NULL && ++i >= 0)
 	{
 		ft_printf("=============Node[%i]=============\n", i);
 		ft_printf("\tnbr: %i\n", current->n_data.nb);
@@ -63,13 +63,14 @@ void	ft_print_stack(t_node *stack)
 		ft_printf("\tprev node: %p\n", current->prev);
 		ft_printf("\tcurr node: %p\n", current);
 		ft_printf("\tnext node: %p\n", current->next);
-		ft_printf("\tra: %p\n", current->n_data.ra);
-		ft_printf("\trb: %p\n", current->n_data.rb);
-		ft_printf("\trra: %p\n", current->n_data.rra);
-		ft_printf("\trrb: %p\n", current->n_data.rrb);
+		ft_printf("\tra: %i\n", current->n_data.ra);
+		ft_printf("\trb: %i\n", current->n_data.rb);
+		ft_printf("\trr: %i\n", current->n_data.rr);
+		ft_printf("\trra: %i\n", current->n_data.rra);
+		ft_printf("\trrb: %i\n", current->n_data.rrb);
+		ft_printf("\trrr: %i\n", current->n_data.rrr);
 		ft_printf("\tTotal movements: %i\n", current->n_data.total);
 		current = current->next;
-		i++;
 	}
 }
 
