@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:41:59 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/03 16:45:33 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:42:27 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,40 +109,23 @@ static void	ft_launcher(t_node **stack_a, t_node **stack_b)
 {
 	ft_push_b(stack_a, stack_b);
 	ft_push_b(stack_a, stack_b);
-	ft_push_b(stack_a, stack_b);
 
 	while (ft_get_stack_size(*stack_a) > 3)
 	{
-		ft_apply_target(*stack_a, *stack_b);
-		ft_get_moves(stack_a, stack_b);
-		ft_do_moves(stack_a, stack_b);
+		ft_apply_target_a(*stack_a, *stack_b);
+		ft_get_moves_a(stack_a, stack_b);
+		ft_do_moves(stack_a, stack_b, 'a');
 	}
 	ft_sort_3(stack_a, 'a');
+
+	while (ft_get_stack_size(*stack_b) != 0)
+	{
+		ft_apply_target_b(*stack_a, *stack_b);
+		ft_get_moves_b(stack_a, stack_b);
+		ft_do_moves(stack_a, stack_b, 'b');
+	}
+	//COMPROBAR DONDE ESTA EL VALOR MINIMO Y LLEVARLO ARRIBA DE LA MANERA MAS BARATA
 }
-
-/* void	ft_launcher(t_node **stack_a, t_node **stack_b)
-{
-    t_node	*select; // Variable para depurar
-
-    ft_push_b(stack_a, stack_b);
-    ft_push_b(stack_a, stack_b);
-    while (ft_get_stack_size(*stack_a) > 3)
-    {
-		ft_apply_target(*stack_a, *stack_b);
-        ft_get_moves(stack_a, stack_b);
-
-        // --- INICIO BLOQUE DE DEPURACIÓN ---
-        ft_printf("\n--- NUEVA ITERACIÓN ---\n");
-        ft_printf("============STACK_A (CON COSTES)=================\n");
-        ft_print_stack(*stack_a);
-        select = ft_node2pass(stack_a); // Llama a ft_node2pass para ver cuál elige
-        ft_printf("--> Nodo a mover: %d (Total: %d)\n", select->n_data.nb, select->n_data.total);
-        // --- FIN BLOQUE DE DEPURACIÓN ---
-
-        ft_do_moves(stack_a, stack_b);
-    }
-    // ... resto de la función
-} */
 
 static int	ft_input_check(char *full_args)
 {

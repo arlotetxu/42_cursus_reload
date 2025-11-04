@@ -6,31 +6,55 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:50:57 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/03 13:26:23 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:22:55 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
-void	ft_do_moves(t_node **stack_a, t_node **stack_b)
+void	ft_do_moves_2(t_node *select, t_node **stack_a, t_node **stack_b, \
+	char stack_id)
+{
+	int		rb_rem;
+	int		rra_rem;
+	int		rrb_rem;
+
+	rb_rem = select->n_data.rb - select->n_data.rr;
+	rra_rem = select->n_data.rra - select->n_data.rrr;
+	rrb_rem = select->n_data.rrb - select->n_data.rrr;
+	while (rb_rem-- > 0)
+		ft_rotate(stack_b, 'b');
+	while (rra_rem-- > 0)
+		ft_rotate_r(stack_a, 'a');
+	while (rrb_rem-- > 0)
+		ft_rotate_r(stack_b, 'b');
+	if (stack_id == 'a')
+		ft_push_b(stack_a, stack_b);
+	else if (stack_id == 'b')
+		ft_push_a(stack_a, stack_b);
+}
+
+void	ft_do_moves(t_node **stack_a, t_node **stack_b, char stack_id)
 {
 	t_node	*select;
+	int		ra_rem;
+	int		rr;
+	int		rrr;
 
-	select = ft_node2pass(stack_a);
-	while (select->n_data.rr--)
+	select = ft_node2pass(stack_b);
+	if (stack_id == 'a')
+		select = ft_node2pass(stack_a);
+	ra_rem = select->n_data.ra - select->n_data.rr;
+	rr = select->n_data.rr;
+	rrr = select->n_data.rrr;
+	while (rr-- > 0)
 		ft_rotate_2(stack_a, stack_b, 'r');
-	while (select->n_data.rrr--)
+	while (rrr-- > 0)
 		ft_rotate_r_2(stack_a, stack_b, 'r');
-	while (select->n_data.ra--)
+	while (ra_rem-- > 0)
 		ft_rotate(stack_a, 'a');
-	while (select->n_data.rb--)
-		ft_rotate(stack_b, 'b');
-	while (select->n_data.rra--)
-		ft_rotate_r(stack_a, 'a');
-	while (select->n_data.rrb--)
-		ft_rotate_r(stack_b, 'b');
-	ft_push_b(stack_a, stack_b);
+	ft_do_moves_2(select, stack_a, stack_b, stack_id);
 }
 
 t_node	*ft_node2pass(t_node **stack)

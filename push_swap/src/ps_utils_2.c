@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 10:40:18 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/31 15:47:50 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:39:23 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_apply_index(t_node *stack)
 	}
 }
 
-static void	ft_find_target(t_node *node_a, t_node *stack_b)
+static void	ft_find_target_a(t_node *node_a, t_node *stack_b)
 {
 	t_node	*curr_b;
 	long	best_diff;
@@ -52,14 +52,17 @@ static void	ft_find_target(t_node *node_a, t_node *stack_b)
 		node_a->n_data.target = ft_get_max_in_stack(stack_b);
 }
 
-void	ft_apply_target(t_node *stack_a, t_node *stack_b)
+void	ft_apply_target_a(t_node *stack_a, t_node *stack_b)
 {
+	t_node	*cur_a;
+
 	if (!stack_a || !stack_b)
 		return ;
-	while (stack_a)
+	cur_a = stack_a;
+	while (cur_a)
 	{
-		ft_find_target(stack_a, stack_b);
-		stack_a = stack_a->next;
+		ft_find_target_a(cur_a, stack_b);
+		cur_a = cur_a->next;
 	}
 }
 
