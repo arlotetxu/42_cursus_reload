@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:35:54 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/03 10:33:54 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:52:35 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_node	*ft_create_node(int nbr)
 {
 	t_node	*new_node;
 
-	new_node = malloc (sizeof(t_node)); //!MALLOC
+	new_node = malloc (sizeof(t_node));
 	if (!new_node)
 		return (NULL);
 	new_node->n_data.nb = nbr;

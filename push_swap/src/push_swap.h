@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:29:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/04 16:17:59 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:01:18 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-//=============PROTOTYPES=============
-//====================================
+//==================PROTOTYPES==================
+//==============================================
 //=============ps_initial_checks.c=============
 int		ft_check_chars_argv(char *str);
 char	*ft_strjoin_2(int argc, char **argv);
@@ -80,6 +80,10 @@ void	ft_apply_target_b(t_node *stack_a, t_node *stack_b);
 //=============ps_utils_5.c=============
 void	ft_get_moves_b(t_node **stack_a, t_node **stack_b);
 void	ft_get_moves_b_t(t_node **stack_a, t_node **stack_b);
+
+//=============ps_utils_6.c=============
+int		ft_min_index(t_node **stack);
+void	ft_last_sort(t_node **stack_a);
 
 //=============ps_load_stack_a.c=============
 void	ft_insert_end(t_node **stack_a, int nbr);

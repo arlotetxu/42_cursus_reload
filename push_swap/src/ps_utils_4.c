@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 10:23:02 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/04 16:39:11 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:56:07 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_find_target_b(t_node *node_b, t_node *stack_a)
 void	ft_apply_target_b(t_node *stack_a, t_node *stack_b)
 {
 	t_node	*cur_b;
+
 	if (!stack_a || !stack_b)
 		return ;
 	cur_b = stack_b;

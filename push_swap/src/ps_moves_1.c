@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:02:24 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/03 13:17:48 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 12:03:48 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_rotate_2(t_node **stack_a, t_node **stack_b, char stack_id)
 	ft_rotate(stack_b, stack_id);
 	ft_apply_index(*stack_a);
 	ft_apply_index(*stack_b);
-	ft_printf("rr%c\n", stack_id);
+	ft_printf("r%c\n", stack_id);
 }
 
 void	ft_rotate_r(t_node **stack, char stack_id)

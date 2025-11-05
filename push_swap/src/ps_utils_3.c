@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:58:50 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/04 16:39:58 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 12:29:39 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ void	ft_opti_moves(t_node **stack)
 		else if (cur->n_data.rra > 0 && cur->n_data.rrb > 0
 			&& cur->n_data.rra < cur->n_data.rrb)
 			cur->n_data.rrr = cur->n_data.rra;
-		// cur->n_data.ra -= cur->n_data.rr;
-		// cur->n_data.rb -= cur->n_data.rr;
-		// cur->n_data.rra -= cur->n_data.rrr;
-		// cur->n_data.rrb -= cur->n_data.rrr;
-		cur->n_data.total = cur->n_data.ra + cur->n_data.rb + cur->n_data.rra
-			+ cur->n_data.rrb + cur->n_data.rrr + cur->n_data.rr;
+		cur->n_data.total = (cur->n_data.ra - cur->n_data.rr)
+			+ (cur->n_data.rb - cur->n_data.rr)
+			+ (cur->n_data.rra - cur->n_data.rrr)
+			+ (cur->n_data.rrb - cur->n_data.rrr)
+			+ cur->n_data.rr + cur->n_data.rrr;
 		cur = cur->next;
 	}
 }
