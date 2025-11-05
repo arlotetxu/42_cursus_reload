@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_utils_4.c                                       :+:      :+:    :+:   */
+/*   ps_target_b.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 10:23:02 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/05 13:56:07 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:27:24 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,4 @@ void	ft_apply_target_b(t_node *stack_a, t_node *stack_b)
 		ft_find_target_b(cur_b, stack_a);
 		cur_b = cur_b->next;
 	}
-}
-
-int	ft_get_min_in_stack(t_node *stack)
-{
-	int	min;
-
-	min = stack->n_data.nb;
-	while (stack)
-	{
-		if (stack->n_data.nb < min)
-			min = stack->n_data.nb;
-		stack = stack->next;
-	}
-	return (min);
 }

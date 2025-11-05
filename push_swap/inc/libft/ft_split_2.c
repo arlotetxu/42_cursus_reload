@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:25:16 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/29 07:38:13 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:32:06 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_count_words(const char *str)
 	flag = 0;
 	while (str[i])
 	{
-		if (str[i] != 32 && str[i]!= 9)
+		if (str[i] != 32 && str[i] != 9)
 			flag = 1;
 		if ((str[i] == 32 || str[i] == 9) && flag == 1)
 		{

@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ps_index_target_a.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/31 10:40:18 by joflorid          #+#    #+#             */
+/*   Updated: 2025/11/05 15:30:59 by joflorid         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/libft/libft.h"
+#include "push_swap.h"
+
+void	ft_apply_index(t_node *stack)
+{
+	int	i;
+
+	if (!stack)
+		return ;
+	i = 0;
+	while (stack != NULL)
+	{
+		stack->n_data.index = i;
+		stack = stack->next;
+		i++;
+	}
+}
+
+static void	ft_find_target_a(t_node *node_a, t_node *stack_b)
+{
+	t_node	*curr_b;
+	long	best_diff;
+	int		target_found;
+
+	best_diff = LONG_MAX;
+	target_found = 0;
+	curr_b = stack_b;
+	while (curr_b)
+	{
+		if (curr_b->n_data.nb < node_a->n_data.nb
+			&& (long)node_a->n_data.nb - curr_b->n_data.nb < best_diff)
+		{
+			best_diff = (long)node_a->n_data.nb - curr_b->n_data.nb;
+			node_a->n_data.target = curr_b->n_data.nb;
+			target_found = 1;
+		}
+		curr_b = curr_b->next;
+	}
+	if (!target_found)
+		node_a->n_data.target = ft_get_max_in_stack(stack_b);
+}
+
+void	ft_apply_target_a(t_node *stack_a, t_node *stack_b)
+{
+	t_node	*cur_a;
+
+	if (!stack_a || !stack_b)
+		return ;
+	cur_a = stack_a;
+	while (cur_a)
+	{
+		ft_find_target_a(cur_a, stack_b);
+		cur_a = cur_a->next;
+	}
+}

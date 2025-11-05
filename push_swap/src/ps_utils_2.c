@@ -5,65 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/31 10:40:18 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/04 16:39:23 by joflorid         ###   ########.fr       */
+/*   Created: 2025/11/05 15:23:52 by joflorid          #+#    #+#             */
+/*   Updated: 2025/11/05 15:27:19 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
-void	ft_apply_index(t_node *stack)
+int	ft_get_max_index(t_node *stack)
 {
-	int	i;
+	int	max;
 
-	if (!stack)
-		return ;
-	i = 0;
-	while (stack != NULL)
+	max = stack->n_data.index;
+	while (stack)
 	{
-		stack->n_data.index = i;
+		if (stack->n_data.index > max)
+			max = stack->n_data.index;
 		stack = stack->next;
-		i++;
 	}
+	return (max);
 }
 
-static void	ft_find_target_a(t_node *node_a, t_node *stack_b)
+int	ft_get_min_in_stack(t_node *stack)
 {
-	t_node	*curr_b;
-	long	best_diff;
-	int		target_found;
+	int	min;
 
-	best_diff = LONG_MAX;
-	target_found = 0;
-	curr_b = stack_b;
-	while (curr_b)
+	min = stack->n_data.nb;
+	while (stack)
 	{
-		if (curr_b->n_data.nb < node_a->n_data.nb
-			&& (long)node_a->n_data.nb - curr_b->n_data.nb < best_diff)
-		{
-			best_diff = (long)node_a->n_data.nb - curr_b->n_data.nb;
-			node_a->n_data.target = curr_b->n_data.nb;
-			target_found = 1;
-		}
-		curr_b = curr_b->next;
+		if (stack->n_data.nb < min)
+			min = stack->n_data.nb;
+		stack = stack->next;
 	}
-	if (!target_found)
-		node_a->n_data.target = ft_get_max_in_stack(stack_b);
-}
-
-void	ft_apply_target_a(t_node *stack_a, t_node *stack_b)
-{
-	t_node	*cur_a;
-
-	if (!stack_a || !stack_b)
-		return ;
-	cur_a = stack_a;
-	while (cur_a)
-	{
-		ft_find_target_a(cur_a, stack_b);
-		cur_a = cur_a->next;
-	}
+	return (min);
 }
 
 int	ft_get_max_in_stack(t_node *stack)

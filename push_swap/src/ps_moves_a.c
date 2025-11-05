@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_utils_3.c                                       :+:      :+:    :+:   */
+/*   ps_moves_a.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:58:50 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/05 12:29:39 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:26:16 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
-
-int	ft_get_max_index(t_node *stack)
-{
-	int	max;
-
-	max = stack->n_data.index;
-	while (stack)
-	{
-		if (stack->n_data.index > max)
-			max = stack->n_data.index;
-		stack = stack->next;
-	}
-	return (max);
-}
 
 void	ft_init_moves(t_node *node)
 {

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 12:24:36 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/28 16:53:48 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:31:36 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 //=============FT_PRINTF=============
-int			ft_printf(char const *str, ...);
-int			ft_distributor(int c, va_list *args);
-int			ft_print_string(char *str);
-int			ft_print_char(int c);
-int			ft_print_hexa(unsigned long n, char c);
-int			ft_print_int(int n);
-int			ft_print_uint(unsigned int nbr);
-int			ft_hex_len(unsigned long n);
-int			ft_nbr_uint_len(unsigned int nbr);
+int		ft_printf(char const *str, ...);
+int		ft_distributor(int c, va_list *args);
+int		ft_print_string(char *str);
+int		ft_print_char(int c);
+int		ft_print_hexa(unsigned long n, char c);
+int		ft_print_int(int n);
+int		ft_print_uint(unsigned int nbr);
+int		ft_hex_len(unsigned long n);
+int		ft_nbr_uint_len(unsigned int nbr);
 
 #endif
