@@ -1,18 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_mov_a2b.c                                       :+:      :+:    :+:   */
+/*   ps_mov_a2b2a.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:50:57 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/04 16:22:55 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:19:38 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
+/*==============================================================================
+DESCRIPTION:
+	ft_do_moves_2() does the same actions than ft_do_moves() with the rest of
+	the movements.
+
+PARAMETERS:
+	select --> A pointer to the node with the information about to the movements
+		to be done. This node should be the one with the less total movements.
+
+	**stack_a --> A pointer to the stack_a list.
+
+	**stack_b --> A pointer to the stack_b list.
+
+	stack_id --> Stack identification
+
+RETURN:
+	new_node --> The new node created.
+==============================================================================*/
 void	ft_do_moves_2(t_node *select, t_node **stack_a, t_node **stack_b, \
 	char stack_id)
 {
@@ -35,6 +53,24 @@ void	ft_do_moves_2(t_node *select, t_node **stack_a, t_node **stack_b, \
 		ft_push_a(stack_a, stack_b);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_do_moves() makes the corresponding movements according to the information
+	contained in each node of the stack. The functions selects the right stack
+	considering the value of the parameter stack_id. This function calls the
+	function ft_do_moves_2() to continue with the movements passing to it the
+	selected node in each case.
+
+PARAMETERS:
+	**stack_a --> A pointer to the stack_a list.
+
+	**stack_b --> A pointer to the stack_b list.
+
+	stack_id --> Stack identification
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_do_moves(t_node **stack_a, t_node **stack_b, char stack_id)
 {
 	t_node	*select;
@@ -57,6 +93,17 @@ void	ft_do_moves(t_node **stack_a, t_node **stack_b, char stack_id)
 	ft_do_moves_2(select, stack_a, stack_b, stack_id);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_node2pass() selects and returns the node with the cheapest total
+	movements from the stack passed as argument.
+
+PARAMETERS:
+	**stack --> A pointer to the stack to be evaluated.
+
+RETURN:
+	select --> The node with the lowest total movements (the cheapest).
+==============================================================================*/
 t_node	*ft_node2pass(t_node **stack)
 {
 	t_node	*select;

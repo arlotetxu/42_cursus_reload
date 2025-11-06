@@ -6,13 +6,23 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:56:12 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/03 10:36:53 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:05:33 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
+/*==============================================================================
+DESCRIPTION:
+	ft_free_double() frees a double pointer varible.
+
+PARAMETERS:
+	*d_pointer --> The variable to be freed.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_free_double(char **d_pointer)
 {
 	int	i;
@@ -28,6 +38,16 @@ void	ft_free_double(char **d_pointer)
 	free(d_pointer);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_free_stack() frees a linked list.
+
+PARAMETERS:
+	**stack --> A pointer to the list to be freed
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_free_stack(t_node **stack)
 {
 	t_node	*temp;
@@ -45,6 +65,17 @@ void	ft_free_stack(t_node **stack)
 	*stack = NULL;
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_print_stack() prints all the nodes in a linked list (stack) with its
+	information.
+
+PARAMETERS:
+	*stack --> A pointer to the list to be printed.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_print_stack(t_node *stack)
 {
 	t_node	*current;
@@ -74,6 +105,18 @@ void	ft_print_stack(t_node *stack)
 	}
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_check_sorting() checks if a linked list (stack) is sorted (ascending).
+
+PARAMETERS:
+	*stack --> A pointer to the list to be checked.
+
+RETURN:
+	1 --> If the list is not sorted.
+
+	0 --> If the list is sorted
+==============================================================================*/
 int	ft_check_sorting(t_node *stack)
 {
 	while (stack->next != NULL)
@@ -85,6 +128,18 @@ int	ft_check_sorting(t_node *stack)
 	return (0);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_check_sorting_r() checks if a linked list (stack) is sorted (descending).
+
+PARAMETERS:
+	*stack --> A pointer to the list to be checked.
+
+RETURN:
+	1 --> If the list is not sorted.
+
+	0 --> If the list is sorted
+==============================================================================*/
 int	ft_check_sorting_r(t_node *stack)
 {
 	while (stack->next != NULL)

@@ -6,13 +6,23 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 15:23:52 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/05 15:27:19 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:10:25 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
+/*==============================================================================
+DESCRIPTION:
+	ft_get_max_index() gets the maximum index in a stack.
+
+PARAMETERS:
+	*stack --> A pointer to the list to be checked.
+
+RETURN:
+	max --> The maximum index found.
+==============================================================================*/
 int	ft_get_max_index(t_node *stack)
 {
 	int	max;
@@ -27,6 +37,16 @@ int	ft_get_max_index(t_node *stack)
 	return (max);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_get_min_in_stack() gets the minimum number in a stack.
+
+PARAMETERS:
+	*stack --> A pointer to the list to be checked.
+
+RETURN:
+	min --> The minimum number found.
+==============================================================================*/
 int	ft_get_min_in_stack(t_node *stack)
 {
 	int	min;
@@ -41,6 +61,16 @@ int	ft_get_min_in_stack(t_node *stack)
 	return (min);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_get_max_in_stack() gets the maximum number in a stack.
+
+PARAMETERS:
+	*stack --> A pointer to the list to be checked.
+
+RETURN:
+	max --> The maximum number found.
+==============================================================================*/
 int	ft_get_max_in_stack(t_node *stack)
 {
 	int	max;
@@ -55,6 +85,16 @@ int	ft_get_max_in_stack(t_node *stack)
 	return (max);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_get_stack_size() gets the number of nodes a stack has.
+
+PARAMETERS:
+	*stack --> A pointer to the list to be checked.
+
+RETURN:
+	len --> The number of nodes in a stack.
+==============================================================================*/
 int	ft_get_stack_size(t_node *stack)
 {
 	int	len;

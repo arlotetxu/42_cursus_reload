@@ -6,13 +6,23 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:58:50 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/05 15:26:16 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:53:01 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
+/*==============================================================================
+DESCRIPTION:
+	ft_init_moves() initializes all the movements in a node to 0
+
+PARAMETERS:
+	*node --> A pointer to the node to be initialized.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_init_moves(t_node *node)
 {
 	node->n_data.ra = 0;
@@ -24,6 +34,17 @@ void	ft_init_moves(t_node *node)
 	node->n_data.total = 0;
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_opti_moves() optimizes the number of movements grouping ra & rb in rr and
+	rra & rrb in rrr in order to reduce the total number of movements.
+
+PARAMETERS:
+	**stack --> A pointer to the stack to be optimized.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_opti_moves(t_node **stack)
 {
 	t_node	*cur;
@@ -51,6 +72,20 @@ void	ft_opti_moves(t_node **stack)
 		cur = cur->next;
 	}
 }
+/*==============================================================================
+DESCRIPTION:
+	ft_get_moves_a_t() calculates cheapest number of movements needed to bring
+	the target node to the top of the stack_b and saves it in the node
+	information (n_data).
+
+PARAMETERS:
+	**stack_a --> A pointer to the stack_a with the nodes to be evaluated.
+
+	**stack_b --> A pointer to the stack_b with the target nodes.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 
 void	ft_get_moves_a_t(t_node **stack_a, t_node **stack_b)
 {
@@ -79,6 +114,24 @@ void	ft_get_moves_a_t(t_node **stack_a, t_node **stack_b)
 	}
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_get_moves_a() calculates cheapest number of movements needed to bring the
+	evaluated node to the top of the stack_a and saves it in the node
+	information (n_data). Then, calls the function ft_get_moves_a_t() to
+	calculate and save the cheapest number of movements to bring the target node
+	to the top of the stack_b. Finally, the functions calls the function
+	ft_opti_moves() to try to optimize the total number of movements grouping
+	ra & ra in rr and rra & rrb in rrr.
+
+PARAMETERS:
+	**stack_a --> A pointer to the stack_a with the nodes to be evaluated.
+
+	**stack_b --> A pointer to the stack_b with the target nodes.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_get_moves_a(t_node **stack_a, t_node **stack_b)
 {
 	t_node	*current;

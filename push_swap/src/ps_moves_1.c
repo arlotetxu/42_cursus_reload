@@ -6,13 +6,27 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:02:24 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/05 12:03:48 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:26:20 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
+/*==============================================================================
+DESCRIPTION:
+	ft_rotate() does the rotation movement. The first node in the stack becomes
+	the last one. Finally, this function prints the corresponding string in the
+	terminal.
+
+PARAMETERS:
+	**stack --> A pointer to the stack in which the movement has to be applied.
+
+	stack_id --> Stack identification
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_rotate(t_node **stack, char stack_id)
 {
 	t_node	*first;
@@ -34,6 +48,24 @@ void	ft_rotate(t_node **stack, char stack_id)
 		ft_printf("r%c\n", stack_id);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_rotate_2() does the rotation movement in both stacks. The last node in
+	the stack becomes the first one. Finally, this function prints the
+	corresponding string in the terminal.
+
+PARAMETERS:
+	**stack_a --> A pointer to the stack_a in which the movement has to be
+		applied.
+
+	**stack_b --> A pointer to the stack_b in which the movement has to be
+		applied.
+
+	stack_id --> Stack identification
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_rotate_2(t_node **stack_a, t_node **stack_b, char stack_id)
 {
 	if (!stack_a || !*stack_a || !(*stack_a)->next)
@@ -49,6 +81,20 @@ void	ft_rotate_2(t_node **stack_a, t_node **stack_b, char stack_id)
 	ft_printf("r%c\n", stack_id);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_rotate_r() does the rotation reversal movement. The last node in the
+	stack becomes the first one. Finally, this function prints the corresponding
+	string in the terminal.
+
+PARAMETERS:
+	**stack --> A pointer to the stack in which the movement has to be applied.
+
+	stack_id --> Stack identification
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_rotate_r(t_node **stack, char stack_id)
 {
 	t_node	*first;
@@ -74,6 +120,24 @@ void	ft_rotate_r(t_node **stack, char stack_id)
 		ft_printf("rr%c\n", stack_id);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_rotate_r_2() does the rotation reversal movement in both stacks.
+	The last node in the stack becomes the first one. Finally, this function
+	prints the corresponding string in the terminal.
+
+PARAMETERS:
+	**stack_a --> A pointer to the stack_a in which the movement has to be
+		applied.
+
+	**stack_b --> A pointer to the stack_b in which the movement has to be
+		applied.
+
+	stack_id --> Stack identification
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_rotate_r_2(t_node **stack_a, t_node **stack_b, char stack_id)
 {
 	if (!stack_a || !*stack_a || !(*stack_a)->next)

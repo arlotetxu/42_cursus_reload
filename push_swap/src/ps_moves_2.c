@@ -6,13 +6,28 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 14:14:37 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/03 13:18:01 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:37:42 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft/libft.h"
 #include "push_swap.h"
 
+/*==============================================================================
+DESCRIPTION:
+	ft_push_b() pushes the first node in stack_a to the first position in
+	stack_b. Finally, this function prints the corresponding string in the
+	terminal.
+
+PARAMETERS:
+	**stack_a --> A pointer to the stack_a in which the movement has to be
+		applied.
+
+	**stack_b --> A pointer to the stack_b to receive the new node.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_push_b(t_node **stack_a, t_node **stack_b)
 {
 	t_node	*aux;
@@ -33,6 +48,21 @@ void	ft_push_b(t_node **stack_a, t_node **stack_b)
 	ft_printf("pb\n");
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_push_a() pushes the first node in stack_b to the first position in
+	stack_a. Finally, this function prints the corresponding string in the
+	terminal.
+
+PARAMETERS:
+	**stack_a --> A pointer to the stack_a to receive the new node.
+
+	**stack_b --> A pointer to the stack_b in which the movement has to be
+		applied..
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_push_a(t_node **stack_a, t_node **stack_b)
 {
 	t_node	*aux;
@@ -53,6 +83,20 @@ void	ft_push_a(t_node **stack_a, t_node **stack_b)
 	ft_printf("pa\n");
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_swap() swaps the 2 first nodes in a stack, so the first one becomes the
+	second and the second becomes the first. Finally, this function prints the
+	corresponding string in the terminal.
+
+PARAMETERS:
+	**stack --> A pointer to the stack in which the movement is applied.
+
+	stack_id --> The stack identification to apply the movement.
+
+RETURN:
+	Nothing.
+==============================================================================*/
 void	ft_swap(t_node **stack, char stack_id)
 {
 	t_node	*first;
