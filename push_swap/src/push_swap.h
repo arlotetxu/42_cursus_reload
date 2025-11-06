@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:29:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/05 15:30:48 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:01:16 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 //===========STD LIBRARIES===========
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdarg.h>
+//# include <stdarg.h>
 # include <limits.h>
-# include <stdio.h>
 
 //===========OTHER LIBRARIES===========
 # include "../inc/libft/libft.h"
