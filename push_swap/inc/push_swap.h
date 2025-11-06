@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:29:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/06 16:01:16 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:13:57 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <limits.h>
 
 //===========OTHER LIBRARIES===========
-# include "../inc/libft/libft.h"
+# include "../lib/libft/libft.h"
 
 //=============DEFINITIONS=============
 typedef struct s_n_data

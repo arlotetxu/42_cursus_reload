@@ -6,12 +6,12 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 10:26:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/06 12:57:58 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:12:46 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft/libft.h"
-#include "push_swap.h"
+#include "../lib/libft/libft.h"
+#include "../inc/push_swap.h"
 
 /*==============================================================================
 DESCRIPTION:

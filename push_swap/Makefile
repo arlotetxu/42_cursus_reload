@@ -6,7 +6,7 @@
 #    By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 11:11:03 by joflorid          #+#    #+#              #
-#    Updated: 2025/11/06 15:59:08 by joflorid         ###   ########.fr        #
+#    Updated: 2025/11/06 16:21:27 by joflorid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,10 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 #=======================FILES======================
-NAME = $(SRC_DIR)/push_swap
+#NAME = $(SRC_DIR)/push_swap
+NAME = push_swap
 
-SRC_DIR = .
+SRC_DIR = ./src
 
 SRC = ps_algorithm_3_2.c ps_index_target_a.c ps_initial_checks.c \
 	ps_last_sort.c ps_load_stack_a.c ps_mov_a2b2a.c ps_moves_1.c ps_moves_2.c \
@@ -54,13 +55,13 @@ SRC = ps_algorithm_3_2.c ps_index_target_a.c ps_initial_checks.c \
 	push_swap.c
 
 
-OBJ_DIR = ./obj
+OBJ_DIR = ./src/obj
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 #OBJS_BONUS = $(addprefix $(OBJ_DIR)/, $(SRC_BONUS:.c=.o))
 
-H_FILES = push_swap.h
+H_FILES = ./inc/push_swap.h
 
 #=========================TARGETS========================
 all: libft_make $(NAME)
@@ -75,12 +76,12 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(H_FILES) | $(OBJ_DIR)
 $(NAME): $(OBJS)
 #	@cp ../inc/libft/libft.a $(NAME)
 #	@$(AR) $(AFLAGS) $(NAME) $^
-	@$(CC) $(CFLAGS) $(OBJS) -L../inc/libft -lft -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -L./lib/libft -lft -o $(NAME)
 	@echo "$(CYAN)$$HEADER$(DEF_COLOR)"
 	@echo "$(GREEN) Compilation process finished successly!!$(DEF_COLOR)"
 
 libft_make:
-	cd ../inc/libft && make
+	cd ./lib/libft && make
 
 #bonus: $(OBJS) $(OBJS_BONUS)
 #	@$(AR) $(AFLAGS) $(NAME) $^
@@ -93,14 +94,14 @@ clean: libft_clean
 	rm -rf $(OBJ_DIR)
 
 libft_clean:
-	cd ../inc/libft && make clean
+	cd ./lib/libft && make clean
 
 fclean: libft_fclean clean
 	@echo "$(CYAN)Removing $(NAME) ...file$(DEF_COLOR)"
 	rm -rf $(NAME)
 
 libft_fclean:
-	cd ../inc/libft && make fclean
+	cd ./lib/libft && make fclean
 
 re: fclean all
 
