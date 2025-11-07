@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:41:59 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/06 16:15:26 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:11:50 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int	main(int argc, char **argv)
 		return (free(full_args), ret);
 	ret = ft_load_stack_a(full_args, &stack_a);
 	if (ret)
-		return (free(full_args), ret);
+		return (free(full_args), ft_free_stack(&stack_a), \
+		ft_free_stack(&stack_b), ret);
 	ft_launcher(&stack_a, &stack_b);
 	free(full_args);
 	ft_free_stack(&stack_a);

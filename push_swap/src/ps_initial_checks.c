@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:47:13 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/06 16:14:22 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:49:45 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	*ft_load_nbr_arr(char *full_args, int *len)
 	{
 		args_arr[i] = ft_atoi_2(args_split[i]);
 		if (args_arr[i] == 0 && ft_strncmp(args_split[i], "0", 1) != 0)
-			return (ft_free_double(args_split), NULL);
+			return (ft_free_double(args_split), free(args_arr), NULL);
 	}
 	ft_free_double(args_split);
 	return (args_arr);
