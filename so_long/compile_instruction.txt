@@ -1,0 +1,21 @@
+cc <program.c> -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+
+if the above line doesn't work, try with:
+
+cc <program.c> -Lminilibx-linux ./lib/minilibx-linux/libmlx_Linux.a -lX11 -lXext
+
+
+-Lminilibx-linux: This flag specifies the directory where CC should look for libraries. minilibx-linux is the directory where the MinilibX library for linux is located.
+
+-lmlx_Linux: This flag tells cc to ling against the libmlx_Linux.a or -libmlx_Linux.so library. Here, mlx_Linux corresponds to the MinilibX library for linux systems. In case of compilation error, try with the compilation alternative.
+
+-lX11: This flag is for linking afainst the X11 library, which is a graphical user interface library for the X Window System. MinilibX utilizes the X Window System to manage windows, graphics drawing, and user input on UNIX-like operating systems, which includes Linux.
+
+-lXext: This is for linking against the Xext library, which provides extensions to the X Window System. MinilibX might be using some of these extension for its funcionalities.
+
+When you are using these flags, you are telling the compiler:
+
+ - Where to find the MinilibX library files (-Lminilibx-linux)
+ - Which libraries to link with (-lmlx_Linux -lX11 -lXext)
+ 
+ This ensures that your C files have access to the necessary functions and structures defined within the MinilibX library, as well as any functionalities from the X11 and Xext libraries thar MinilibX might depend on.

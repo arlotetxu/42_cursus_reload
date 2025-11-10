@@ -1,34 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   sl_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/08 19:43:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/10 11:32:57 by joflorid         ###   ########.fr       */
+/*   Created: 2025/11/10 13:40:09 by joflorid          #+#    #+#             */
+/*   Updated: 2025/11/10 13:42:52 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-
-//====================LIBRARIES====================
-# include "../lib/minilibx-linux/mlx.h"
-# include "../lib/libft/libft.h"
-
-//===================DEFINITIONS===================
-# define WIN_L 1600
-# define WIN_H 800
-
-typedef struct	s_mlx_data
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-}				t_mlx_data;
-
-
-//====================PROTOTYPES===================
-
-
-#endif
+#include "../inc/so_long.h"
+#include "../lib/libft/libft.h"
+#include "../lib/minilibx-linux/mlx.h"
