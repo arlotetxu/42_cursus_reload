@@ -6,10 +6,8 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:40:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/10 13:42:52 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:17:42 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-#include "../lib/libft/libft.h"
-#include "../lib/minilibx-linux/mlx.h"
