@@ -42,3 +42,5 @@
 
 <img src="exams/Exam_Rank02_mark.png" height="175"/>
 ==
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arlotetxu/42_cursus_reload)
