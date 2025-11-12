@@ -3,12 +3,14 @@
 - [X] #**LIBFT**: a custom C standard library implementation that serves as the foundational component of the 42 School curriculum. It provides 43 utility functions across seven functional categories: character classification, string manipulation, memory management, type conversion, file I/O, string operations with allocation, and linked list operations. The library is designed to be reusable across subsequent 42 projects, replacing reliance on standard C library functions with student-implemented equivalents.
 
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/libft_bonus.webp" alt="Logo" height="175"/> <img src="libft/libft_mark.png" alt="Logo" width="175"/>
-==
+
+---
 
 - [X] #**Born2BeRoot**: system administration project, which involves configuring a secure Debian Linux virtual machine running on VirtualBox. The project demonstrates fundamental system administration skills including OS installation, security hardening, and system monitoring implementation.
 
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/born2beroot_bonus.webp" alt="Logo" height="175"/> <img src="born2beroot/born2beroot_mark.png" alt="Logo" height="175"/>
-==
+
+---
 
 - [X] #**FT_PRINTF**: FT_PRINTF replicates the behavior of the standard printf() function by accepting a format string and a variable number of arguments. It parses the format string character-by-character, identifying format specifiers (indicated by % followed by a type character), and outputs the formatted result to standard output (file descriptor 1).
 
@@ -31,16 +33,56 @@
   - Pointer addresses are prefixed with 0x
 
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/ft_printf.webp" alt="Logo" height="175"/> <img src="ft_printf/ft_printf_mark.png" alt="Logo" height="175"/>
-==
+
+---
 
 - [X] #**GET NEXT LINE**: GET_NEXT_LINE is a file reading utility that returns one line at a time from a file descriptor, implementing efficient buffered I/O using static variable state management. This project teaches advanced C concepts including static variables, file descriptor operations, dynamic memory management, and buffer handling across multiple function calls.
 
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/get_next_line_bonus_max.webp" alt="Logo" height="175"/> <img src="get_next_line/get_next_line_mark.png" alt="Logo" height="175"/>
-==
+
+---
 
 - [X] #**EXAM RANK 02**: Success!!
 
 <img src="exams/Exam_Rank02_mark.png" height="175"/>
-==
+
+---
+
+- [X] #**PUSH_SWAP**: A sophisticated stack-based sorting algorithm implementation that sorts integers using two stacks and a limited set of operations. The program calculates and executes the cheapest sequence of moves (cost based model) to sort a given input, employing a greedy cost-optimization strategy.  
+The architecture follows a pipeline structure: input validation → stack initialization → algorithmic sorting → operation output.
+
+<img src="https://github.com/arlotetxu/42_Badges/blob/main/push_swap.webp" alt="Logo" height="175"/> <img src="push_swap/push_swap_mark.png" alt="Logo" height="175"/>
+
+### List of allowed operations:
+
+| Operation | Function | Behavior | Outputs |
+| :--- | :--- | :--- | :--- |
+| `sa` | `aft_swap(&stack_a, 'a')` | Swaps the first two nodes of stack_a | `sa` |
+| `sb` | `sbft_swap(&stack_b, 'b')` | Swaps the first two nodes of stack_b | `sb` |
+| `pa` | `paft_push_a(&stack_a, &stack_b)` | Takes top of stack_b and puts it on top of stack_a | `pa` |
+| `pb` | `pbft_push_b(&stack_a, &stack_b)` | Takes top of stack_a and puts it on top of stack_b | `pb` |
+| `ra` | `raft_rotate(&stack_a, 'a')` | Rotates stack_a up (first → last) | `ra` |
+| `rb` | `rbft_rotate(&stack_b, 'b')` | Rotates stack_b up (first → last) | `rb` |
+| `rr` | `rrft_rotate_2(&stack_a, &stack_b, 'r')` | Rotates both stacks up | `rr` |
+| `rra` | `rraft_rotate_r(&stack_a, 'a')` | Reverse rotates stack_a (last → first) | `rra` |
+| `rrb` | `rrbft_rotate_r(&stack_b, 'b')` | Reverse rotates stack_b (last → first) | `rrb` |
+| `rrr` | `rrrft_rotate_r_2(&stack_a, &stack_b, 'r')`| Reverse rotates both stacks | `rrr` |
+
+### Build and Compilation
+The push_swap project compiles into a single executable:
+
+```make        # Builds push_swap executable```  
+```make clean  # Removes object files```  
+```make fclean # Removes object files and executable```  
+```make re     # Rebuilds from scratch```  
+
+### Usage
+./push_swap [list of integers]
+
+Examples:
+
+```./push_swap 2 1 3 6 5 8```  
+```./push_swap "3 2 1"```  
+```./push_swap "1 2 3 4"  # Already sorted, no output```  
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arlotetxu/42_cursus_reload)
