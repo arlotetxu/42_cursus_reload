@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 19:43:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/11 16:11:42 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:59:34 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ typedef struct	s_mlx_data
 
 
 //====================PROTOTYPES===================
+//===========sl_utils.c===========
+void	ft_print_error(int err_n);
+void	ft_double_free(char **str);
 
+//===========sl_input_check.c===========
+int	ft_ber2map(int fd, char *map_path, t_mlx_data *mlx_data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:50 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/11 16:16:51 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/12 12:46:39 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	}
 	if (!s2)
 		return (free(s1), NULL);
-	s3 = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	s3 = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1));
 	if (!s3)
 		return (free(s1), NULL);
 	i = -1;
@@ -173,7 +173,7 @@ char	*ft_clean_stack(char *stack)
 		i++;
 	if (!stack[i] || !stack[++i])
 		return (free(stack), NULL);
-	new_stack = malloc(sizeof(char) * (ft_strlen(stack) - i + 1));
+	new_stack = malloc(sizeof(char) * (ft_strlen_gnl(stack) - i + 1));
 	if (!new_stack)
 		return (free(stack), NULL);
 	j = 0;

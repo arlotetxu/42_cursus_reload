@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:41 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/11 16:16:29 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/12 12:27:55 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //============DEFINITIONS===========
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 15
+#  define BUFFER_SIZE 100
 # endif
 
 //============LIBRARIES============

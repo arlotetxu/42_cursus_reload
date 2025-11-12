@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/10/17 13:20:13 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/12 12:45:35 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ft_read_file(int fd, char *stack)
 		if (bytes_r < 0)
 			return (free(buffer), NULL);
 		buffer[bytes_r] = '\0';
-		stack = ft_strjoin(stack, buffer);
+		stack = ft_strjoin_gnl(stack, buffer);
 		if (!stack)
 			return (free(buffer), NULL);
 	}
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	int	fd = open("joflorid.txt", O_RDONLY);
 	char	*line;
@@ -100,4 +100,4 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-}
+} */
