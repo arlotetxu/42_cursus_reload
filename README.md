@@ -66,16 +66,16 @@ The architecture follows a pipeline structure: input validation → stack initia
 
 | Operation | Function | Behavior | Outputs |
 | :--- | :--- | :--- | :--- |
-| `sa` | `aft_swap(&stack_a, 'a')` | Swaps the first two nodes of stack_a | `sa` |
-| `sb` | `sbft_swap(&stack_b, 'b')` | Swaps the first two nodes of stack_b | `sb` |
-| `pa` | `paft_push_a(&stack_a, &stack_b)` | Takes top of stack_b and puts it on top of stack_a | `pa` |
-| `pb` | `pbft_push_b(&stack_a, &stack_b)` | Takes top of stack_a and puts it on top of stack_b | `pb` |
-| `ra` | `raft_rotate(&stack_a, 'a')` | Rotates stack_a up (first → last) | `ra` |
-| `rb` | `rbft_rotate(&stack_b, 'b')` | Rotates stack_b up (first → last) | `rb` |
-| `rr` | `rrft_rotate_2(&stack_a, &stack_b, 'r')` | Rotates both stacks up | `rr` |
-| `rra` | `rraft_rotate_r(&stack_a, 'a')` | Reverse rotates stack_a (last → first) | `rra` |
-| `rrb` | `rrbft_rotate_r(&stack_b, 'b')` | Reverse rotates stack_b (last → first) | `rrb` |
-| `rrr` | `rrrft_rotate_r_2(&stack_a, &stack_b, 'r')`| Reverse rotates both stacks | `rrr` |
+| `sa` | `ft_swap(&stack_a, 'a')` | Swaps the first two nodes of stack_a | `sa` |
+| `sb` | `ft_swap(&stack_b, 'b')` | Swaps the first two nodes of stack_b | `sb` |
+| `pa` | `ft_push_a(&stack_a, &stack_b)` | Takes top of stack_b and puts it on top of stack_a | `pa` |
+| `pb` | `ft_push_b(&stack_a, &stack_b)` | Takes top of stack_a and puts it on top of stack_b | `pb` |
+| `ra` | `ft_rotate(&stack_a, 'a')` | Rotates stack_a up (first → last) | `ra` |
+| `rb` | `ft_rotate(&stack_b, 'b')` | Rotates stack_b up (first → last) | `rb` |
+| `rr` | `ft_rotate_2(&stack_a, &stack_b, 'r')` | Rotates both stacks up | `rr` |
+| `rra` | `ft_rotate_r(&stack_a, 'a')` | Reverse rotates stack_a (last → first) | `rra` |
+| `rrb` | `ft_rotate_r(&stack_b, 'b')` | Reverse rotates stack_b (last → first) | `rrb` |
+| `rrr` | `ft_rotate_r_2(&stack_a, &stack_b, 'r')`| Reverse rotates both stacks | `rrr` |
 
 ### Build and Compilation
 The push_swap project compiles into a single executable:
