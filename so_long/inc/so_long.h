@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 19:43:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/12 13:59:34 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:08:33 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct	s_map_data
 	char	**map;
 	int		lines;
 	int		column;
+	int		start_x; //!Posicion inicial del player coordenada x (column)
+	int		start_y; //!Posicion inicial del player coordenada y (line)
 }				t_map_data;
 
 typedef struct	s_win_data
@@ -51,9 +53,23 @@ typedef struct	s_mlx_data
 //====================PROTOTYPES===================
 //===========sl_utils.c===========
 void	ft_print_error(int err_n);
-void	ft_double_free(char **str);
+void	ft_freeing(char **str, t_mlx_data *mlx_data);
+int		ft_strlen_sl(char *str);
 
-//===========sl_input_check.c===========
+//===========sl_parse_map.c===========
 int	ft_ber2map(int fd, char *map_path, t_mlx_data *mlx_data);
+
+//===========sl_initial_checks1.c===========
+int	ft_check_map_ext(char *argv1);
+int	ft_map_rectangle(t_mlx_data *mlx_data);
+int	ft_map_is_closed(t_mlx_data *mlx_data);
+int	ft_check_chars(t_mlx_data *mlx_data);
+
+//===========sl_initial_checks2.c===========
+int	ft_total_chars(t_mlx_data *mlx_data);
+
+//===========sl_initial_checks3.c===========
+void	ft_free_double(char **str);
+char	**ft_map_dup(t_map_data *map_data);
 
 #endif
