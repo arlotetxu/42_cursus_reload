@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:11:08 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/13 13:35:44 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:08:00 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	ft_ber2map(int fd, char *map_path, t_mlx_data *mlx_data)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		return (2);
-	mlx_data->map_info.map = malloc(sizeof(char *) * (lines + 1)); //!MALLOC
+	mlx_data->map_info.map = malloc(sizeof(char *) * (lines + 1));
 	if (!mlx_data->map_info.map)
 		return (close(fd), 3);
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:40:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/13 15:55:48 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:08:24 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ void	ft_print_error(int err_n)
 		ft_printf("\x1b[41mError.\nInvalid number of arguments.\n\x1b[0m");
 	else if (err_n == 2)
 		ft_printf("\x1b[41mError.\nMap file couldn't be found.\n\x1b[0m");
-	// else if (err_n == 3)
-	// 	ft_printf("\x1b[41mError.\nCannot load the map. Mem issues.\n\x1b[0m");
-	// else if (err_n == 4)
-	// 	ft_printf("\x1b[41mError.\nCannot load the map in array.\n\x1b[0m");
-	// else if (err_n == 5)
-	// 	ft_printf("\x1b[41mError.\nCannot load the map in array.\n\x1b[0m");
 	else if (err_n == 6)
 		ft_printf("\x1b[41mError.\nWrong map file.\n\x1b[0m");
 	else if (err_n == 7)
@@ -47,6 +41,8 @@ void	ft_print_error(int err_n)
 		ft_printf("\x1b[41mError.\nWrong character type in the map.\n\x1b[0m");
 	else if (err_n == 10)
 		ft_printf("\x1b[41mError.\nWrong characters number.\n\x1b[0m");
+	else if (err_n == 11)
+		ft_printf("\x1b[41mError.\nMap with no solution.\n\x1b[0m");
 }
 
 /*==============================================================================
@@ -99,4 +95,16 @@ int	ft_strlen_sl(char *str)
 		str++;
 	}
 	return (count);
+}
+
+void	ft_free_double(char **str)
+{
+	int	i;
+
+	if (!str)
+		return ;
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	free(str);
 }

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 11:50:56 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/13 17:31:06 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:57:18 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,81 @@ CHECK LIST INPUT VALIDATION
 * Caracteres validos en el mapa (Ojo mayusculas - minusculas).//?OK
 * Al menos 1 coleccionable (C), 1 salida(E) y 1 posicion inicial de personaje(P).
 	0 y 1 para paredes y espacios abiertos //?OK
-* El mapa es valido. Se llega a la salida sin dejarse ningun coleccionable
+* El mapa es valido. Se llega a la salida sin dejarse ningun coleccionable //?OK
 	flood_fill()
 En caso de fallos de configuración de cualquier tipo encontrados en el archivo, el
 programa debe terminar correctamente y devolver “Error\n” seguido de un mensaje
 explícito de tu elección.
 */
 
+/* int	ft_intial_checks(char *map_path, t_mlx_data *mlx_data)
+{
+	int	ret;
+
+	ret = 0;
+	ret = ft_check_map_ext(map_path);
+	if (ret)
+		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	ret = ft_map_rectangle(mlx_data);
+	if (ret)
+		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	ret = ft_map_is_closed(mlx_data);
+	if (ret)
+		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	ret = ft_check_chars(mlx_data);
+	if (ret)
+		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	ret = ft_total_chars(mlx_data);
+	if (ret)
+		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	ret = ft_check_map_possible(mlx_data);
+	if (ret)
+		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	return (ret);
+} */
+int	ft_intial_checks(char *map_path, t_mlx_data *mlx_data)
+{
+	int	ret;
+
+	ret = 0;
+	ret = ft_check_map_ext(map_path);
+	if (ret)
+		return (ret);
+	ret = ft_map_rectangle(mlx_data);
+	if (ret)
+		return (ret);
+	ret = ft_map_is_closed(mlx_data);
+	if (ret)
+		return (ret);
+	ret = ft_check_chars(mlx_data);
+	if (ret)
+		return (ret);
+	ret = ft_total_chars(mlx_data);
+	if (ret)
+		return (ret);
+	ret = ft_check_map_possible(mlx_data);
+	if (ret)
+		return (ret);
+	return (ret);
+}
+
+
+int	ft_launcher(int fd, char *map_path, t_mlx_data *mlx_data)
+{
+	int	ret;
+
+	ret = 0;
+	ret = ft_ber2map(fd, map_path, mlx_data);
+	close(fd);
+	if (ret)
+		return (ft_print_error(ret), free(mlx_data), ret);
+	ret = ft_intial_checks(map_path, mlx_data);
+	//if (ret)
+		//return (ft_print_error(ret), free(mlx_data), ret);
+		//return (ft_print_error(ret), ft_freeing(mlx_data->map_info.map, mlx_data), free (mlx_data), ret);
+		//return (ret);
+	return (ret);
+}
 /*
 ERROR CODES
 1 - Invalid number of arguments
@@ -44,13 +112,14 @@ ERROR CODES
 8 - Map with different line's length.
 9 - Wrong character type in the map.
 10 - Wrong characters number.
+11 - Map with no solution.
+12 - Couldn't get a map copied in ft_check_map_possible()
 */
 int	main(int argc, char **argv)
 {
 	int			fd;
 	int			ret;
 	t_mlx_data	*mlx_data;
-	char		**map_dup;
 
 	if (argc != 2)
 		return (ft_print_error(1), 1);
@@ -62,42 +131,45 @@ int	main(int argc, char **argv)
 		return (1);
 	mlx_data->mlx_ptr = NULL;
 	mlx_data->map_info.map = NULL;
-	//================================================
-
-	//Parseo del mapa
-	ret = ft_ber2map(fd, argv[1], mlx_data);
-	close(fd);
-	if (ret)
-		return (ft_print_error(ret), free(mlx_data), ret);
-	//Chequeo de la extension
-	ret = ft_check_map_ext(argv[1]);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	//Chequeo es rectangulo
-	ret = ft_map_rectangle(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	//Chequeo el mapa esta cerrado
-	ret = ft_map_is_closed(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	//Chequeo que los caracteres en el mapa son validos
-	ret = ft_check_chars(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	//Chequeo que el num de caracteres especiales es valido
-	ret = ft_total_chars(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-
-	map_dup = ft_map_dup(&mlx_data->map_info); //!Liberar la copia del mapa
-	ft_free_double(map_dup);
+	ret = 0;
+	ret = ft_launcher(fd, argv[1], mlx_data);
 
 
+	// //================================================
+
+	// //Parseo del mapa
+	// ret = ft_ber2map(fd, argv[1], mlx_data);
+	// close(fd);
+	// if (ret)
+	// 	return (ft_print_error(ret), free(mlx_data), ret);
+	// //Chequeo de la extension
+	// ret = ft_check_map_ext(argv[1]);
+	// if (ret)
+	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	// //Chequeo es rectangulo
+	// ret = ft_map_rectangle(mlx_data);
+	// if (ret)
+	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	// //Chequeo el mapa esta cerrado
+	// ret = ft_map_is_closed(mlx_data);
+	// if (ret)
+	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	// //Chequeo que los caracteres en el mapa son validos
+	// ret = ft_check_chars(mlx_data);
+	// if (ret)
+	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	// //Chequeo que el num de caracteres especiales es valido
+	// ret = ft_total_chars(mlx_data);
+	// if (ret)
+	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
+	// //Chequeo que el mapa tiene solucion
+	// ret = ft_check_map_possible(mlx_data);
+	// if (ret)
+	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
 	if (mlx_data->map_info.map)
 		ft_freeing(mlx_data->map_info.map, mlx_data);
 	// if (mlx_data->mlx_ptr)
 	// 	free(mlx_data->mlx_ptr);
 	//free(mlx_data);
-	return (0);
+	return (ret);
 }

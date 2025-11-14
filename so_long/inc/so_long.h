@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 19:43:30 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/13 17:08:33 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:49:30 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_mlx_data
 void	ft_print_error(int err_n);
 void	ft_freeing(char **str, t_mlx_data *mlx_data);
 int		ft_strlen_sl(char *str);
+void	ft_free_double(char **str);
 
 //===========sl_parse_map.c===========
 int	ft_ber2map(int fd, char *map_path, t_mlx_data *mlx_data);
@@ -69,7 +70,8 @@ int	ft_check_chars(t_mlx_data *mlx_data);
 int	ft_total_chars(t_mlx_data *mlx_data);
 
 //===========sl_initial_checks3.c===========
-void	ft_free_double(char **str);
 char	**ft_map_dup(t_map_data *map_data);
+char	**ft_flood_fill_start(t_map_data *map_data);
+int		ft_check_map_possible(t_mlx_data *mlx_data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 11:13:01 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/13 15:33:46 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:07:22 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	ft_check_map_ext(char *argv1)
 	argv1[start] = '\0';
 	if (ft_strncmp(ext, ".ber", 4))
 		return (free(ext), 6);
-
 	free(ext);
 	return (0);
 }
@@ -135,10 +134,8 @@ RETURN:
 int	ft_check_chars(t_mlx_data *mlx_data)
 {
 	int	i;
-	//int	lines;
 	int	j;
 
-	//lines = mlx_data->map_info.lines - 1;
 	i = -1;
 	while (++i < mlx_data->map_info.lines)
 	{
