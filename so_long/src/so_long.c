@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlo <arlo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 11:50:56 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/14 15:57:18 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/15 09:33:10 by arlo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ int	ft_launcher(int fd, char *map_path, t_mlx_data *mlx_data)
 	ret = ft_ber2map(fd, map_path, mlx_data);
 	close(fd);
 	if (ret)
-		return (ft_print_error(ret), free(mlx_data), ret);
+		//return (ft_print_error(ret), free(mlx_data), ret);
+		return (ft_print_error(ret), ret);
 	ret = ft_intial_checks(map_path, mlx_data);
 	//if (ret)
 		//return (ft_print_error(ret), free(mlx_data), ret);
 		//return (ft_print_error(ret), ft_freeing(mlx_data->map_info.map, mlx_data), free (mlx_data), ret);
 		//return (ret);
-	return (ret);
+	return (ft_print_error(ret), ret);
 }
 /*
 ERROR CODES

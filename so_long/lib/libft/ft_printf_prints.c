@@ -132,7 +132,7 @@ RETURN:
 ==============================================================================*/
 int	ft_print_uint(unsigned int nbr)
 {
-	if (nbr >= 0 && nbr <= 9)
+	if (nbr >0 && nbr <= 9)
 		ft_print_char(nbr + '0');
 	if (nbr > 9)
 	{

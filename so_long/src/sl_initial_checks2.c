@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_initial_checks2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlo <arlo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:35:00 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/13 16:08:10 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/15 09:08:09 by arlo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_total_chars(t_mlx_data *mlx_data)
 	count_e += ft_count_char(mlx_data, 'E');
 	count_c = ft_count_char(mlx_data, 'c');
 	count_c += ft_count_char(mlx_data, 'C');
-	if (count_p > 1 || count_e > 1 || count_c < 1)
+	if (count_p != 1 || count_e != 1 || count_c < 1)
 		return (10);
 	return (0);
 }
