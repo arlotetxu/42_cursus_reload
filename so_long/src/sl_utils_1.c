@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:40:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/14 13:08:24 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:33:15 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,15 @@ void	ft_free_double(char **str)
 	while (str[++i])
 		free(str[i]);
 	free(str);
+}
+
+int	ft_close_window(t_mlx_data *mlx_data)
+{
+
+	mlx_destroy_window(mlx_data->mlx_ptr, mlx_data->win_info.win_ptr);
+	mlx_destroy_display(mlx_data->mlx_ptr);
+	ft_freeing(mlx_data->map_info.map, mlx_data);
+	//free(mlx_data->mlx_ptr);
+	//free(mlx_data);
+	exit(0);
 }

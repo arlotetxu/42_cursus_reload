@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlo <arlo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 11:50:56 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/15 09:33:10 by arlo             ###   ########.fr       */
+/*   Updated: 2025/11/17 16:30:02 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,6 @@ programa debe terminar correctamente y devolver “Error\n” seguido de un mens
 explícito de tu elección.
 */
 
-/* int	ft_intial_checks(char *map_path, t_mlx_data *mlx_data)
-{
-	int	ret;
-
-	ret = 0;
-	ret = ft_check_map_ext(map_path);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	ret = ft_map_rectangle(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	ret = ft_map_is_closed(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	ret = ft_check_chars(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	ret = ft_total_chars(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	ret = ft_check_map_possible(mlx_data);
-	if (ret)
-		return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	return (ret);
-} */
 int	ft_intial_checks(char *map_path, t_mlx_data *mlx_data)
 {
 	int	ret;
@@ -92,14 +67,14 @@ int	ft_launcher(int fd, char *map_path, t_mlx_data *mlx_data)
 	ret = ft_ber2map(fd, map_path, mlx_data);
 	close(fd);
 	if (ret)
-		//return (ft_print_error(ret), free(mlx_data), ret);
 		return (ft_print_error(ret), ret);
 	ret = ft_intial_checks(map_path, mlx_data);
-	//if (ret)
-		//return (ft_print_error(ret), free(mlx_data), ret);
-		//return (ft_print_error(ret), ft_freeing(mlx_data->map_info.map, mlx_data), free (mlx_data), ret);
-		//return (ret);
-	return (ft_print_error(ret), ret);
+	if (ret)
+		return (ft_print_error(ret), ret);
+	//!INICIALIZAR VENTANA
+	ret = ft_graphics_init(mlx_data);
+
+	return (ret);
 }
 /*
 ERROR CODES
@@ -115,6 +90,8 @@ ERROR CODES
 10 - Wrong characters number.
 11 - Map with no solution.
 12 - Couldn't get a map copied in ft_check_map_possible()
+13 - The X server cannot be initilizated
+14 - The Window couldn't be created
 */
 int	main(int argc, char **argv)
 {
@@ -135,38 +112,9 @@ int	main(int argc, char **argv)
 	ret = 0;
 	ret = ft_launcher(fd, argv[1], mlx_data);
 
+	mlx_destroy_window(mlx_data->mlx_ptr, mlx_data->win_info.win_ptr);
+	mlx_destroy_display(mlx_data->mlx_ptr);
 
-	// //================================================
-
-	// //Parseo del mapa
-	// ret = ft_ber2map(fd, argv[1], mlx_data);
-	// close(fd);
-	// if (ret)
-	// 	return (ft_print_error(ret), free(mlx_data), ret);
-	// //Chequeo de la extension
-	// ret = ft_check_map_ext(argv[1]);
-	// if (ret)
-	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	// //Chequeo es rectangulo
-	// ret = ft_map_rectangle(mlx_data);
-	// if (ret)
-	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	// //Chequeo el mapa esta cerrado
-	// ret = ft_map_is_closed(mlx_data);
-	// if (ret)
-	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	// //Chequeo que los caracteres en el mapa son validos
-	// ret = ft_check_chars(mlx_data);
-	// if (ret)
-	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	// //Chequeo que el num de caracteres especiales es valido
-	// ret = ft_total_chars(mlx_data);
-	// if (ret)
-	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
-	// //Chequeo que el mapa tiene solucion
-	// ret = ft_check_map_possible(mlx_data);
-	// if (ret)
-	// 	return (ft_freeing(mlx_data->map_info.map, mlx_data), ret);
 	if (mlx_data->map_info.map)
 		ft_freeing(mlx_data->map_info.map, mlx_data);
 	// if (mlx_data->mlx_ptr)
