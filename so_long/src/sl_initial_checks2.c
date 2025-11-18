@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_initial_checks2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlo <arlo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:35:00 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/15 09:08:09 by arlo             ###   ########.fr       */
+/*   Updated: 2025/11/18 15:16:23 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ PARAMETERS:
 RETURN:
 	count --> The times the character 'c' is found.
 ==============================================================================*/
-static int	ft_count_char(t_mlx_data *mlx_data, char c)
+int	ft_count_char(t_mlx_data *mlx_data, char c)
 {
 	int	count;
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:40:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/17 11:33:15 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/18 13:18:32 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ DESCRIPTION:
 	explanation about the error.
 
 PARAMETERS:
-	**stack --> A pointer to the stack in which the movement has to be applied.
-
-	stack_id --> Stack identification
+	err_n --> Error code.
 
 RETURN:
 	Nothing.
@@ -43,6 +41,10 @@ void	ft_print_error(int err_n)
 		ft_printf("\x1b[41mError.\nWrong characters number.\n\x1b[0m");
 	else if (err_n == 11)
 		ft_printf("\x1b[41mError.\nMap with no solution.\n\x1b[0m");
+	else if (err_n == 13)
+		ft_printf("\x1b[41mError.\nGraphics couldn't be initialized.\n\x1b[0m");
+	else if (err_n == 15)
+		ft_printf("\x1b[41mError.\nThe textures couldn't be loaded.\n\x1b[0m");
 }
 
 /*==============================================================================
@@ -97,6 +99,16 @@ int	ft_strlen_sl(char *str)
 	return (count);
 }
 
+/*==============================================================================
+DESCRIPTION:
+	ft_free_double() frees a double char pointer (string array).
+
+PARAMETERS:
+	**str --> A pointer to the string array.
+
+RETURN:
+	Nothing
+==============================================================================*/
 void	ft_free_double(char **str)
 {
 	int	i;
@@ -107,15 +119,4 @@ void	ft_free_double(char **str)
 	while (str[++i])
 		free(str[i]);
 	free(str);
-}
-
-int	ft_close_window(t_mlx_data *mlx_data)
-{
-
-	mlx_destroy_window(mlx_data->mlx_ptr, mlx_data->win_info.win_ptr);
-	mlx_destroy_display(mlx_data->mlx_ptr);
-	ft_freeing(mlx_data->map_info.map, mlx_data);
-	//free(mlx_data->mlx_ptr);
-	//free(mlx_data);
-	exit(0);
 }
