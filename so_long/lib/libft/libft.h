@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 12:24:36 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/05 15:31:36 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/19 11:14:05 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
 //=============PROTOTYPES=============
 int		ft_isalpha(int c);
@@ -85,5 +89,13 @@ int		ft_print_int(int n);
 int		ft_print_uint(unsigned int nbr);
 int		ft_hex_len(unsigned long n);
 int		ft_nbr_uint_len(unsigned int nbr);
+
+//=============GET_NEXT_LINE=============
+char	*get_next_line(int fd);
+char	*ft_clean_stack(char *stack);
+char	*ft_fill_line(char *stack);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+size_t	ft_strlen_gnl(char *s);
+int		ft_check_char_gnl(char *str);
 
 #endif

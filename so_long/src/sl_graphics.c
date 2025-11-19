@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:03:53 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/18 15:55:05 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/19 10:45:46 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ RETURN:
 ==============================================================================*/
 int	ft_render_map(t_mlx_data *mlx_data)
 {
-	int	line;
-	int	col;
+	int		line;
+	int		col;
 	void	*img_ptr;
 
 	line = -1;
@@ -73,7 +73,7 @@ int	ft_render_map(t_mlx_data *mlx_data)
 			&& mlx_data->map_info.map[line][col] != '\n')
 		{
 			img_ptr = ft_get_textures(mlx_data->map_info.map[line][col],
-				mlx_data);
+					mlx_data);
 			if (img_ptr)
 				mlx_put_image_to_window(mlx_data->mlx_ptr,
 					mlx_data->win_info.win_ptr, img_ptr, col * IMG_PIX_L,
@@ -110,14 +110,15 @@ int	ft_graphics_init(t_mlx_data *mlx_data)
 	mlx_data->win_info.win_height = IMG_PIX_H * mlx_data->map_info.lines;
 	mlx_data->win_info.win_length = IMG_PIX_L * mlx_data->map_info.column;
 	mlx_data->win_info.win_ptr = mlx_new_window(mlx_data->mlx_ptr,
-		mlx_data->win_info.win_length, mlx_data->win_info.win_height, "42_BAT");
+			mlx_data->win_info.win_length, mlx_data->win_info.win_height,
+			"42_BATMAN");
 	if (!mlx_data->win_info.win_ptr)
 		ft_close_window(mlx_data, 14);
 	ret = ft_load_textures(mlx_data);
 	if (ret)
 		ft_close_window(mlx_data, ret);
 	mlx_hook(mlx_data->win_info.win_ptr, 17, 0, ft_close_window, mlx_data);
-	mlx_hook(mlx_data->win_info.win_ptr, 02, (1L<<0), ft_moves, mlx_data);
+	mlx_hook(mlx_data->win_info.win_ptr, 02, (1L << 0), ft_moves, mlx_data);
 	ft_render_map(mlx_data);
 	mlx_loop(mlx_data->mlx_ptr);
 	return (0);

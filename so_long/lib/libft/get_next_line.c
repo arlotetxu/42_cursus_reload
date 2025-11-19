@@ -6,11 +6,11 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:46 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/13 10:11:26 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/19 11:15:34 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 /*==============================================================================
 DESCRIPTION
@@ -36,7 +36,7 @@ static char	*ft_read_file(int fd, char *stack)
 	if (!buffer)
 		return (NULL);
 	bytes_r = 1;
-	while (!ft_check_char(stack) && bytes_r > 0)
+	while (!ft_check_char_gnl(stack) && bytes_r > 0)
 	{
 		bytes_r = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_r < 0)
@@ -76,7 +76,7 @@ char	*get_next_line(int fd)
 	stack = ft_read_file(fd, stack);
 	if (!stack || !stack[0])
 		return (free(stack), stack = NULL, NULL);
-	if (!ft_check_char(stack))
+	if (!ft_check_char_gnl(stack))
 		return (line = stack, stack = NULL, line);
 	line = ft_fill_line(stack);
 	stack = ft_clean_stack(stack);

@@ -6,11 +6,11 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 16:32:50 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/12 12:46:39 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/19 11:15:12 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 /*
 ================================================================================
@@ -101,7 +101,7 @@ RETURN VALUE
 	0 --> If the character is NOT found.
 ================================================================================
 */
-int	ft_check_char(char *str)
+int	ft_check_char_gnl(char *str)
 {
 	if (!str)
 		return (0);

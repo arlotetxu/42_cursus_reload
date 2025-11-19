@@ -6,31 +6,11 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 11:50:56 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/18 16:50:49 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/19 10:41:27 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-
-
-/*
-CHECK LIST INPUT VALIDATION
-
-* Numero de argumentos correctos //?OK
-* Argumento con extension .ber //?OK
-* El fichero existe fd != -1 //?OK
-* Parsear el mapa con gnl //?OK
-* El mapa es rectangular //?OK
-* El mapa esta cerrado //?OK
-* Caracteres validos en el mapa (Ojo mayusculas - minusculas).//?OK
-* Al menos 1 coleccionable (C), 1 salida(E) y 1 posicion inicial de personaje(P).
-	0 y 1 para paredes y espacios abiertos //?OK
-* El mapa es valido. Se llega a la salida sin dejarse ningun coleccionable //?OK
-	flood_fill()
-En caso de fallos de configuración de cualquier tipo encontrados en el archivo, el
-programa debe terminar correctamente y devolver “Error\n” seguido de un mensaje
-explícito de tu elección.
-*/
 
 /*==============================================================================
 DESCRIPTION:
@@ -104,7 +84,8 @@ static int	ft_intial_checks(char *map_path, t_mlx_data *mlx_data)
 DESCRIPTION:
 	ft_launcher() starts the program. It calls the function ft_ber2map() to
 	parse the map file to a char ** to do all the needed checks. Then, it starts
-	the graphics and finally it starts the game.
+	the graphics and finally it starts the game in the function
+	ft_graphics_init().
 
 PARAMETERS:
 	*map_path --> The path to the map file got from argv[1]
@@ -132,11 +113,11 @@ static int	ft_launcher(int fd, char *map_path, t_mlx_data *mlx_data)
 	ret = ft_graphics_init(mlx_data);
 	if (ret)
 		return (ft_print_error(ret), ret);
-	//!INICIO JUEGO
 	return (ret);
 }
+
 /*
-ERROR CODES
+RETURN ERROR CODES
 1 - Invalid number of arguments
 2 - Cannot open the map file.
 3 - Cannot load the map. Memory issues.

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 16:35:53 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/18 16:01:14 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/19 10:47:14 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,17 @@ int	ft_load_textures(t_mlx_data *mlx_data)
 
 	w = IMG_PIX_L;
 	h = IMG_PIX_H;
-
 	mlx_data->tex.wall = mlx_xpm_file_to_image(mlx_data->mlx_ptr, WALL, &w, &h);
 	mlx_data->tex.floor = mlx_xpm_file_to_image(mlx_data->mlx_ptr, FLOOR,
-		&w, &h);
+			&w, &h);
 	mlx_data->tex.player = mlx_xpm_file_to_image(mlx_data->mlx_ptr, PLAYER,
-		&w, &h);
+			&w, &h);
 	mlx_data->tex.collect = mlx_xpm_file_to_image(mlx_data->mlx_ptr, COLLECT,
-		&w, &h);
+			&w, &h);
 	mlx_data->tex.exit_ = mlx_xpm_file_to_image(mlx_data->mlx_ptr, EXIT_,
-		&w, &h);
+			&w, &h);
 	mlx_data->tex.trans = mlx_xpm_file_to_image(mlx_data->mlx_ptr, TRANS,
-		&w, &h);
+			&w, &h);
 	if (!mlx_data->tex.wall || !mlx_data->tex.floor || !mlx_data->tex.player
 		|| !mlx_data->tex.collect || !mlx_data->tex.exit_
 		|| !mlx_data->tex.trans)

@@ -6,7 +6,7 @@
 /*   By: joflorid <joflorid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:40:09 by joflorid          #+#    #+#             */
-/*   Updated: 2025/11/18 13:18:32 by joflorid         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:19:11 by joflorid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_print_error(int err_n)
 	else if (err_n == 7)
 		ft_printf("\x1b[41mError.\nThe map is not a rectangle.\n\x1b[0m");
 	else if (err_n == 8)
-		ft_printf("\x1b[41mError.\nMap with different line's length.\n\x1b[0m");
+		ft_printf("\x1b[41mError.\nMap is not closed.\n\x1b[0m");
 	else if (err_n == 9)
 		ft_printf("\x1b[41mError.\nWrong character type in the map.\n\x1b[0m");
 	else if (err_n == 10)
