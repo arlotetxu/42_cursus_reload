@@ -93,5 +93,14 @@ Examples:
 ```./push_swap 2 1 3 6 5 8```  
 ```./push_swap "3 2 1"```  
 ```./push_swap "1 2 3 4"  # Already sorted, no output```  
+<br>
+<br>
+---
+<br>
+
+- [X] #**SO_LONG**: a 2D graphical game implementation using the MiniLibX library for window management and graphics rendering. The so_long project serves as an introduction to graphical programming in the 42 curriculum.
+
+<img src="https://github.com/arlotetxu/42_Badges/blob/main/so_long.webp" alt="Logo" height="175"/> <img src="so_long/so_long_mark.png" alt="Logo" height="175"/>
+
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arlotetxu/42_cursus_reload)
