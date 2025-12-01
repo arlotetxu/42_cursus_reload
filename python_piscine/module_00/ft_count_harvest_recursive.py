@@ -1,5 +1,4 @@
 def ft_count_harvest_r(current_day: int, total_days: int) -> None:
-    # Base Case: If the current day is greater than the total, stop.
     if current_day > total_days:
         print("Harvest time!")
         return
