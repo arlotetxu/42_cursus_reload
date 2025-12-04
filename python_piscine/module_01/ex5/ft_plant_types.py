@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_garden_security.py                              :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: joflorid <joflorid@student.42urduliz.com>  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/03 09:22:55 by joflorid          #+#    #+#              #
-#    Updated: 2025/12/03 09:23:12 by joflorid         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 class Plant:
     """
@@ -105,6 +94,12 @@ class Flower(Plant):
     def __init__(self, name, height, age, color: str):
         """
         Initializes a new Flower instance. Prints basics & specific features
+
+        Args:
+            name (str): The name of the plant.
+            height (float): The initial height of the plant in cm.
+            age (int): The initial age of the plant in days.
+            color (str): The flower's color
         """
         super().__init__(name, height, age)
         self.color = color
@@ -123,6 +118,13 @@ class Tree(Plant):
     def __init__(self, name, height, age, trunk_diameter: int, shade: int):
         """
         Initializes a new Tree instance. Prints basics & specific features
+
+        Args:
+            name (str): The name of the plant.
+            height (float): The initial height of the plant in cm.
+            age (int): The initial age of the plant in days.
+            trunk_diameter (int): The tree's trunk diameter
+            shade (int): The shade the tree generates
         """
         super().__init__(name, height, age)
         self.shade = shade
@@ -139,12 +141,19 @@ class Tree(Plant):
 
 
 class Vegetable(Plant):
-    """
-        Initializes a new vegetable instance. Prints basics & specific
-        features
-    """
+
     def __init__(self, name, height, age, harvest_season: str,
                  nutritional_value: str):
+        """Initializes a new vegetable instance. Prints basics & specific
+        features
+
+        Args:
+            name (str): The name of the plant.
+            height (float): The initial height of the plant in cm.
+            age (int): The initial age of the plant in days.
+            harvest_season (str): The season to harvest the vegetable
+            nutritional_value (str): The specific nutrition vegetable feature
+        """
         super().__init__(name, height, age)
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value

@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_garden_intro.py                                 :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: joflorid <joflorid@student.42urduliz.com>  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/03 09:25:11 by joflorid          #+#    #+#              #
-#    Updated: 2025/12/03 09:25:16 by joflorid         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 def ft_garden_intro() -> None:
     """Prints a static introduction to a garden."""
