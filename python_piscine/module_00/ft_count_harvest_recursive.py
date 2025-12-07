@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 def ft_count_harvest_r(current_day: int, total_days: int) -> None:
     if current_day > total_days:
         print("Harvest time!")

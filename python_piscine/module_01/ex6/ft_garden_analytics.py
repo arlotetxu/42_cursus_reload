@@ -6,7 +6,7 @@ class GardenManager:
     simulate plant growth, and generate detailed reports about garden status.
 
     Attributes:
-        gardens (dict): A dictionary mapping gardener names to their list
+        - gardens (dict): A dictionary mapping gardener names to their list
         of plants.
     """
 
@@ -60,8 +60,8 @@ class GardenManager:
         a height validation test, and garden scores for all gardeners.
 
         Args:
-            gardener_name (str): The name of the gardener for whom to generate
-                                 the report.
+            - gardener_name (str): The name of the gardener for whom to
+            generate the report.
         """
         plants_list = self.gardens[gardener_name]
         total_growth = self.GardenStats.calculate_total_grow(plants_list)
@@ -109,7 +109,7 @@ class GardenManager:
         It prints a welcome message for the Garden Management System Demo.
 
         Returns:
-            cls: An instance of the GardenManager class."""
+            - cls: An instance of the GardenManager class."""
 
         print("=== Garden Management System Demo ===")
         return cls()
@@ -126,10 +126,10 @@ class GardenManager:
             Calculates the total height of a list of plants.
 
             Args:
-                plants (list): A list of plant objects.
+                - plants (list): A list of plant objects.
 
             Returns:
-                int: The sum of the heights of all plants in the list.
+                - int: The sum of the heights of all plants in the list.
             """
 
             total_height = 0
@@ -140,13 +140,15 @@ class GardenManager:
         @staticmethod
         def calculate_total_grow(plants: list) -> int:
             """
-            Calculates the total growth (sum of _grow attribute) of a list of plants.
+            Calculates the total growth (sum of _grow attribute) of a list
+            of plants.
 
             Args:
-                plants (list): A list of plant objects.
+                - plants (list): A list of plant objects.
 
             Returns:
-                int: The sum of the _grow attribute for all plants in the list.
+                - int: The sum of the _grow attribute for all plants in the
+                list.
             """
             total_grow = 0
             for plant in plants:
@@ -160,10 +162,10 @@ class GardenManager:
             additional points for PrizeFlower instances.
 
             Args:
-                plants (list): A list of plant objects.
+                - plants (list): A list of plant objects.
 
             Returns:
-                int: The total score.
+                - int: The total score.
             """
             total_points = 0
             for plant in plants:
@@ -185,9 +187,9 @@ class Plant():
         Initializes a new Plant instance.
 
         Args:
-            name (str): The name of the plant.
-            height (int): The initial height of the plant in centimeters.
-            age (int): The age of the plant in years.
+            - name (str): The name of the plant.
+            - height (int): The initial height of the plant in centimeters.
+            - age (int): The age of the plant in years.
         """
         self.height = height
         self.age = age
@@ -196,12 +198,15 @@ class Plant():
     def grow(self, cms_grow: int):
         """
         Simulates the growth of the plant by increasing its height.
-        If cms_grow is negative, it prints an error message and rejects the operation.
+        If cms_grow is negative, it prints an error message and rejects the
+        operation.
 
         Args:
-            cms_grow (int): The amount in centimeters by which the plant will grow.
+            - cms_grow (int): The amount in centimeters by which the plant
+            will grow.
+
         Returns:
-            None
+            - None
         """
         if cms_grow < 0:
             print(f"\nInvalid operation attempted: height "
@@ -214,7 +219,8 @@ class Plant():
 
 class FloweringPlant(Plant):
     """
-    Represents a flowering plant, inheriting from Plant and adding a color attribute.
+    Represents a flowering plant, inheriting from Plant and adding a color
+    attribute.
     """
 
     def __init__(self, name: str, height: int, age: int, color: str):
@@ -223,9 +229,10 @@ class FloweringPlant(Plant):
         Initializes a new FloweringPlant instance.
 
         Args:
-            name (str): The name of the flowering plant.
-            height (int): The initial height of the flowering plant in centimeters.
-            age (int): The age of the flowering plant in years.
+            - name (str): The name of the flowering plant.
+            - height (int): The initial height of the flowering plant in
+            centimeters.
+            - age (int): The age of the flowering plant in years.
             color (str): The color of the flowers.
         """
         self.color = color
@@ -244,35 +251,37 @@ class PrizeFlower(FloweringPlant):
         Initializes a new PrizeFlower instance.
 
         Args:
-            name (str): The name of the prize-winning flowering plant.
-            height (int): The initial height of the prize-winning flowering plant in centimeters.
-            age (int): The age of the prize-winning flowering plant in years.
-            color (str): The color of the flowers.
-            points (int): The prize points awarded to the plant.
+            - name (str): The name of the prize-winning flowering plant.
+            - height (int): The initial height of the prize-winning flowering
+            plant in centimeters.
+            - age (int): The age of the prize-winning flowering plant in
+            years.
+            - color (str): The color of the flowers.
+            - points (int): The prize points awarded to the plant.
         """
         super().__init__(name, height, age, color)
         self.points = points
 
 
 if __name__ == "__main__":
-    # 1. Crear el manager usando el método de clase
+    # 1. Creating the manager instance
     manager = GardenManager.create_garden_network()
 
-    # 2. Crear las plantas
+    # 2. Creating plants instances
     oak = Plant("Oak Tree", 100, 12)
     rose = FloweringPlant("Rose", 25, 13, "red")
     sunflower = PrizeFlower("Sunflower", 50, 14, "yellow", 10)
 
-    # 3. Añadir plantas al jardín de Alice
+    # 3. Adding plants to Alice's garden
     manager.add_plant("Alice", oak)
     manager.add_plant("Alice", rose)
     manager.add_plant("Alice", sunflower)
 
-    # 4. Simular crecimiento (manual para el ejemplo)
+    # 4. Simulating the growth
     manager.simulate_growth("Alice", 1)
 
-    # 5. Añadir otro jardín para probar el score múltiple
+    # 5. Adding plant to Bob's garden
     manager.add_plant("Bob", Plant("Cactus", 10, 15))
 
-    # 6. Generar reporte
+    # 6. Creating the report
     manager.generate_report("Alice")
