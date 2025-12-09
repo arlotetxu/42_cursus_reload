@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 def ft_seed_inventory(seed_type: str, quantity: int, unit: str) -> None:
-    str_final = ""
+    str_final: str = ""
     if unit == "packets":
         str_final = (f"{seed_type.capitalize()} seeds: {quantity} "
                      f"packets available")
