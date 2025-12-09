@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 
 def ft_garden_intro() -> None:
-    """Prints a static introduction to a garden."""
+    """
+    Display information about a garden plant.
+
+    This function prints a formatted welcome message for a garden program,
+    displaying details about a plant including its name, height, and age.
+
+    Returns:
+        None
+    """
+
     name = "Rose"
     height = 25
     age = 30
@@ -14,4 +23,3 @@ def ft_garden_intro() -> None:
 
 if __name__ == '__main__':
     ft_garden_intro()
-# ft_garden_intro()

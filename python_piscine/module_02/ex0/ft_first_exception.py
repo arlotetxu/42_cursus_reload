@@ -25,8 +25,9 @@ def test_temperature_input() -> None:
     """
     Test function to validate temperature input handling and error cases.
 
-    This function tests the check_temperature function with various input values
-    including valid temperatures, invalid strings, and out-of-range values.
+    This function tests the check_temperature function with various input
+    values including valid temperatures, invalid strings, and out-of-range
+    values.
 
     It prints a formatted report for each test case.
 

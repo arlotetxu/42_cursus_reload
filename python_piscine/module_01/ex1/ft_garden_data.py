@@ -2,20 +2,62 @@
 
 class Plant:
     """
-    DOCSTRING
+    A class to represent a plant in a garden.
+
+    Attributes
+    ----------
+    name : str
+        The name of the plant.
+    height : float
+        The height of the plant in centimeters.
+    age : int
+        The age of the plant in days.
+
+    Methods
+    -------
+    get_garden_data() -> None:
+        Prints the plant's name, height, and age.
+    __repr__() -> str:
+        Returns a string representation of the plant.
     """
+
     def __init__(self, name: str, height: float, age: int) -> None:
+        """
+        Initialize a new instance of the class.
+
+        Args:
+            name (str): The name of the object.
+            height (float): The height of the object.
+            age (int): The age of the object.
+
+        Returns:
+            None
+        """
         self.name = name
         self.height = height
         self.age = age
 
     def get_garden_data(self) -> None:
         """
-        docstring
+        Prints the garden data for the current plant instance.
+
+        Displays the plant's name, height in centimeters, and age in days
+        in a formatted string to the standard output.
+
+        Returns:
+            None
         """
+
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
     def __repr__(self) -> str:
+        """
+        Return a string representation of the Plant object.
+
+        Returns:
+            str: A formatted string containing the plant's name, height in
+                centimeters, and age in days.
+        """
         return f"Plant: {self.name} / Height: {self.height}cm " \
             f"/ Age: {self.age} days"
 

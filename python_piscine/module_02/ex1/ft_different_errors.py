@@ -31,6 +31,22 @@ def garden_operations(error_type: int):
 
 
 def test_error_types():
+    """
+    This function tests the garden_operations function with various inputs that
+    trigger different types of exceptions: ValueError, ZeroDivisionError,
+    FileNotFoundError, and KeyError. Each exception is caught and handled
+    individually, with informative messages printed to the console.
+
+    The function also demonstrates catching multiple exception types together
+    in a single try-except block.
+
+    Raises:
+        No exceptions are raised; all exceptions are caught and handled
+        internally.
+
+    Returns:
+        None
+    """
     try:
         print("Testing ValueError...")
         garden_operations(1)

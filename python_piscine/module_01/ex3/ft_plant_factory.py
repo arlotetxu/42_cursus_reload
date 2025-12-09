@@ -2,19 +2,42 @@
 
 class Plant:
     """
-    Represents a single plant with properties like name, height, and age.
+    A class representing a plant with basic growth tracking functionality.
+
+    This module provides a Plant class that can be used to create and manage
+    plant instances, tracking their name, height, and age over time.
+
+    Attributes:
+        num_plants (int): Class variable that tracks the total number of
+            Plant instances created.
+
+    Example:
+        >>> plant = Plant("Rose", 10.5, 30)
+        >>> plant.get_info()
+        Created: Rose (10.5cm, 30 days)
+        >>> plant.grow(2.5)
+        >>> print(plant)
+        Plant(name='Rose', height=13.0, age=30)
+
+    Note:
+        There is a naming conflict between the `age` attribute and the `age`
+        method. Consider renaming the method to `add_age` or `increase_age`
+        to avoid this issue.
     """
+
     num_plants = 0
 
     def __init__(self, name: str, height: float, age: int) -> None:
         """
-        Initializes a new Plant instance.
-
+        Initialize a new Plant instance.
         Args:
             name (str): The name of the plant.
-            height (float): The initial height of the plant in cm.
-            age (int): The initial age of the plant in days.
+            height (float): The height of the plant.
+            age (int): The age of the plant.
+        Returns:
+            None
         """
+
         self.name = name
         self.height = height
         self.age = age
@@ -22,26 +45,46 @@ class Plant:
 
     def get_info(self) -> None:
         """
-        Prints the current information about the plant.
+        Print information about the plant.
+
+        Displays the plant's name, height in centimeters, and age in days
+        to the standard output.
+        Returns:
+            None
         """
+
         print(f"Created: {self.name} ({self.height}cm, {self.age} days)")
 
     def grow(self, q_grow: float) -> None:
         """
-        Increases the plant's height by a given amount.
+        Increases the plant's height by the specified growth amount.
+        Args:
+            q_grow (float): The quantity to add to the plant's current height.
+        Returns:
+            None
         """
+
         self.height += q_grow
 
-    def age(self, q_days: int) -> None:
+    def aging(self, q_days: int) -> None:
         """
-        Increases the plant's age by a given amount.
+        Increases the plant's age by the specified number of days minus one.
+        Args:
+            q_days (int): The quantity of days to add to the plant's age.
+                          The actual age increase will be q_days - 1.
+        Returns:
+            None
         """
+
         self.age += q_days - 1
 
     def __repr__(self) -> str:
+        """Return a string representation of the Plant object.
+        Returns:
+            str: A formatted string containing the plant's name, height, and
+                age in the format "Plant(name='...', height=..., age=...)".
         """
-        Provides a developer-friendly string representation of the plant.
-        """
+
         return f"Plant(name='{self.name}', height={self.height}, " \
                f"age={self.age})"
 
@@ -83,7 +126,7 @@ if __name__ == "__main__":
     garden = ft_plant_factory(plant_definitions)
 
     # Display the created plants in an organized format
-    print("=== Plants Created in the Garden ===")
+    print("=== Plant Factory Output ===")
     for plant in garden:
         plant.get_info()
 
