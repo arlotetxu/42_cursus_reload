@@ -10,30 +10,30 @@ class SecurePlant:
     Attributes:
         num_plants (int): Class variable tracking the total number of plant
                           instances created.
-        _height (float): The protected height of the plant in centimeters.
+        _height (int): The protected height of the plant in centimeters.
         _age (int): The protected age of the plant in days.
 
     Example:
-        >>> plant = SecurePlant("Rose", 15.5, 30)
+        >>> plant = SecurePlant("Rose", 15, 30)
         Plant created: Rose
         >>> plant.get_height()
         15.5
-        >>> plant.set_height(20.0)
-        Height updated: 20.0cm [OK]
-        >>> plant.set_height(-5.0)
-        Invalid operation attempted: height -5.0cm [REJECTED]
+        >>> plant.set_height(20)
+        Height updated: 20cm [OK]
+        >>> plant.set_height(-5)
+        Invalid operation attempted: height -5cm [REJECTED]
         Security: Negative height rejected
     """
 
     num_plants = 0
 
-    def __init__(self, name: str, height: float, age: int) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         """
         Initializes a new Plant instance.
 
         Args:
             name (str): The name of the plant.
-            height (float): The initial height of the plant in cm.
+            height (int): The initial height of the plant in cm.
             age (int): The initial age of the plant in days.
         """
         self.name = name
@@ -55,24 +55,24 @@ class SecurePlant:
         print(f"\nCurrent plant: {self.name} ({self._height}cm,"
               f"{self._age} days)")
 
-    def get_height(self) -> float:
+    def get_height(self) -> int:
         """
         Get the height of the object.
 
         Returns:
-            float: The height value of the object.
+            int: The height value of the object.
         """
 
         return self._height
 
-    def set_height(self, value: float) -> None:
+    def set_height(self, value: int) -> None:
         """
         Set the height of the object with security validation. If the value
         is negative, the operation is rejected and an error message is
         printed. Otherwise, the height is updated.
 
         Args:
-            value (float): The height value in centimeters to be set.
+            value (int): The height value in centimeters to be set.
 
         Returns:
             None
@@ -156,11 +156,11 @@ if __name__ == "__main__":
     print("=== Garden Security System ===")
     # Define all plants to be created in one place
     plant_definitions = [
-        {"name": "Rose", "height": 30.0, "age": 60},
-        # {'name': "Oak", 'height': 200.0, 'age': 365},
-        # {'name': "Cactus", 'height': 5.0, 'age': 90},
-        # {'name': "Sunflower", 'height': 80.0, 'age': 45},
-        # {'name': "Fern", 'height': 15.0, 'age': 120},
+        {"name": "Rose", "height": 30, "age": 60},
+        # {'name': "Oak", 'height': 200, 'age': 365},
+        # {'name': "Cactus", 'height': 5, 'age': 90},
+        # {'name': "Sunflower", 'height': 80, 'age': 45},
+        # {'name': "Fern", 'height': 15, 'age': 120},
     ]
 
     # Use the ft_plant_factory to create all plants at once

@@ -8,7 +8,7 @@ class Plant:
     ----------
     name : str
         The name of the plant.
-    height : float
+    height : int
         The height of the plant in centimeters.
     age : int
         The age of the plant in days.
@@ -21,13 +21,13 @@ class Plant:
         Returns a string representation of the plant.
     """
 
-    def __init__(self, name: str, height: float, age: int) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         """
         Initialize a new instance of the class.
 
         Args:
             name (str): The name of the object.
-            height (float): The height of the object.
+            height (int): The height of the object.
             age (int): The age of the object.
 
         Returns:

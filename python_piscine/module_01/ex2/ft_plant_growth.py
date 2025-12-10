@@ -11,22 +11,22 @@ class Plant:
         Plant: Represents a plant with name, height, and age attributes.
 
     Example:
-        >>> plant = Plant("Sunflower", 10.5, 30)
+        >>> plant = Plant("Sunflower", 10, 30)
         >>> plant.get_info()
-        Sunflower: 10.5cm, 30 days old
-        >>> plant.grow(5.0)
+        Sunflower: 10cm, 30 days old
+        >>> plant.grow(5)
         >>> plant.add_age(7)
         >>> print(plant)
-        Plant: Sunflower / Height: 15.5cm / Age: 36 days
+        Plant: Sunflower / Height: 15cm / Age: 36 days
     """
 
-    def __init__(self, name: str, height: float, age: int) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         """
         Initialize a Plant instance.
 
         Args:
             name (str): The name of the plant.
-            height (float): The height of the plant.
+            height (int): The height of the plant.
             age (int): The age of the plant.
 
         Returns:
@@ -50,12 +50,12 @@ class Plant:
 
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
-    def grow(self, q_grow: float) -> None:
+    def grow(self, q_grow: int) -> None:
         """
         Increase the plant's height by a specified growth amount.
 
         Args:
-            q_grow (float): The quantity of growth to add to the plant's
+            q_grow (int): The quantity of growth to add to the plant's
             height.
 
         Returns:
@@ -91,14 +91,14 @@ class Plant:
             f"/ Age: {self.age} days"
 
 
-def ft_plant_growth(name: str, height: float, age: int) -> None:
+def ft_plant_growth(name: str, height: int, age: int) -> None:
     """
     Simulates the growth of a plant over a week and prints its progress.
 
     Args:
         name (str): The name of the plant (e.g., "Rose", "Sunflower",
         "Cactus").
-        height (float): The initial height of the plant in cm.
+        height (int): The initial height of the plant in cm.
         age (int): The initial age of the plant in days.
 
     Returns:
@@ -129,6 +129,6 @@ def ft_plant_growth(name: str, height: float, age: int) -> None:
 
 
 if __name__ == "__main__":
-    ft_plant_growth(name="Rose", height=25.0, age=30)
-    ft_plant_growth(name="Sunflower", height=80.0, age=45)
+    ft_plant_growth(name="Rose", height=25, age=30)
+    ft_plant_growth(name="Sunflower", height=80, age=45)
     ft_plant_growth(name="Cactus", height=15, age=120)

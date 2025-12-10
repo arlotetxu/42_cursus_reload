@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 class GardenManager:
-    """A class to manage gardens and their plants for multiple gardeners.
+    """
+    A class to manage gardens and their plants for multiple gardeners.
     This class provides functionality to add plants to gardeners' gardens,
     simulate plant growth, and generate detailed reports about garden status.
 
@@ -28,11 +29,13 @@ class GardenManager:
             """
         if gardener_name not in self.gardens:
             self.gardens[gardener_name] = []
+
         self.gardens[gardener_name].append(plant)
         print(f"\nAdded {plant.name} to {gardener_name}'s garden")
 
     def simulate_growth(self, gardener_name: str, cms: int) -> None:
-        """Simulates growth for all plants in a specified gardener's garden.
+        """
+        Simulates growth for all plants in a specified gardener's garden.
 
         Args:
             - gardener_name (str): The name of the gardener whose plants
@@ -54,7 +57,8 @@ class GardenManager:
             plant.grow(cms)
 
     def generate_report(self, gardener_name) -> None:
-        """Generates a detailed report for a specific gardener's garden.
+        """
+        Generates a detailed report for a specific gardener's garden.
 
         The report includes plant details, total growth, plant type counts,
         a height validation test, and garden scores for all gardeners.
@@ -219,12 +223,12 @@ class Plant():
 
 class FloweringPlant(Plant):
     """
-    Represents a flowering plant, inheriting from Plant and adding a color
-    attribute.
+    A class representing a flowering plant, extending the Plant base class.
+    This class adds flower color as an additional attribute to the basic
+    plant properties inherited from the Plant class.
     """
 
     def __init__(self, name: str, height: int, age: int, color: str):
-        super().__init__(name, height, age)
         """
         Initializes a new FloweringPlant instance.
 
@@ -235,14 +239,25 @@ class FloweringPlant(Plant):
             - age (int): The age of the flowering plant in years.
             color (str): The color of the flowers.
         """
+        super().__init__(name, height, age)
         self.color = color
 
 
 class PrizeFlower(FloweringPlant):
-
     """
-    Represents a prize-winning flowering plant, inheriting from FloweringPlant
-    and adding a points attribute.
+    A class representing a prize-winning flowering plant.
+    This class extends FloweringPlant to include prize points awarded
+    to exceptional flowering plants in competitions or exhibitions.
+
+    Attributes:
+        name (str): The name of the prize-winning flowering plant.
+        height (int): The height of the plant in centimeters.
+        age (int): The age of the plant in years.
+        color (str): The color of the flowers.
+        points (int): The prize points awarded to the plant.
+
+    Inherits from:
+        FloweringPlant: Base class for flowering plants.
     """
 
     def __init__(self, name: str, height: int, age: int,

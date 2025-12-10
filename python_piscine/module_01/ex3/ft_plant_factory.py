@@ -12,27 +12,22 @@ class Plant:
             Plant instances created.
 
     Example:
-        >>> plant = Plant("Rose", 10.5, 30)
+        >>> plant = Plant("Rose", 10, 30)
         >>> plant.get_info()
-        Created: Rose (10.5cm, 30 days)
-        >>> plant.grow(2.5)
+        Created: Rose (10cm, 30 days)
+        >>> plant.grow(2)
         >>> print(plant)
-        Plant(name='Rose', height=13.0, age=30)
-
-    Note:
-        There is a naming conflict between the `age` attribute and the `age`
-        method. Consider renaming the method to `add_age` or `increase_age`
-        to avoid this issue.
+        Plant(name='Rose', height=12, age=30)
     """
 
     num_plants = 0
 
-    def __init__(self, name: str, height: float, age: int) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         """
         Initialize a new Plant instance.
         Args:
             name (str): The name of the plant.
-            height (float): The height of the plant.
+            height (int): The height of the plant.
             age (int): The age of the plant.
         Returns:
             None
@@ -55,11 +50,11 @@ class Plant:
 
         print(f"Created: {self.name} ({self.height}cm, {self.age} days)")
 
-    def grow(self, q_grow: float) -> None:
+    def grow(self, q_grow: int) -> None:
         """
         Increases the plant's height by the specified growth amount.
         Args:
-            q_grow (float): The quantity to add to the plant's current height.
+            q_grow (int): The quantity to add to the plant's current height.
         Returns:
             None
         """
@@ -115,11 +110,11 @@ def ft_plant_factory(plants_data: list[dict]) -> list[Plant]:
 if __name__ == "__main__":
     # Define all plants to be created in one place
     plant_definitions = [
-        {'name': "Rose", 'height': 25.0, 'age': 30},
-        {'name': "Oak", 'height': 200.0, 'age': 365},
-        {'name': "Cactus", 'height': 5.0, 'age': 90},
-        {'name': "Sunflower", 'height': 80.0, 'age': 45},
-        {'name': "Fern", 'height': 15.0, 'age': 120},
+        {'name': "Rose", 'height': 25, 'age': 30},
+        {'name': "Oak", 'height': 200, 'age': 365},
+        {'name': "Cactus", 'height': 5, 'age': 90},
+        {'name': "Sunflower", 'height': 80, 'age': 45},
+        {'name': "Fern", 'height': 15, 'age': 120},
     ]
 
     # Use the factory to create all plants at once

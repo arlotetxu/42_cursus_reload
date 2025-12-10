@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 def garden_operations(error_type: int):
     """
     Demonstrate different types of Python errors based on error type.
@@ -18,6 +17,7 @@ def garden_operations(error_type: int):
         FileNotFoundError: If error_type is 3
         KeyError: If error_type is 4
     """
+
     if error_type == 1:
         int("abc")
     elif error_type == 2:
@@ -81,5 +81,5 @@ def test_error_types():
     print("All error types tested successfully!")
 
 
-# if __name__ == "__main__":
-#     test_error_types()
+if __name__ == "__main__":
+    test_error_types()

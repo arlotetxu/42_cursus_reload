@@ -2,18 +2,33 @@
 
 class Plant:
     """
-    Represents a single plant with properties like name, height, and age.
+    A class representing a plant with basic attributes and behaviors.
+    This module defines a Plant class that tracks plant information including
+    name, height, and age. It includes validation to prevent negative values
+    for height and age.
+
+    Attributes:
+        num_plants (int): Class variable that tracks the total number of Plant
+            instances created.
+    Example:
+        >>> plant = Plant("Rose", 30, 60)
+        >>> plant.get_info()
+        Rose (Plant): 30cm, 60 days,
+        >>> plant.set_height(35)
+        Height updated: 35cm [OK]
+        >>> plant.get_height()
+        35
     """
 
     num_plants = 0
 
-    def __init__(self, name: str, height: float, age: int) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         """
         Initializes a new Plant instance.
 
         Args:
             name (str): The name of the plant.
-            height (float): The initial height of the plant in cm.
+            height (int): The initial height of the plant in cm.
             age (int): The initial age of the plant in days.
         """
         self.name = name
@@ -23,29 +38,35 @@ class Plant:
 
     def get_info(self) -> None:
         """
-        Prints the current information about the plant.
+        Display information about the plant.
+
+        Prints the plant's name, class type, height in centimeters,
+        and age in days to the standard output.
+
+        Returns:
+            None
         """
+
         print(f"{self.name} ({self.__class__.__name__}): {self._height}cm, "
               f"{self._age} days", end=", ")
 
-    @property
-    def height(self) -> float:
+    def get_height(self) -> int:
         """
-        Prints the plant's height. GETTER
+        Get the height of the plant. GETTER
 
         Returns:
-            float: self._height
+            int: The height of the plant.
         """
+
         return self._height
 
-    @height.setter
-    def height(self, value: float) -> None:
+    def set_height(self, value: int) -> None:
         """
         Changes the plant's height by a given value. This value must be psitive
-        otherwise the change is not executed.
+        otherwise the change is not executed. SETTER
 
         Args:
-            value (float): The new value to update the plant's height
+            value (int): The new value to update the plant's height
         """
         if value < 0:
             print("\nInvalid operation attempted: "
@@ -55,21 +76,19 @@ class Plant:
             self._height = value
             print(f"Height updated: {self._height}cm [OK]")
 
-    @property
-    def age(self) -> int:
+    def get_age(self) -> int:
         """
-        Prints the plant's age. GETTER
+        Get the age of the plant. GETTER
 
         Returns:
-            float: self._age
+            int: The age of the plant.
         """
         return self._age
 
-    @age.setter
-    def age(self, value: int) -> None:
-        """_summary_
+    def set_age(self, value: int) -> None:
+        """
         Changes the plant's age by a given value. This value must be psitive
-        otherwise the change is not executed.
+        otherwise the change is not executed. SETTER
 
         Args:
             value (int): The new value to update the plant's age
@@ -97,7 +116,7 @@ class Flower(Plant):
 
         Args:
             name (str): The name of the plant.
-            height (float): The initial height of the plant in cm.
+            height (int): The initial height of the plant in cm.
             age (int): The initial age of the plant in days.
             color (str): The flower's color
         """
@@ -108,35 +127,43 @@ class Flower(Plant):
 
     def bloom(self):
         """
-        Prints specific message about flowers
+        Display a message indicating that the plant is blooming.
+
+        Returns:
+            None
         """
+
         print(f"{self.name} is blooming beautifully!\n")
 
 
 class Tree(Plant):
 
-    def __init__(self, name, height, age, trunk_diameter: int, shade: int):
+    def __init__(self, name, height, age, trunk_diameter: int):
         """
         Initializes a new Tree instance. Prints basics & specific features
 
         Args:
             name (str): The name of the plant.
-            height (float): The initial height of the plant in cm.
+            height (int): The initial height of the plant in cm.
             age (int): The initial age of the plant in days.
             trunk_diameter (int): The tree's trunk diameter
             shade (int): The shade the tree generates
         """
         super().__init__(name, height, age)
-        self.shade = shade
         self.trunk_diameter = trunk_diameter
         self.get_info()
         print(f"{self.trunk_diameter}cm diameter")
 
     def produce_shade(self):
         """
-        Prints specific message about trees
+        Calculate and display the shade produced by the tree.
+        The shade area is calculated by multiplying the trunk diameter by 4.
+        Returns:
+            None: Prints the shade area in square meters to stdout.
         """
-        print(f"{self.name} provides {self.shade} square meters of "
+
+        shade = self.trunk_diameter * 4
+        print(f"{self.name} provides {shade} square meters of "
               f"shade\n")
 
 
@@ -149,7 +176,7 @@ class Vegetable(Plant):
 
         Args:
             name (str): The name of the plant.
-            height (float): The initial height of the plant in cm.
+            height (int): The initial height of the plant in cm.
             age (int): The initial age of the plant in days.
             harvest_season (str): The season to harvest the vegetable
             nutritional_value (str): The specific nutrition vegetable feature
@@ -162,8 +189,12 @@ class Vegetable(Plant):
 
     def nutritional_info(self):
         """
-        Prints specific message about vegetables
+        Display the nutritional information of the plant.
+
+        Returns:
+            None
         """
+
         print(f"{self.name} is rich in {self.nutritional_value}\n")
 
 
@@ -180,11 +211,11 @@ if __name__ == "__main__":
         ],
         "Tree": [
             {"name": "Oak", "height": 500.0, "age": 100,
-             "trunk_diameter": 25, "shade": 78},
+             "trunk_diameter": 25, },
             {"name": "Pine", "height": 700.0, "age": 30,
-             "trunk_diameter": 5, "shade": 22},
+             "trunk_diameter": 5, },
             {"name": "Beech", "height": 500.0, "age": 80,
-             "trunk_diameter": 15, "shade": 45},
+             "trunk_diameter": 15, },
         ],
         "Vegetable": [
             {"name": "Tomato", "height": 80.0, "age": 91,
@@ -210,8 +241,7 @@ if __name__ == "__main__":
                                   height=plant_details["height"],
                                   age=plant_details["age"],
                                   trunk_diameter=plant_details["trunk_"
-                                                               "diameter"],
-                                  shade=plant_details["shade"])
+                                                               "diameter"],)
                 t_instance.produce_shade()
             elif plant_type == "Vegetable":
                 v_instance = Vegetable(name=plant_details["name"],
