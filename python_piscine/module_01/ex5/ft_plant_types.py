@@ -202,12 +202,10 @@ if __name__ == "__main__":
 
     plant_data = {
         "Flower": [
-            {"name": "Rose", "height": 25.0, "age": 30,
-             "color": "red"},
+            {"name": "Rose", "height": 25.0, "age": 30, "color": "red"},
             {"name": "Sunflower", "height": 80.0, "age": 45,
              "color": "yellow"},
-            {"name": "Violet", "height": 15.0, "age": 15,
-             "color": "purple"},
+            {"name": "Violet", "height": 15.0, "age": 15, "color": "purple"},
         ],
         "Tree": [
             {"name": "Oak", "height": 500.0, "age": 100,
