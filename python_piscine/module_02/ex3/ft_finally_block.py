@@ -20,7 +20,7 @@ def water_plants(plant_list: list) -> None:
     """
 
     plant_list_ok = ["tomato", "lettuce", "carrots"]
-    print("Openning watering system")
+    print("Opening watering system")
     try:
         for plant in plant_list:
             if plant not in plant_list_ok:
