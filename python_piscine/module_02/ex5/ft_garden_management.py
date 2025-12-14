@@ -1,64 +1,19 @@
 #!/usr/bin/env python3
 
 class GardenError(Exception):
-    """
-    A custom exception class for garden-related errors.
 
-    This exception is raised when there are issues related to garden operations
-    or garden-related functionality.
-
-    Attributes:
-        message (str): The error message describing the garden issue.
-            Defaults to "Exception: Garden with issues".
-
-    Example:
-        >>> raise GardenError("Invalid plant type")
-        Traceback (most recent call last):
-            ...
-        GardenError: Invalid plant type
-
-        >>> raise GardenError()
-        Traceback (most recent call last):
-            ...
-        GardenError: Exception: Garden with issues
-    """
     def __init__(self, message: str = "Exception: Garden with issues") -> None:
         Exception.__init__(self, message)
 
 
 class PlantError(GardenError):
-    """
-    Exception raised when a plant encounters an error in the garden.
 
-    This exception is a subclass of GardenError and is specifically used
-    to indicate issues with individual plants.
-
-    Attributes:
-        plant_name (str): The name of the plant that encountered the error.
-
-    Example:
-        >>> raise PlantError("Rose")
-        PlantError: The Rose plant is wilting!
-    """
     def __init__(self, message) -> None:
         GardenError.__init__(self, message)
 
 
 class WaterError(GardenError):
-    """
-    Exception raised when there is insufficient water in the tank.
 
-    This exception is a subclass of GardenError and is raised when
-    water-related operations.
-
-    Attributes:
-        message (str): Explanation of the error, defaults to "Not enough water
-        in the tank!"
-
-    Example:
-        >>> raise WaterError()
-        GardenError: Not enough water in the tank!
-    """
     def __init__(self, plant_: Plant) -> None:
         message = ""
         if plant_.water > 10:
@@ -69,20 +24,7 @@ class WaterError(GardenError):
 
 
 class SunError(GardenError):
-    """
-    Exception raised when there is insufficient sun for the plant.
 
-    This exception is a subclass of GardenError and is raised when
-    sun-related operations.
-
-    Attributes:
-        message (str): Explanation of the error, defaults to "Not enough water
-        in the tank!"
-
-    Example:
-        >>> raise WaterError()
-        GardenError: Not enough water in the tank!
-    """
     def __init__(self, plant_: Plant) -> None:
         if plant_.sun > 12:
             message = f"Error checking {plant_.name}: sun light {plant_.sun} is too high (max 12)"
