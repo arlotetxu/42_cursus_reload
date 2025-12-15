@@ -22,33 +22,35 @@ class Plant:
 
     num_plants = 0
 
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: int, p_age: int) -> None:
         """
         Initialize a new Plant instance.
         Args:
             name (str): The name of the plant.
             height (int): The height of the plant.
-            age (int): The age of the plant.
+            p_age (int): The age of the plant.
         Returns:
             None
         """
 
         self.name = name
         self.height = height
-        self.age = age
+        self.p_age = p_age
         Plant.num_plants += 1
+        print(f"Created: {self.name} ({self.height}cm, {self.p_age} days)")
 
     def get_info(self) -> None:
         """
-        Print information about the plant.
+        Display information about the plant.
 
-        Displays the plant's name, height in centimeters, and age in days
+        Prints the plant's name, current height in centimeters, and age in days
         to the standard output.
+
         Returns:
             None
         """
 
-        print(f"Created: {self.name} ({self.height}cm, {self.age} days)")
+        print(f"{self.name}: {self.height}cm, {self.p_age} days old")
 
     def grow(self, q_grow: int) -> None:
         """
@@ -61,7 +63,7 @@ class Plant:
 
         self.height += q_grow
 
-    def aging(self, q_days: int) -> None:
+    def age(self, q_days: int) -> None:
         """
         Increases the plant's age by the specified number of days minus one.
         Args:
@@ -71,42 +73,10 @@ class Plant:
             None
         """
 
-        self.age += q_days - 1
-
-    def __repr__(self) -> str:
-        """Return a string representation of the Plant object.
-        Returns:
-            str: A formatted string containing the plant's name, height, and
-                age in the format "Plant(name='...', height=..., age=...)".
-        """
-
-        return f"Plant(name='{self.name}', height={self.height}, " \
-               f"age={self.age})"
+        self.p_age += q_days - 1
 
 
-def ft_plant_factory(plants_data: list[dict]) -> list[Plant]:
-    """
-    Creates multiple Plant instances from a list of data.
-
-    This function acts as a factory, taking a list of dictionaries where each
-    dictionary contains the data for one plant, and returns a list of
-    created Plant objects.
-
-    Args:
-        plants_data (list[dict]): A list where each item is a dictionary
-                                  with 'name', 'height', and 'age' keys.
-
-    Returns:
-        list[Plant]: A list containing all the created Plant instances.
-    """
-    created_plants = []
-    for data in plants_data:
-        plant = Plant(name=data['name'], height=data['height'],
-                      age=data['age'])
-        created_plants.append(plant)
-    return created_plants
-
-
+# MAIN=======================================================================
 if __name__ == "__main__":
     # Define all plants to be created in one place
     plant_definitions = [
@@ -117,12 +87,14 @@ if __name__ == "__main__":
         {'name': "Fern", 'height': 15, 'age': 120},
     ]
 
-    # Use the factory to create all plants at once
-    garden = ft_plant_factory(plant_definitions)
+    created_plants = []
 
     # Display the created plants in an organized format
     print("=== Plant Factory Output ===")
-    for plant in garden:
-        plant.get_info()
+
+    for data in plant_definitions:
+        plant = Plant(name=data['name'], height=data['height'],
+                      p_age=data['age'])
+        created_plants.append(plant)
 
     print(f"\nTotal plants created: {Plant.num_plants}")

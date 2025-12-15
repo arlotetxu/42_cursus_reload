@@ -37,37 +37,15 @@ class Plant:
         self.height = height
         self.age = age
 
-    def get_garden_data(self) -> None:
-        """
-        Prints the garden data for the current plant instance.
 
-        Displays the plant's name, height in centimeters, and age in days
-        in a formatted string to the standard output.
-
-        Returns:
-            None
-        """
-
-        print(f"{self.name}: {self.height}cm, {self.age} days old")
-
-    def __repr__(self) -> str:
-        """
-        Return a string representation of the Plant object.
-
-        Returns:
-            str: A formatted string containing the plant's name, height in
-                centimeters, and age in days.
-        """
-        return f"Plant: {self.name} / Height: {self.height}cm " \
-            f"/ Age: {self.age} days"
-
-
+# MAIN======================================================================
 if __name__ == "__main__":
     plant_1 = Plant("Rose", 25, 30)
     plant_2 = Plant("Sunflower", 80, 45)
     plant_3 = Plant("Cactus", 15, 120)
 
+    plants = [plant_1, plant_2, plant_3]
+
     print("=== Garden Plant Registry ===")
-    plant_1.get_garden_data()
-    plant_2.get_garden_data()
-    plant_3.get_garden_data()
+    for plant in plants:
+        print(f"{plant.name}: {plant.height}cm, {plant.age} days old")

@@ -27,7 +27,7 @@ class SecurePlant:
 
     num_plants = 0
 
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: int = 0, age: int = 0) -> None:
         """
         Initializes a new Plant instance.
 
@@ -39,8 +39,8 @@ class SecurePlant:
         self.name = name
         self._height = height
         self._age = age
+
         SecurePlant.num_plants += 1
-        print(f"Plant created: {self.name}")
 
     def get_info(self) -> None:
         """
@@ -116,61 +116,16 @@ class SecurePlant:
             self._age = value
             print(f"Age updated: {self._age} days [OK]")
 
-    def __repr__(self) -> str:
-        """
-        Return a string representation of the Plant object.
-
-        Returns:
-            str: A string representation of the Plant object in the format
-                 "Plant(name='<name>', height=<height>, age=<age>)".
-        """
-
-        return f"Plant(name='{self.name}', height={self.height}," \
-            f"age={self.age})"
-
-
-def ft_plant_factory(plants_data: list[dict]) -> list[SecurePlant]:
-    """
-    Creates multiple Plant instances from a list of data.
-
-    This function acts as a factory, taking a list of dictionaries where each
-    dictionary contains the data for one plant, and returns a list of
-    created Plant objects.
-
-    Args:
-        plants_data (list[dict]): A list where each item is a dictionary
-                                  with 'name', 'height', and 'age' keys.
-
-    Returns:
-        list[Plant]: A list containing all the created Plant instances.
-    """
-    created_plants = []
-    for data in plants_data:
-        plant = SecurePlant(name=data["name"], height=data["height"],
-                            age=data["age"])
-        created_plants.append(plant)
-    return created_plants
-
 
 if __name__ == "__main__":
     print("=== Garden Security System ===")
-    # Define all plants to be created in one place
-    plant_definitions = [
-        {"name": "Rose", "height": 30, "age": 60},
-        # {'name': "Oak", 'height': 200, 'age': 365},
-        # {'name': "Cactus", 'height': 5, 'age': 90},
-        # {'name': "Sunflower", 'height': 80, 'age': 45},
-        # {'name': "Fern", 'height': 15, 'age': 120},
-    ]
 
-    # Use the ft_plant_factory to create all plants at once
-    garden = ft_plant_factory(plant_definitions)
-
-    rose = next((p for p in garden if p.name == "Rose"), None)
+    rose = SecurePlant(name="Rose", height=15, age=20)
+    print(f"Plant created: {rose.name}")
     rose.set_height(25)
     rose.set_age(30)
 
     rose.set_height(-5)
-    rose.set_age(-15)
+    # rose.set_age(-15)
 
     rose.get_info()

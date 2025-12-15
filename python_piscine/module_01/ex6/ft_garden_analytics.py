@@ -12,26 +12,28 @@ class GardenManager:
     """
 
     def __init__(self):
-        """Initialize a new GardenManager instance with an empty gardens
+        """
+        Initialize a new GardenManager instance with an empty gardens
         dictionary.
         """
         self.gardens = {}
 
-    def add_plant(self, gardener_name, plant) -> None:
-        """ Add a plant to a gardener's garden.
+    def add_plant(self, gardener_name: str, plant) -> None:
+        """
+        Add a plant to a gardener's garden.
 
-            Args:
-                - gardener_name: The name of the gardener.
-                - plant: The plant object to add to the garden.
+        Args:
+            - gardener_name: The name of the gardener.
+            - plant: The plant object to add to the garden.
 
-            Returns:
-                None
-            """
+        Returns:
+            None
+        """
         if gardener_name not in self.gardens:
             self.gardens[gardener_name] = []
 
         self.gardens[gardener_name].append(plant)
-        print(f"\nAdded {plant.name} to {gardener_name}'s garden")
+        print(f"Added {plant.name} to {gardener_name}'s garden")
 
     def simulate_growth(self, gardener_name: str, cms: int) -> None:
         """
@@ -74,6 +76,7 @@ class GardenManager:
         total_prize = 0
 
         print(f"\n=== {gardener_name}'s Garden Report ===")
+        print("Plants in garden:")
         for plant in plants_list:
             if isinstance(plant, PrizeFlower):
                 print(f"- {plant.name}: {plant.height}cm, "
@@ -89,11 +92,14 @@ class GardenManager:
                 total_regular += 1
 
         print(f"\nPlants added: {len(plants_list)}, "
-              f"Total growth: {total_growth}")
+              f"Total growth: {total_growth}cm")
         print(f"Plant types: {total_regular} regular, "
               f"{total_flowering} flowering, {total_prize} prize flowers")
 
-        validation_status = all(plant.height >= 0 for plant in plants_list)
+        validation_status = True
+        for plant in plants_list:
+            if plant.height < 0:
+                validation_status = False
         print(f"\nHeight validation test: {validation_status}")
 
         gardener_scores = {}
@@ -101,8 +107,12 @@ class GardenManager:
             gardener_scores[gardener] = \
                 self.GardenStats.calculate_score(plants)
         print("Garden scores -", end="")
-        for gardener, score in gardener_scores.items():
-            print(f" {gardener}: {score}", end=",")
+        gardener_items = list(gardener_scores.items())
+        for gardener, score in gardener_items[:-1]:
+            print(f" {gardener}: {score},", end="")
+        if gardener_items:
+            gardener, score = gardener_items[-1]
+            print(f" {gardener}: {score}", end="")
 
         print(f"\nTotal gardens managed: {len(self.gardens.keys())}")
 
@@ -115,7 +125,7 @@ class GardenManager:
         Returns:
             - cls: An instance of the GardenManager class."""
 
-        print("=== Garden Management System Demo ===")
+        print("=== Garden Management System Demo ===\n")
         return cls()
 
     class GardenStats:
@@ -295,7 +305,7 @@ if __name__ == "__main__":
     # 4. Simulating the growth
     manager.simulate_growth("Alice", 1)
 
-    # 5. Adding plant to Bob's garden
+    # # 5. Adding plant to Bob's garden
     manager.add_plant("Bob", Plant("Cactus", 10, 15))
 
     # 6. Creating the report
