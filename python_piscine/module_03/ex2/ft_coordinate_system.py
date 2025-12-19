@@ -82,7 +82,5 @@ if __name__ == "__main__":
         print(f"Error details - Type: {e.__class__.__name__}, Args: {e.args}")
 
     print("\nUnpacking demonstration:")
-    print(f"Player at x={final_coord[0]}, y={final_coord[1]}, "
-          f"z={final_coord[2]}")
-    print(f"Coordinates: x={final_coord[0]}, y={final_coord[1]}, "
-          f"z={final_coord[2]}")
+    print(f"Player at x={final_coord[0]}, y={final_coord[1]}, z={final_coord[2]}")
+    print(f"Coordinates: x={final_coord[0]}, y={final_coord[1]}, z={final_coord[2]}")
