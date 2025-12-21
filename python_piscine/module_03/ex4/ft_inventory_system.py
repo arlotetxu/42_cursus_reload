@@ -1,8 +1,27 @@
 #!/usr/bin/env python3
-# TODO añadir docstrings
 
 
 def ft_show_player_info(player: str, inventory: dict) -> None:
+    """
+        Display detailed inventory information for a specific player.
+
+        This function retrieves and displays a player's complete inventory,
+        including all items with their details, total inventory value, item
+        count, and category breakdown.
+
+        Args:
+            player (str): The name of the player whose inventory should be
+            displayed.
+            inventory (dict): A dictionary containing all players' inventories.
+
+        Returns:
+            None: This function prints the inventory information to stdout
+            and does not return a value.
+
+        Note:
+            If the player is not found in the inventory, an empty inventory
+            will be displayed with zero values.
+    """
     player_data: dict = inventory.get(player, {})
     inv_value_player: int = 0
     items_player: int = 0
@@ -30,6 +49,22 @@ def ft_show_player_info(player: str, inventory: dict) -> None:
 
 
 def ft_donation(inventory: dict) -> None:
+    """
+    Transfer 2 potions from Alice's inventory to Bob's inventory.
+
+    This function performs a donation transaction where Alice gives
+    Bob 2 potions. It updates the quantity of potions in both Alice's and
+    Bob's consumable inventories and prints the transaction details and
+    updated potion counts.
+
+    Returns:
+        None: This function prints transaction information but does not return
+        a value.
+
+    Note:
+        - Assumes Alice has at least 2 potions available for donation
+        - The function only transfers potions, not other consumable items
+    """
     alice_consumables: list = inventory.get("Alice", {}).get("consumable", [])
     bob_consumables: list = inventory.get("Bob", {}).get("consumable", [])
 
@@ -39,12 +74,17 @@ def ft_donation(inventory: dict) -> None:
             items["quantity"] -= 2
             break
 
-    for items in (
-        bob_consumables
-    ):  # TODO chequear si Bob tiene el item. Si no, habria que copiarlo?
-        if items["name"] == "potion":
-            items["quantity"] += 2
+    found = False
+    for item in bob_consumables:
+        if item["name"] == "potion":
+            item["quantity"] += 2
+            found = True
             break
+
+    if not found:
+        bob_consumables.append(
+            {"name": "potion", "type": "common", "quantity": 2, "prize": 50}
+        )
     print("Transaction successful!")
 
     print("\n=== Updated Inventories ===")
@@ -59,6 +99,26 @@ def ft_donation(inventory: dict) -> None:
 
 
 def ft_analytics(inventory: dict) -> None:
+    """
+    Analyze and display inventory statistics across all players.
+
+    This function processes a multi-level inventory dictionary to calculate
+    and display three key analytics: the player with the most valuable
+    inventory, the player with the most items, and a list of all unique rare
+    items found across all players.
+
+    Args:
+        inventory (dict): A nested dictionary where:
+
+    Returns:
+        None: This function prints the analytics directly to stdout.
+
+    Output:
+        Prints three lines of analytics:
+        - Most valuable player and their total inventory value in gold
+        - Player with most items and their total item count
+        - Comma-separated list of all unique rare items found
+    """
     print("\n=== Inventory Analytics ===")
     most_valued: dict = {}
     more_items: dict = {}
@@ -106,22 +166,24 @@ if __name__ == "__main__":
                 {"name": "sword", "type": "rare", "quantity": 1, "prize": 500},
             ],
             "consumable": [
-                {"name": "potion", "type": "common", "quantity": 5, "prize": 50},
+                {"name": "potion", "type": "common", "quantity": 5,
+                 "prize": 50},
             ],
             "armor": [
-                {"name": "shield", "type": "uncommon", "quantity": 1, "prize": 200},
+                {"name": "shield", "type": "uncommon", "quantity": 1,
+                 "prize": 200},
             ],
         },
         "Bob": {
             "weapon": [],
-            "consumable": [
-                {"name": "potion", "type": "common", "quantity": 0, "prize": 50},
-            ],
+            "consumable": [],
             "armor": [
-                {"name": "magic_ring", "type": "rare", "quantity": 1, "prize": 200},
+                {"name": "magic_ring", "type": "rare", "quantity": 1,
+                 "prize": 200},
             ],
         },
     }
+
     ft_show_player_info("Alice", inventory)
     ft_donation(inventory)
     ft_analytics(inventory)

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 if __name__ == "__main__":
-    alice = {"first_kill", "level_10", "treasure_hunter", "speed_demon"}
-    bob = {"first_kill", "level_10", "boss_slayer", "collector"}
+    alice = {"first_kill", "level_10", "treasure_hunter", "speed_demon",}
+    bob = {"first_kill", "level_10", "boss_slayer", "collector",}
     charlie = {
         "level_10",
         "treasure_hunter",
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     bob_only = bob - alice - charlie
     charlie_only = charlie - alice - bob
     rares = set.union(alice_only, bob_only, charlie_only)
-    print(f"Rare achievents (1 player): {rares}")
+    print(f"Rare achievements (1 player): {rares}")
 
     print(f"\nAlice vs Bob common: {set.intersection(alice, bob)}")
     print(f"Alice unique: {set.difference(alice, bob)}")
