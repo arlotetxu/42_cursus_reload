@@ -22,7 +22,7 @@ def ft_show_player_info(player: str, inventory: dict) -> None:
             If the player is not found in the inventory, an empty inventory
             will be displayed with zero values.
     """
-    player_data: dict = inventory.get("players",{})\
+    player_data: dict = inventory.get("players", {})\
         .get(player, {})
     player_items: dict = inventory.get("players", {})\
         .get(player, {}).get("items", {})
@@ -59,9 +59,9 @@ def ft_donation(inventory: dict) -> None:
     Transfer 2 quantum_rings from Alice's inventory to Bob's inventory.
 
     This function performs a donation transaction where Alice gives
-    Bob 2 quantum_rings. It updates the quantity of quantum_rings in both Alice's and
-    Bob's consumable inventories and prints the transaction details and
-    updated quantum_rings counts.
+    Bob 2 quantum_rings. It updates the quantity of quantum_rings in both
+    Alice's and Bob's consumable inventories and prints the transaction details
+    and updated quantum_rings counts.
 
     Returns:
         None: This function prints transaction information but does not return
@@ -73,8 +73,10 @@ def ft_donation(inventory: dict) -> None:
     """
     alice_data: dict = inventory.get("players", {}).get("alice", {})
     bob_data: dict = inventory.get("players", {}).get("bob", {})
-    alice_items: dict = inventory.get("players", {}).get("alice", {}).get("items", {})
-    bob_items: dict = inventory.get("players", {}).get("bob", {}).get("items", {})
+    alice_items: dict = inventory.get("players", {}).get("alice", {}).get
+    ("items", {})
+    bob_items: dict = inventory.get("players", {}).get("bob", {}).get
+    ("items", {})
     catalog: dict = inventory.get("catalog", {})
 
     quantum_ring_value = 0
@@ -86,7 +88,8 @@ def ft_donation(inventory: dict) -> None:
 
     # Removing 2 quantum_ring from Alice's items
     alice_items['quantum_ring'] = alice_items['quantum_ring'] - 2
-    alice_data["total_value"] = alice_data["total_value"] - (2 * quantum_ring_value)
+    alice_data["total_value"] = alice_data["total_value"] - \
+        (2 * quantum_ring_value)
     alice_data["item_count"] = alice_data["item_count"] - 2
 
     # Adding 2 quantum_rings to Bob's items
@@ -155,7 +158,7 @@ def ft_analytics(inventory: dict) -> None:
         player_items = data.get("items", {})
         for item in player_items:
             if item in rarest_catalog and item not in rarest_in_players:
-                    rarest_in_players.append(item)
+                rarest_in_players.append(item)
     print("Rarest items:", end=" ")
     for rare in rarest_in_players[:-1]:
         print(f"{rare}", end=", ")
@@ -169,10 +172,10 @@ if __name__ == "__main__":
     inventory_2 = {
         'players':
             {'alice':
-                 {'items': {'pixel_sword': 1, 'code_bow': 1, 'health_byte': 1,
-                            'quantum_ring': 3},
-                  'total_value': 1875,
-                  'item_count': 6},
+                {'items': {'pixel_sword': 1, 'code_bow': 1, 'health_byte': 1,
+                           'quantum_ring': 3},
+                    'total_value': 1875,
+                    'item_count': 6},
              'bob':
                  {'items': {'code_bow': 3, 'pixel_sword': 2},
                   'total_value': 900,
@@ -182,21 +185,21 @@ if __name__ == "__main__":
                   'total_value': 350,
                   'item_count': 2},
              'diana':
-                 {'items': {'code_bow': 3, 'pixel_sword': 3, 'health_byte': 3, 'data_crystal': 3},
-                  'total_value': 4125,
-                  'item_count': 12}},
+                {'items': {'code_bow': 3, 'pixel_sword': 3, 'health_byte': 3,
+                           'data_crystal': 3},
+                 'total_value': 4125,
+                 'item_count': 12}},
         'catalog':
             {'pixel_sword':
-                       {'type': 'weapon', 'value': 150, 'rarity': 'common'},
-            'quantum_ring':
-                        {'type': 'accessory', 'value': 500, 'rarity': 'rare'},
-            'health_byte':
-                       {'type': 'consumable', 'value': 25, 'rarity': 'common'},
-            'data_crystal':
-                       {'type': 'material', 'value': 1000, 'rarity': 'legendary'},
-            'code_bow':
-                       {'type': 'weapon', 'value': 200, 'rarity': 'uncommon'}}}
-
+                 {'type': 'weapon', 'value': 150, 'rarity': 'common'},
+             'quantum_ring':
+                 {'type': 'accessory', 'value': 500, 'rarity': 'rare'},
+             'health_byte':
+                 {'type': 'consumable', 'value': 25, 'rarity': 'common'},
+             'data_crystal':
+                 {'type': 'material', 'value': 1000, 'rarity': 'legendary'},
+             'code_bow':
+                 {'type': 'weapon', 'value': 200, 'rarity': 'uncommon'}}}
 
     ft_show_player_info("alice", inventory_2)
     ft_donation(inventory_2)

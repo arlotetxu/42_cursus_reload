@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from icecream import ic
 
 if __name__ == "__main__":
     data = {
@@ -332,20 +331,11 @@ if __name__ == "__main__":
     }
     print(f"Player scores: {player_scores}")
 
-    # TODO revisar ↓
     mode_counts = {
-        mode: sum(1 for p in player_data.values() if p["favorite_mode"] == mode)
+        mode: sum(1 for p in player_data.values()
+                  if p["favorite_mode"] == mode)
         for mode in data["game_modes"]
     }
-    # show = {}
-    # count = 0
-    # for mode in data["game_modes"]:
-    #     for p in player_data.values():
-    #         if p["favorite_mode"] == mode:
-    #             count += 1
-    #             show[mode] = count
-    #     count = 0
-    # ic(show)
     print(f"Favorite mode counts: {mode_counts}")
     player_achievement: dict = {
         player: player_info["achievements_count"]
@@ -354,12 +344,27 @@ if __name__ == "__main__":
     print(f"Achievement counts: {player_achievement}")
 
     print("\n=== Set Comprehension Examples ===")
-    sesion_data: list = data.get("sessions", [])
-    unique_players = {session["player"] for session in sesion_data}
+    session_data: list = data.get("sessions", [])
+    unique_players = {session["player"] for session in session_data}
     print(f"Unique players: {unique_players}")
-    unique_achievement = {player_info["achievement"]for player, player_info in player_data.items()}
-    print(f"Unique achievements: {unique_achievement}")
-    active_regions = {sesion["region"]for sesion in sesion_data}
+    unique_achievements = {player_info["achievement"]
+                           for player, player_info in player_data.items()}
+    print(f"Unique achievements: {unique_achievements}")
+    active_regions = {sesion["region"] for sesion in session_data}
     print(f"Active regions: {active_regions}")
 
     print("\n=== Combined Analysis ===")
+    total_players = len({player for player in player_data.keys()})
+    print(f"Total players: {total_players}")
+    print(f"Total unique achievements: {len(unique_achievements)}")
+    average_score = sum(player_info['total_score']
+                        for player, player_info in player_data.items())\
+        / total_players
+    print(f"Average score: {average_score:.1f}")
+    top_perf_player = max(player_scores, key=player_scores.get)
+    top_perf_points = player_scores[top_perf_player]
+    top_perf_achiev = [player_info['achievements_count']
+                       for player, player_info in player_data.items()
+                       if player == top_perf_player][0]
+    print(f"Top performer: {top_perf_player} ({top_perf_points} points, "
+          f"{top_perf_achiev} achievements)")
