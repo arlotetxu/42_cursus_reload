@@ -9,13 +9,12 @@ if __name__ == "__main__":
     print("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===")
 
     archivist_id = input("\nInput Strean active. Enter archivist ID: ")
-    message = "Input Stream active. Enter status report: All systems nominal"
-    sys.stdout.write(message)
+    system_status = input("Input Stream active. Enter status report: ")
 
-    std_message = f"\n\n{{[}}STANDARD{{]}} Archive status from " \
-        f"{archivist_id}: All systems nominal"
+    std_message = f"\n{{[}}STANDARD{{]}} Archive status from " \
+        f"{archivist_id}: {system_status}"
     sys.stdout.write(std_message)
-    alert_message = "\n{[}ALERT{]} System diagnostic: "
+    alert_message = "\n{[}ALERT{]} System diagnostic: " \
     "Communication channels verified"
     sys.stderr.write(alert_message)
     std_message_2 = "\n{[}STANDARD{]} Data transmission complete"
