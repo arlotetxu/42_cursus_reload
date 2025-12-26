@@ -2,31 +2,32 @@
 
 def water_plants(plant_list: list) -> None:
     """
-    Water plants from a given list if they are valid.
+    Waters a list of plants by name.
 
-    This function simulates a watering system that opens, waters valid plants,
-    and closes regardless of whether an error occurs.
+    Opens the watering system, attempts to water each plant in the provided
+    list, and handles invalid plant names gracefully. Always closes the
+    watering system after processing, regardless of errors.
 
     Args:
-        plant_list (list[str]): A list of plant names to water.
+        plant_list (list): A list of plant names (strings) to be watered.
 
     Raises:
-        ZeroDivisionError: Caught internally when an invalid plant is
-            encountered.
-
-    Note:
-        The watering system cleanup (closing) always executes via the
-        finally block.
+        None. Prints an error message if an invalid plant name is
+        encountered.
     """
 
-    plant_list_ok = ["tomato", "lettuce", "carrots"]
+    plant_list_ok = {
+        "tomato": "tomato",
+        "lettuce": "lettuce",
+        "carrots": "carrots",
+        }
+
     print("Opening watering system")
     try:
         for plant in plant_list:
-            if plant not in plant_list_ok:
-                1/0
+            _ = plant_list_ok[plant]
             print(f"Watering {plant}")
-    except ZeroDivisionError:
+    except Exception:
         print(f"Error: Cannot water {plant} - invalid plant!")
     finally:
         print("Closing waterering system (cleanup)")
@@ -34,19 +35,12 @@ def water_plants(plant_list: list) -> None:
 
 def test_watering_system() -> None:
     """
-    Test the garden watering system with different plant lists.
+    Tests the garden watering system by simulating two scenarios:
+    1. Normal operation with a valid list of plants.
+    2. Error handling with an invalid list containing a None value.
 
-    This function demonstrates the behavior of the water_plants function
-    with both valid and invalid plant lists. It shows how the finally
-    block ensures cleanup operations are always executed, even when
-    errors occur.
-
-    The function tests two scenarios:
-    1. Normal watering with a valid list of plants (tomato, lettuce, carrots)
-    2. Error handling with an invalid list containing a None value
-
-    Returns:
-        None
+    Prints the progress and results of each test, demonstrating that cleanup
+    actions are performed regardless of errors during watering.
     """
 
     plant_list_ok = ["tomato", "lettuce", "carrots"]
@@ -56,11 +50,11 @@ def test_watering_system() -> None:
     print("\nTesting normal watering...")
     water_plants(plant_list_ok)
     print("Watering completed successfully!")
+
     print("\nTesting with error...")
     water_plants(plant_list_nok)
 
     print("\nCleanup always happens, even with errors!")
 
 
-# if __name__ == "__main__":
-#     test_watering_system()
+test_watering_system()

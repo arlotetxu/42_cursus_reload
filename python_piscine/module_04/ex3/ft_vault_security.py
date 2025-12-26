@@ -3,9 +3,10 @@
 if __name__ == "__main__":
     print("=== CYBER ARCHIVES - VAULT SECURITY SYSTEM ===")
 
+    path_read = "../tools/classified_data.txt"
     print("\nInitiating secure vault access...")
     try:
-        with open("../trainning_resources/classified_data.txt", mode='r') \
+        with open(path_read, mode='r') \
                 as fd:
             fd_data = fd.read()
             print("Vault connection established with failsafe protocols")
@@ -16,17 +17,20 @@ if __name__ == "__main__":
                 elif c == ']':
                     c = "{]}"
                 print(c, end="")
-    except (FileNotFoundError, FileExistsError):
+    except (FileNotFoundError, FileExistsError, PermissionError):
         print("ERROR. Vault connection couldn't be established... "
               "Closing connection.")
 
+    path_write = "../tools/security_protocols.txt"
+    message_write = "{[}CLASSIFIED{]} New security protocols archived"
     print("\n\nSECURE PRESERVATION:")
     try:
-        with open("../trainning_resources/security_protocols.txt", mode='w') \
+        with open(path_write, mode='w') \
                 as fd:
-            fd.write("{[}CLASSIFIED{]} New security protocols archived")
+            fd.write(message_write)
+        print(message_write)
         print("Vault automatically sealed upon completion")
-    except (FileExistsError, FileNotFoundError):
+    except (FileExistsError, FileNotFoundError, PermissionError):
         print("ERROR. Vault couldn't be sealed properly... "
               "Closing connection.")
 

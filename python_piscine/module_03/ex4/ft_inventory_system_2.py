@@ -3,29 +3,28 @@
 
 def ft_show_player_info(player: str, inventory: dict) -> None:
     """
-        Display detailed inventory information for a specific player.
+    Display detailed inventory information for a specific player.
 
-        This function retrieves and displays a player's complete inventory,
-        including all items with their details, total inventory value, item
-        count, and category breakdown.
+    This function retrieves and displays a player's complete inventory,
+    including all items with their details, total inventory value, item
+    count, and category breakdown.
 
-        Args:
-            player (str): The name of the player whose inventory should be
-            displayed.
-            inventory (dict): A dictionary containing all players' inventories.
+    Args:
+        player (str): The name of the player whose inventory should be
+        displayed.
+        inventory (dict): A dictionary containing all players' inventories.
 
-        Returns:
-            None: This function prints the inventory information to stdout
-            and does not return a value.
+    Returns:
+        None: This function prints the inventory information to stdout
+        and does not return a value.
 
-        Note:
-            If the player is not found in the inventory, an empty inventory
-            will be displayed with zero values.
+    Note:
+        If the player is not found in the inventory, an empty inventory
+        will be displayed with zero values.
     """
-    player_data: dict = inventory.get("players", {})\
-        .get(player, {})
-    player_items: dict = inventory.get("players", {})\
-        .get(player, {}).get("items", {})
+    player_data: dict = inventory.get("players", {}).get(player, {})
+    player_items: dict = inventory.get("players", {}).get(player, {})\
+        .get("items", {})
     catalog: dict = inventory.get("catalog", {})
 
     cat_items: dict = {}
@@ -40,10 +39,10 @@ def ft_show_player_info(player: str, inventory: dict) -> None:
                     f"gold each = {quantity * specific['value']} "
                     f"gold"
                 )
-                if specific['type'] not in cat_items:
-                    cat_items[specific['type']] = quantity
+                if specific["type"] not in cat_items:
+                    cat_items[specific["type"]] = quantity
                 else:
-                    cat_items[specific['type']] += quantity
+                    cat_items[specific["type"]] += quantity
 
     print(f"\nInventory value: {player_data.get('total_value', 0)} gold")
     print(f"Item count: {player_data.get('item_count', 0)} items")
@@ -73,10 +72,10 @@ def ft_donation(inventory: dict) -> None:
     """
     alice_data: dict = inventory.get("players", {}).get("alice", {})
     bob_data: dict = inventory.get("players", {}).get("bob", {})
-    alice_items: dict = inventory.get("players", {}).get("alice", {}).get
-    ("items", {})
-    bob_items: dict = inventory.get("players", {}).get("bob", {}).get
-    ("items", {})
+    alice_items: dict = inventory.get("players", {}).get("alice", {})\
+        .get("items", {})
+    bob_items: dict = inventory.get("players", {}).get("bob", {})\
+        .get("items", {})
     catalog: dict = inventory.get("catalog", {})
 
     quantum_ring_value = 0
@@ -87,18 +86,18 @@ def ft_donation(inventory: dict) -> None:
     print("\n=== Transaction: Alice gives Bob 2 quantum_rings ===")
 
     # Removing 2 quantum_ring from Alice's items
-    alice_items['quantum_ring'] = alice_items['quantum_ring'] - 2
+    alice_items["quantum_ring"] = alice_items["quantum_ring"] - 2
     alice_data["total_value"] = alice_data["total_value"] - \
         (2 * quantum_ring_value)
     alice_data["item_count"] = alice_data["item_count"] - 2
 
     # Adding 2 quantum_rings to Bob's items
-    if 'quantum_ring' in bob_items:
-        bob_items['quantum_ring'] += 2
+    if "quantum_ring" in bob_items:
+        bob_items["quantum_ring"] += 2
     else:
-        bob_items['quantum_ring'] = 2
-    bob_data["total_value"] = bob_data["total_value"] + (
-            2 * quantum_ring_value)
+        bob_items["quantum_ring"] = 2
+    bob_data["total_value"] = bob_data["total_value"] + \
+        (2 * quantum_ring_value)
     bob_data["item_count"] = bob_data["item_count"] + 2
 
     print("Transaction successful!")
@@ -140,10 +139,10 @@ def ft_analytics(inventory: dict) -> None:
     rarest_in_players: list = []
 
     for player, data in players_data.items():
-        if data['total_value'] > most_value:
+        if data["total_value"] > most_value:
             most_value = data["total_value"]
             most_valuable_player = player
-        if data['item_count'] > most_items:
+        if data["item_count"] > most_items:
             most_items = data["item_count"]
             most_items_player = player
 
@@ -166,41 +165,64 @@ def ft_analytics(inventory: dict) -> None:
 
 
 # MAIN=======================================================================
-if __name__ == "__main__":
+def ft_main() -> None:
     print("=== Player Inventory System ===")
 
     inventory_2 = {
-        'players':
-            {'alice':
-                {'items': {'pixel_sword': 1, 'code_bow': 1, 'health_byte': 1,
-                           'quantum_ring': 3},
-                    'total_value': 1875,
-                    'item_count': 6},
-             'bob':
-                 {'items': {'code_bow': 3, 'pixel_sword': 2},
-                  'total_value': 900,
-                  'item_count': 5},
-             'charlie':
-                 {'items': {'pixel_sword': 1, 'code_bow': 1},
-                  'total_value': 350,
-                  'item_count': 2},
-             'diana':
-                {'items': {'code_bow': 3, 'pixel_sword': 3, 'health_byte': 3,
-                           'data_crystal': 3},
-                 'total_value': 4125,
-                 'item_count': 12}},
-        'catalog':
-            {'pixel_sword':
-                 {'type': 'weapon', 'value': 150, 'rarity': 'common'},
-             'quantum_ring':
-                 {'type': 'accessory', 'value': 500, 'rarity': 'rare'},
-             'health_byte':
-                 {'type': 'consumable', 'value': 25, 'rarity': 'common'},
-             'data_crystal':
-                 {'type': 'material', 'value': 1000, 'rarity': 'legendary'},
-             'code_bow':
-                 {'type': 'weapon', 'value': 200, 'rarity': 'uncommon'}}}
+        "players": {
+            "alice": {
+                "items": {
+                    "pixel_sword": 1,
+                    "code_bow": 1,
+                    "health_byte": 1,
+                    "quantum_ring": 3,
+                },
+                "total_value": 1875,
+                "item_count": 6,
+            },
+            "bob": {
+                "items": {"code_bow": 3, "pixel_sword": 2},
+                "total_value": 900,
+                "item_count": 5,
+            },
+            "charlie": {
+                "items": {"pixel_sword": 1, "code_bow": 1},
+                "total_value": 350,
+                "item_count": 2,
+            },
+            "diana": {
+                "items": {
+                    "code_bow": 3,
+                    "pixel_sword": 3,
+                    "health_byte": 3,
+                    "data_crystal": 3,
+                },
+                "total_value": 4125,
+                "item_count": 12,
+            },
+        },
+        "catalog": {
+            "pixel_sword": {
+                "type": "weapon", "value": 150, "rarity": "common"
+                },
+            "quantum_ring": {
+                "type": "accessory", "value": 500, "rarity": "rare"
+                },
+            "health_byte": {
+                "type": "consumable", "value": 25, "rarity": "common"
+                },
+            "data_crystal": {
+                "type": "material", "value": 1000, "rarity": "legendary"
+                },
+            "code_bow": {
+                "type": "weapon", "value": 200, "rarity": "uncommon"
+                },
+        },
+    }
 
     ft_show_player_info("alice", inventory_2)
     ft_donation(inventory_2)
     ft_analytics(inventory_2)
+
+
+ft_main()

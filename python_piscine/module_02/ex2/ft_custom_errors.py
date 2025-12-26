@@ -85,8 +85,8 @@ def test_plant_error(plant: str) -> None:
     """
     try:
         raise PlantError(plant)
-    except PlantError as pe:
-        print(f"Caught {pe.__class__.__name__}: {pe}")
+    except PlantError as p_e:
+        print(f"Caught {p_e.__class__.__name__}: {p_e}")
 
 
 def test_water_error() -> None:
@@ -105,8 +105,8 @@ def test_water_error() -> None:
     """
     try:
         raise WaterError()
-    except WaterError as we:
-        print(f"Caught {we.__class__.__name__}: {we}")
+    except WaterError as w_e:
+        print(f"Caught {w_e.__class__.__name__}: {w_e}")
 
 
 def test_all_errors(plant: str) -> None:
@@ -142,12 +142,15 @@ def test_all_errors(plant: str) -> None:
             print(f"Caught a garden error: {ge}")
 
 
-# if __name__ == "__main__":
-#     print("=== Custom Garden Errors Demo ===")
-#     print("\nTesting PlantError...")
-#     test_plant_error("tomato")
-#     print("\nTesting WaterError...")
-#     test_water_error()
-#     print("\nTesting catching all garden errors...")
-#     test_all_errors("tomato")
-#     print("\nAll custom error types work correctly!")
+def ft_main() -> None:
+    print("=== Custom Garden Errors Demo ===")
+    print("\nTesting PlantError...")
+    test_plant_error("tomato")
+    print("\nTesting WaterError...")
+    test_water_error()
+    print("\nTesting catching all garden errors...")
+    test_all_errors("tomato")
+    print("\nAll custom error types work correctly!")
+
+
+ft_main()

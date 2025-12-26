@@ -1,61 +1,55 @@
 #!/usr/bin/env python3
 
 
-def check_temperature(temp_str: str) -> int:
+def check_temperature(temp_str: str) -> None:
     """
-    Converts a temperature value from string to integer.
+    Checks if the given temperature string represents a valid temperature
+    for plants.
 
     Args:
         temp_str (str): The temperature value as a string.
 
     Returns:
-        int: The temperature value as an integer if conversion is successful.
+        None
 
-    Raises:
-        ValueError: If the input string cannot be converted to an integer.
+    Behavior:
+        - Prints an error if the temperature is below 0°C or above 40°C.
+        - Prints a success message if the temperature is within the
+            acceptable range (0°C to 40°C inclusive).
+        - Prints an error if the input string cannot be converted to an
+            integer.
     """
+    print(f"\nTesting temperature: {temp_str}")
     try:
-        temp_int = int(temp_str)
-        return temp_int
+        ret: int = int(temp_str)
+        if ret < 0:
+            print(f"Error: {ret}ºC is too cold for plants (min 0ºC)")
+        elif ret > 40:
+            print(f"Error: {ret}ºC is too hot for plants (max 40ºC)")
+        else:
+            print(f"Temperature {ret}ºC is perfect for plants!")
     except ValueError:
-        pass
+        print(f"Error: '{temp_str}' is not a valid number")
 
 
 def test_temperature_input() -> None:
     """
-    Test function to validate temperature input handling and error cases.
+    Runs a series of test cases for the check_temperature function using
+    predefined arguments.
 
-    This function tests the check_temperature function with various input
-    values including valid temperatures, invalid strings, and out-of-range
-    values.
-
-    It prints a formatted report for each test case.
-
-    Test cases include:
-    - "25": Valid temperature within acceptable range
-    - "abc": Invalid non-numeric input
-    - "100": Valid number but too hot
-    - "-50": Valid number but too cold
+    This function prints a header, iterates over a set of test temperature
+    inputs (including valid and invalid values), and calls the
+    check_temperature function for each input. After all tests are run,
+    it prints a completion message indicating that the program did not crash.
 
     Returns:
         None
     """
+    print("=== Garden Temperature Checker ===")
     args = ("25", "abc", "100", "-50")
-
-    print("=== Garden Temperature Checker ===\n")
     for arg in args:
-        ret = check_temperature(arg)
-        print(f"Testing temperature: {arg}")
-        if ret is None:
-            print(f"Error: '{arg}' is not a valid number\n")
-        elif ret >= 0 and ret <= 40:
-            print(f"Temperature {ret}ºC is perfect for plants!\n")
-        elif ret < 0:
-            print(f"Error: {ret}ºC is too cold for plants (min 0ºC)\n")
-        elif ret > 40:
-            print(f"Error: {ret}ºC is too hot for plants (max 40ºC)\n")
-    print("All tests completed - program didn't crash!")
+        check_temperature(arg)
+    print("\nAll tests completed - program didn't crash!")
 
 
-# if __name__ == "__main__":
-#     test_temperature_input()
+test_temperature_input()

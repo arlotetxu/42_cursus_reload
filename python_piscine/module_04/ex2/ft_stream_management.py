@@ -15,7 +15,7 @@ if __name__ == "__main__":
         f"{archivist_id}: {system_status}"
     sys.stdout.write(std_message)
     alert_message = "\n{[}ALERT{]} System diagnostic: " \
-    "Communication channels verified"
+        "Communication channels verified"
     sys.stderr.write(alert_message)
     std_message_2 = "\n{[}STANDARD{]} Data transmission complete"
     sys.stdout.write(std_message_2)

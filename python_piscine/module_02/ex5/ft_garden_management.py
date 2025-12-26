@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 class Plant:
     """
     A class representing a plant with its basic care requirements.
@@ -27,20 +28,17 @@ class Plant:
 # CUSTOM EXCEPTIONS==========================================================
 class GardenError(Exception):
     """
-    A custom exception class for garden-related errors.
-
-    This exception is raised when issues occur in garden management operations.
+    GardenError is a custom exception class for handling errors related to
+    garden management.
 
     Attributes:
         message (str): The error message describing the garden issue.
-            Defaults to "Exception: Garden with issues".
+
+        message (str, optional): The error message to be displayed. Defaults
+            to "Exception: Garden with issues".
 
     Example:
-        >>> raise GardenError("Invalid plant type")
-        GardenError: Invalid plant type
-
-        >>> raise GardenError()
-        GardenError: Exception: Garden with issues
+        raise GardenError("Garden is overgrown")
     """
 
     def __init__(self, message: str = "Exception: Garden with issues") -> None:
@@ -87,30 +85,24 @@ class PlantError(GardenError):
         Returns:
             None
         """
-
         GardenError.__init__(self, message)
 
 
 class WaterError(GardenError):
     """
-    Exception raised when a plant's water level is outside acceptable bounds.
+    Exception raised for invalid water levels in a Plant instance.
 
-    This exception is raised when a plant has a water level that is either
-    too high (greater than 10) or too low (less than 1).
-
-    Attributes:
-        Inherits from GardenError.
-
-    Args:
-        plant_ (Plant): The plant object with an invalid water level.
+    This exception is triggered when a plant's water level is outside the
+    valid range (1-10). A water level above 10 is considered too high,
+    and below 1 is considered too low.
 
     Raises:
-        WaterError: When plant_.water > 10 or plant_.water < 1.
+        GardenError: If the plant's water level is not within the allowed
+            range.
 
-    Example:
-        >>> plant = Plant(name="Rose", water=15)
-        >>> raise WaterError(plant)
-        WaterError: Error checking Rose: Water level 15 is too high (max 10)
+    Attributes:
+        message (str): Explanation of the error, indicating whether the water
+            level is too high or too low.
     """
 
     def __init__(self, plant_: Plant) -> None:
@@ -128,7 +120,6 @@ class WaterError(GardenError):
             A water level above 10 is considered too high.
             A water level below 1 is considered too low.
         """
-
         message = ""
         if plant_.water > 10:
             message = f"Error checking {plant_.name}: " \
@@ -141,24 +132,20 @@ class WaterError(GardenError):
 
 class SunError(GardenError):
     """
-    Exception raised when a plant has invalid sun light requirements.
+    Exception raised for invalid sun light conditions for a plant.
 
-    This exception is a subclass of GardenError and is raised when a plant's
-    sun light requirement falls outside the acceptable range of 2 to 12 hours.
+    This error is triggered when a plant's sun light requirement is outside
+    the valid range (2 to 12, inclusive).
+
+        plant_ (Plant): The plant object whose sun light requirement is being
+            validated.
+
+        GardenError: If the plant's sun light requirement is above 12 or
+            below 2.
 
     Attributes:
-        Inherits all attributes from GardenError.
-
-        plant_ (Plant): The plant object with invalid sun light requirements.
-
-        GardenError: When sun light is above 12 (too high) or below 2
-        (too low).
-
-    Example:
-        >>> plant = Plant(name="Sunflower", sun=15)
-        >>> raise SunError(plant)
-        GardenError: Error checking Sunflower: sun light 15 is too high
-        (max 12)
+        message (str): Explanation of the error, specifying whether the sun
+        light value is too high or too low.
     """
 
     def __init__(self, plant_: Plant) -> None:
@@ -176,7 +163,6 @@ class SunError(GardenError):
         Note:
             Valid sun light values are between 2 and 12 (inclusive).
         """
-
         message = ""
         if plant_.sun > 12:
             message = f"Error checking {plant_.name}: " \
@@ -190,42 +176,31 @@ class SunError(GardenError):
 # GARDEN MANAGER CLASS=======================================================
 class GardenManager:
     """
-    A class to manage a garden with plants and water resources.
+    GardenManager is a class responsible for managing a collection of plants
+    within a garden.
+    It provides functionality to add plants, water them, check their health
+    status, and monitor the water tank level.
 
-    This class provides functionality to add plants, water them,
-    check their health status, and monitor water tank levels.
-
-    Attributes:
-        plants (list): A list of plant objects in the garden.
-        water_tank (int): The current water level in the tank, initialized
-        to 2.
-
-    Methods:
-        add_plant(plant_):
-            Adds a plant to the garden if it has a valid name and is not
-            already present.
-
+        Methods:
+        __init__():
+            Initializes a new GardenManager instance with an empty plant list
+            and a water tank.
+        add_plant(plant_: Plant):
+            Adds a plant to the garden. Raises PlantError if the plant's name
+            is empty. Prints a success message upon successful addition.
         watering():
-            Waters all plants in the garden, incrementing each plant's water
-            level by 1 and decrementing the water tank by 1 for each plant.
-
+            Waters all plants in the garden by incrementing each plant's
+            water level and decrementing the water tank for each plant
+            watered. Prints status messages.
         checking():
-            Checks the health status of all plants based on water and sun
-            levels.
-            Prints health status for healthy plants or catches and prints
-            errors for plants with invalid water (not between 1-10) or sun
-            (not between 2-12) levels.
-
-            Raises:
-                WaterError: If a plant's water level is outside the valid
-                range.
-                SunError: If a plant's sun level is outside the valid range.
-
+            Checks the health status of each plant based on their water and
+            sun levels. Raises WaterError or SunError if a plant's attributes
+            are out of acceptable ranges. Prints the health status or error
+            messages for each plant.
         water_tank_check():
-            Verifies if there is sufficient water in the tank.
-
-            Raises:
-                GardenError: If the water tank level is below 2.
+            Checks if the water tank has at least 2 units of water.
+            Raises GardenError if the water tank level is below the
+            threshold.
     """
 
     def __init__(self):
@@ -237,10 +212,10 @@ class GardenManager:
             water_tank (int): The initial water tank capacity, set to 2.
         """
 
-        self.plants = []
-        self.water_tank = 2
+        self.plants: list = []
+        self.water_tank: int = 2
 
-    def add_plant(self, plant_):
+    def add_plant(self, plant_: Plant):
         """
         Add a plant to the garden.
 
@@ -274,6 +249,7 @@ class GardenManager:
             None
         """
 
+        print("Opening watering system")
         for plant_ in self.plants:
             print(f"Watering {plant_.name} -success")
             plant_.water += 1
@@ -281,23 +257,26 @@ class GardenManager:
 
     def checking(self):
         """
-        Check the health status of all plants in the garden.
+        Checks the health status of each plant in the garden based on water
+        and sun levels.
 
-        Iterates through all plants and validates their water and sun levels.
-        Plants with water levels outside the range 1-10 will raise a
-        WaterError.
-        Plants with sun levels outside the range 2-12 will raise a SunError.
-        Healthy plants will have their status printed with current water and
-        sun values.
+        Iterates through all plants in the `self.plants` list and evaluates
+        their `water` and `sun` attributes.
+        - Raises a `WaterError` if the plant's water level is greater than 10
+            or less than 1.
+        - Raises a `SunError` if the plant's sun exposure is less than 2 or
+            greater than 12.
+        - Prints the plant's name and its healthy status if both water and
+            sun levels are within acceptable ranges.
+        - Catches and prints any `GardenError` exceptions raised during the
+            checks.
 
-        Raises:
-            WaterError: If a plant's water level is less than 1 or greater
-            than 10.
-            SunError: If a plant's sun level is less than 2 or greater
-            than 12.
-
-        Note:
-            Exceptions are caught and printed rather than propagated.
+        Exceptions:
+            WaterError: If the plant's water level is out of the acceptable
+                range.
+            SunError: If the plant's sun exposure is out of the acceptable
+                range.
+            GardenError: Base exception for garden-related errors.
         """
 
         for plant_ in self.plants:
@@ -318,21 +297,22 @@ class GardenManager:
         Raises:
             GardenError: If the water tank level is below 2 units.
         """
+
         if self.water_tank < 2:
             raise GardenError("Caught GardenError: Not enough water in tank")
 
 
 # MAIN=======================================================================
-if __name__ == "__main__":
+def ft_main() -> None:
     print("=== Garden Management System ===")
-    manager = GardenManager()
+    manager: GardenManager = GardenManager()
 
-    plants = []
-    plant_1 = Plant("tomato", 4, 8)
+    plants: list = []
+    plant_1: Plant = Plant("tomato", 4, 8)
     plants.append(plant_1)
-    plant_2 = Plant("lettuce", 14, 2)
+    plant_2: Plant = Plant("lettuce", 14, 2)
     plants.append(plant_2)
-    plant_3 = Plant("", 1, 2)
+    plant_3: Plant = Plant("", 1, 2)
     plants.append(plant_3)
 
     print("\nAdding plants to garden...")
@@ -344,7 +324,6 @@ if __name__ == "__main__":
 
     print("\nWatering plants...")
     try:
-        print("Opening watering system")
         manager.watering()
     except Exception as e:
         print(e)
@@ -366,3 +345,6 @@ if __name__ == "__main__":
         print("System recovered and continuing...")
 
     print("\nGarden management system test complete!")
+
+
+ft_main()

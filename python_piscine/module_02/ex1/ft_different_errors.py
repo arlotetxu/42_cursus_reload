@@ -47,39 +47,40 @@ def test_error_types():
     Returns:
         None
     """
+    print("=== Garden Error Types Demo ===")
+
+    print("\nTesting ValueError...")
     try:
-        print("Testing ValueError...")
         garden_operations(1)
     except ValueError:
-        print("Caught ValueError: invalid literal for int()\n")
+        print("Caught ValueError: invalid literal for int()")
 
+    print("\nTesting ZeroDivisionError...")
     try:
-        print("Testing ZeroDivisionError...")
         garden_operations(2)
     except ZeroDivisionError:
-        print("Caught ZeroDivisionError: division by zero\n")
+        print("Caught ZeroDivisionError: division by zero")
 
+    print("\nTesting FileNotFoundError...")
     try:
-        print("Testing FileNotFoundError...")
         garden_operations(3)
     except FileNotFoundError:
-        print("Caught FileNotFoundError: No such file 'missing.txt'\n")
+        print("Caught FileNotFoundError: No such file 'missing.txt'")
 
+    print("\nTesting KeyError...")
     try:
-        print("Testing KeyError...")
         garden_operations(4)
     except KeyError:
-        print("Caught KeyError: 'missing\\_plant'\n")
+        print("Caught KeyError: 'missing\\_plant'")
 
+    print("\nTesting multiple errors together...")
     try:
-        print("Testing multiple errors together...")
         for test in range(1, 5):
             garden_operations(test)
     except (ValueError, ZeroDivisionError, FileNotFoundError, KeyError):
-        print("Caught an error, but program continues!\n")
+        print("Caught an error, but program continues!")
 
-    print("All error types tested successfully!")
+    print("\nAll error types tested successfully!")
 
 
-# if __name__ == "__main__":
-#     test_error_types()
+test_error_types()

@@ -4,6 +4,22 @@ import sys
 
 
 def ft_score_analytics() -> None:
+    """
+    Analyzes player scores provided as command-line arguments and prints
+    statistics.
+
+    This function reads integer scores from the command-line arguments,
+    processes them, and displays analytics including the total number of
+    players, total score, average score, highest and lowest scores, and the
+    score range. If no scores are provided, or if any argument is not a
+    valid integer, an appropriate message is displayed.
+
+    Usage:
+        python3 ft_score_analytics.py <score1> <score2> ...
+
+    Returns:
+        None
+    """
 
     num_args = len(sys.argv)
     scores = []
@@ -29,5 +45,4 @@ def ft_score_analytics() -> None:
         print(f"Score range: {max(scores) - min(scores)}")
 
 
-if __name__ == '__main__':
-    ft_score_analytics()
+ft_score_analytics()

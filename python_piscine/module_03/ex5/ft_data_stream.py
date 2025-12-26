@@ -3,7 +3,7 @@
 import time
 
 
-def ft_get_events(data: list):
+def ft_get_events(data: list) -> None:
     """
     Processes a list of event records and yields formatted event descriptions,
     followed by summary statistics.
@@ -20,10 +20,10 @@ def ft_get_events(data: list):
         int: The total number of "item_found" events.
         int: The total number of "level_up" events.
     """
-    total_events_proc = 0
-    high_level = {}
-    treasure_events = 0
-    level_up_events = 0
+    total_events_proc: int = 0
+    high_level: dict = {}
+    treasure_events: int = 0
+    level_up_events: int = 0
     for n in range(0, len(data)):
         # print(f"valor de n: {n}")
         record: dict = data[n]
@@ -35,8 +35,8 @@ def ft_get_events(data: list):
             treasure_events += 1
         if record['event_type'] == "level_up":
             level_up_events += 1
-        yield f"Event {record['id']}: Player {record['player']} \
-            (level {record_data['level']}) {record['event_type']}"
+        yield f"Event {record['id']}: Player {record['player']} " \
+            f"(level {record_data['level']}) {record['event_type']}"
     yield total_events_proc
     yield len(high_level)
     yield treasure_events
@@ -55,8 +55,8 @@ def ft_fibonacci():
         [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
     """
 
-    prev = 0
-    next_ = 1
+    prev: int = 0
+    next_: int = 1
 
     for _ in range(10):
         yield prev
@@ -79,10 +79,10 @@ def ft_primes(n):
         >>> list(ft_primes(5))
         [2, 3, 5, 7, 11]
     """
-    count = 0
-    num = 2
+    count: int = 0
+    num: int = 2
     while count < n:
-        is_prime = True
+        is_prime: bool = True
         for i in range(2, int(num ** 0.5) + 1):
             if num % i == 0:
                 is_prime = False
@@ -93,9 +93,9 @@ def ft_primes(n):
         num += 1
 
 
-if __name__ == "__main__":
+def ft_main() -> None:
 
-    data = [
+    data: list = [
         {'id': 1, 'player': 'frank', 'event_type': 'login',
          'timestamp': '2024-01-01T23:17',
          'data': {'level': 16, 'score_delta': 128, 'zone': 'pixel_zone_2'}},
@@ -251,7 +251,7 @@ if __name__ == "__main__":
     print("=== Game Data Stream Processor ===")
 
     print("\nProcessing 50 game events...")
-    start_time = time.time()
+    start_time: float = time.time()
     generator = ft_get_events(data)
     for n in range(0, len(data)):
         print(next(generator))
@@ -261,15 +261,15 @@ if __name__ == "__main__":
     print(f"High-level players (10+): {next(generator)}")
     print(f"Treasure events: {next(generator)}")
     print(f"Level-up events: {next(generator)}")
-    end_time = time.time()
-    processing_time = end_time - start_time
+    end_time: float = time.time()
+    processing_time: float = end_time - start_time
     print("\nMemory usage: Constant (streaming)")
     print(f"Processing time: {processing_time:.10f} seconds")
 
     print("\n=== Generator Demonstration ===")
     print("Fibonacci sequence (first 10): ", end="")
     generator = ft_fibonacci()
-    fibo = []
+    fibo: list = []
     for n in range(10):
         fibo.append(next(generator))
     for n in fibo[:-1]:
@@ -278,9 +278,12 @@ if __name__ == "__main__":
 
     print("Prime numbers (first 5): ", end="")
     generator = ft_primes(5)
-    primes = []
+    primes: list = []
     while len(primes) < 5:
         primes.append(next(generator))
     for n in primes[:-1]:
         print(f"{n}", end=", ")
     print(f"{primes[-1]}")
+
+
+ft_main()

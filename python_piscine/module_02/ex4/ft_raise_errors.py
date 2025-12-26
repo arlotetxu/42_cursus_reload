@@ -3,7 +3,27 @@
 
 def check_plant_health(plant_name: str,
                        water_level: int,
-                       sunlight_hours: int) -> None:
+                       sunlight_hours: int
+                       ) -> None:
+    """
+    Checks the health of a plant based on its name, water level, and sunlight
+    hours.
+
+    Parameters:
+        plant_name (str): The name of the plant. Must not be empty.
+        water_level (int): The water level of the plant. Must be between 1
+            and 10 (inclusive).
+        sunlight_hours (int): The number of sunlight hours the plant
+            receives. Must be between 2 and 12 (inclusive).
+
+    Raises:
+        ValueError: If the plant name is empty.
+        ValueError: If the water level is less than 1 or greater than 10.
+        ValueError: If the sunlight hours are less than 2 or greater than 12.
+
+    Prints:
+        A message indicating that the plant is healthy if all checks pass.
+    """
     if not plant_name:
         raise ValueError("Error: Plant name cannot be empty!")
 
@@ -27,6 +47,19 @@ def check_plant_health(plant_name: str,
 
 
 def test_plant_checks() -> None:
+    """
+    Runs a series of tests on the check_plant_health function to verify its
+    error handling.
+
+    The tests include:
+    - Valid input values.
+    - Empty plant name.
+    - Invalid water level.
+    - Invalid sunlight hours.
+
+    Each test prints the result or the error message raised by
+    check_plant_health.
+    """
     print("=== Garden Plant Health Checker ===")
 
     print("\nTesting good values...")
@@ -53,7 +86,6 @@ def test_plant_checks() -> None:
     except ValueError as e:
         print(e)
 
-    # Test 5: Low sunlight
     print("\nTesting bad sunlight hours...")
     try:
         check_plant_health(plant_name="fern",
@@ -65,5 +97,4 @@ def test_plant_checks() -> None:
     print("\nAll error raising tests completed!")
 
 
-if __name__ == "__main__":
-    test_plant_checks()
+test_plant_checks()

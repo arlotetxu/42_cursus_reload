@@ -158,7 +158,25 @@ def ft_analytics(inventory: dict) -> None:
 
 
 # MAIN=======================================================================
-if __name__ == "__main__":
+def ft_main() -> None:
+    """
+    Main function to demonstrate the Player Inventory System.
+
+    This function initializes a sample inventory for two players, Alice and
+    Bob, with various items categorized as weapons, consumables, and armor.
+    It then calls functions to display player information, handle item
+    donations, and perform analytics on the inventory.
+
+    Functions called:
+        - ft_show_player_info(player_name, inventory): Displays information
+            for a specific player.
+        - ft_donation(inventory): Handles the donation of items between
+            players.
+        - ft_analytics(inventory): Performs analytics on the inventory data.
+
+    Returns:
+        None
+    """
     print("=== Player Inventory System ===")
     inventory: dict = {
         "Alice": {
@@ -187,3 +205,6 @@ if __name__ == "__main__":
     ft_show_player_info("Alice", inventory)
     ft_donation(inventory)
     ft_analytics(inventory)
+
+
+ft_main()
