@@ -82,6 +82,7 @@ class ProcessingStage(Protocol):
     """
 
     def process(self, data) -> Any: ...
+
     """
     Process the given data through the pipeline.
 
@@ -153,8 +154,8 @@ class InputStage:
         input_ret: Dict = {}
         required_keys: List[str] = ["sensor", "value", "unit"]
 
-        if isinstance(data, dict) and \
-                all(key in data for key in required_keys):
+        if isinstance(data, dict) and all(
+                key in data for key in required_keys):
             input_ret = {**data}
             input_ret["from"] = "json"
 
@@ -252,13 +253,13 @@ class TransformStage:
                 try:
                     temp: float = float(data["value"])
                     range: str = (
-                        "Normal Range" if temp > 0 and temp < 100
-                        else "Out of Range"
+                        "Normal Range" if temp > 0 and
+                        temp < 100 else "Out of Range"
                     )
                     data["range"] = range
                     break
                 except KeyError:
-                    NexusLogger().add_log("TransformStageInvalid key")
+                    NexusLogger().add_log("TransformStage", "Invalid key")
                 except ValueError:
                     NexusLogger().add_log("TransformStage",
                                           "Invalid data format")
@@ -269,9 +270,9 @@ class TransformStage:
                     temps: List[float] = [
                         float(temp) for temp in data.get("values")
                         ]
-                    avg_temp: float = sum(
-                        temp for temp in temps) / sum(1 for temp in temps
-                                                      )
+                    avg_temp: float = sum(temp for temp in temps) / sum(
+                        1 for temp in temps
+                    )
                     data["avg_temp"] = avg_temp
                     break
                 except ValueError:
@@ -359,6 +360,7 @@ class ProcessingPipeline(ABC):
 
     @abstractmethod
     def process(self, data: Any) -> Union[str, Any]: ...
+
     """
     Process the input data through the pipeline.
 
@@ -647,10 +649,10 @@ def ft_launch_json() -> None:
             data_json = stage.process(data_json)
         elif isinstance(stage, OutputStage):
             temp: float = float(data_json.get("value"))
-            range: str = "Normal Range" if temp > 0 and temp < 100 \
-                else "Out of Range"
-            print(f"Output: Processed temperature reading: {temp:.1f}°C "
-                  f"({range})")
+            range: str = "Normal Range" if temp > 0 and temp < 100 else \
+                "Out of Range"
+            print(f"Output: Processed temperature reading: "
+                  f"{temp:.1f}°C ({range})")
             data_json = stage.process(data_json)
 
 
@@ -722,8 +724,7 @@ def ft_launch_stream() -> None:
                 float(temp) for temp in data_str.get("values")
                 ]
             avg_temp: float = sum(
-                temp for temp in temps) / sum(1 for temp in temps
-                                              )
+                temp for temp in temps) / sum(1 for temp in temps)
             print(
                 f"Output: Stream summary: {sum(1 for temp in temps)} "
                 f"readings, avg: {avg_temp}°C"
@@ -820,7 +821,7 @@ def ft_main():
     manager.process(data_batch)
     print(
         f"\nChain result: {manager.pipes_processed} records processed "
-            f"through 3-stage pipeline"
+        f"through 3-stage pipeline"
     )
     print("Performance: 95% efficiency, 0.2s total processing time")
 
