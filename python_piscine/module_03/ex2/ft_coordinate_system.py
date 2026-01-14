@@ -16,7 +16,7 @@ def ft_argv_len(argv: list) -> int:
     Returns:
         int: The number of elements in the list.
     """
-    argv_len = 0
+    argv_len: int = 0
     for arg in argv:
         argv_len += 1
     return argv_len
@@ -37,7 +37,7 @@ def coord_cast(coord_list: list) -> tuple:
         >>> coord_cast(['1', '2', '3'])
         (1, 2, 3)
     """
-    my_coord_tuple = tuple([int(item) for item in coord_list])
+    my_coord_tuple: tuple = tuple([int(item) for item in coord_list])
     return my_coord_tuple
 
 
@@ -59,9 +59,6 @@ def calc_distance(coord_0: tuple, coord_1: tuple) -> tuple[tuple, float]:
     diff_x: int = (a_1 - a_0) ** 2
     diff_y: int = (b_1 - b_0) ** 2
     diff_z: int = (c_1 - c_0) ** 2
-    # diff_x = (coord_1[0] - coord_0[0]) ** 2
-    # diff_y = (coord_1[1] - coord_0[1]) ** 2
-    # diff_z = (coord_1[2] - coord_0[2]) ** 2
 
     distance: float = math.sqrt(diff_x + diff_y + diff_z)
     return (a_1 - a_0, b_1 - b_0, c_1 - c_0), distance
@@ -69,6 +66,28 @@ def calc_distance(coord_0: tuple, coord_1: tuple) -> tuple[tuple, float]:
 
 # MAIN=======================================================================
 def ft_main() -> None:
+    """
+    Main function demonstrating a game coordinate system with various
+    operations.
+
+    This function showcases different ways to work with 3D coordinates:
+    - Creating coordinates as tuples
+    - Parsing coordinates from strings
+    - Handling invalid coordinate strings with error handling
+    - Calculating distances between points
+
+    The function demonstrates:
+        1. Direct tuple coordinate creation and distance calculation
+        2. String parsing of comma-separated coordinates
+        3. Error handling for invalid coordinate strings
+        4. Unpacking and displaying coordinate components
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: Caught internally when parsing invalid coordinate strings.
+    """
     coord_0: tuple = (0, 0, 0)
     print("=== Game Coordinate System ===")
 
@@ -83,7 +102,7 @@ def ft_main() -> None:
     my_int_list: list = my_str_coord.split(",")
     try:
         print(f'\nParsing coordinates: "{my_str_coord}"')
-        my_int_coord = coord_cast(my_int_list)
+        my_int_coord: tuple = coord_cast(my_int_list)
         print(f"Parsed position: {my_int_coord}")
     except ValueError as e:
         print("❌ Upss... something went wrong while parsing coordinates 🤷")
@@ -93,27 +112,26 @@ def ft_main() -> None:
     print(f"Distance between {coord_0} and {my_int_coord}: {dist:.2f}")
 
     # Case 3 - Invalid string
-    my_str_coord_2 = "abc,def,ghi"
-    my_int_list_2 = my_str_coord_2.split(",")
+    my_str_coord_2: str = "abc,def,ghi"
+    my_int_list_2: list = my_str_coord_2.split(",")
     try:
         print(f'\nParsing invalid coordinates: "{my_str_coord_2}"')
-        my_int_coord_2 = coord_cast(my_int_list_2)
+        my_int_coord_2: tuple = coord_cast(my_int_list_2)
         print(f"Parsed position: {my_int_coord_2}")
     except ValueError as e:
         print("❌ Upss... something went wrong while parsing coordinates 🤷")
         print(f"Error details - Type: {e.__class__.__name__}, Args: {e.args}")
 
-    """
+    '''
     # Case 4 - Reading from command line i.e "(25,12,3)"
-    argv_len = ft_argv_len(sys.argv)
+    argv_len: int = ft_argv_len(sys.argv)
     if argv_len == 1:
         pass
     elif argv_len == 2:
-        my_coord_list = [n for n in sys.argv[1].strip("()").split(",")]
-        print(my_coord_list)
+        my_coord_list: list = [n for n in sys.argv[1].strip("()").split(",")]
     try:
         print("\nParsing from Command Line Argument")
-        my_int_coord_2 = coord_cast(my_coord_list)
+        my_int_coord_2: tuple = coord_cast(my_coord_list)
         print(f"Position created: {my_int_coord_2}")
     except ValueError as e:
         print("❌ Upss... something went wrong while parsing coordinates 🤷")
@@ -121,7 +139,7 @@ def ft_main() -> None:
 
     final_coord, dist = calc_distance(coord_0, my_int_coord_2)
     print(f"Distance between {coord_0} and {my_int_coord_2}: {dist:.2f}")
-    """
+    '''
 
     print("\nUnpacking demonstration:")
     print(f"Player at x={final_coord[0]}, y={final_coord[1]}, "

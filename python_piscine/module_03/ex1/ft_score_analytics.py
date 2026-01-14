@@ -21,8 +21,8 @@ def ft_score_analytics() -> None:
         None
     """
 
-    num_args = len(sys.argv)
-    scores = []
+    num_args: int = len(sys.argv)
+    scores: list = []
 
     print("=== Player Score Analytics ===")
     if num_args == 1:

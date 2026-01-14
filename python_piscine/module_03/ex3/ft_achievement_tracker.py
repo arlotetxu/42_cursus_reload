@@ -16,7 +16,7 @@ def ft_main() -> None:
     No arguments or return values.
     """
 
-    achieves = {
+    achieves: dict = {
         'alice': [
             'boss_hunter', 'first_blood', 'pixel_perfect', 'speed_runner',
             'first_blood', 'first_blood',

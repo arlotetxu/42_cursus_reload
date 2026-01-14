@@ -25,7 +25,6 @@ def ft_get_events(data: list) -> None:
     treasure_events: int = 0
     level_up_events: int = 0
     for n in range(0, len(data)):
-        # print(f"valor de n: {n}")
         record: dict = data[n]
         record_data: dict = record.get("data", {})
         total_events_proc += 1
