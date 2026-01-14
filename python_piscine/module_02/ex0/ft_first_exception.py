@@ -19,6 +19,7 @@ def check_temperature(temp_str: str) -> None:
         - Prints an error if the input string cannot be converted to an
             integer.
     """
+
     print(f"\nTesting temperature: {temp_str}")
     try:
         ret: int = int(temp_str)
@@ -46,7 +47,7 @@ def test_temperature_input() -> None:
         None
     """
     print("=== Garden Temperature Checker ===")
-    args = ("25", "abc", "100", "-50")
+    args: list = ["25", "abc", "100", "-50"]
     for arg in args:
         check_temperature(arg)
     print("\nAll tests completed - program didn't crash!")

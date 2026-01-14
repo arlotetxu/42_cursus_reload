@@ -251,7 +251,7 @@ class GardenManager:
 
         print("Opening watering system")
         for plant_ in self.plants:
-            print(f"Watering {plant_.name} -success")
+            print(f"Watering {plant_.name} - success")
             plant_.water += 1
             self.water_tank -= 1
 

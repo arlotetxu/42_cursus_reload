@@ -16,11 +16,11 @@ def water_plants(plant_list: list) -> None:
         encountered.
     """
 
-    plant_list_ok = {
+    plant_list_ok: dict = {
         "tomato": "tomato",
         "lettuce": "lettuce",
         "carrots": "carrots",
-        }
+    }
 
     print("Opening watering system")
     try:

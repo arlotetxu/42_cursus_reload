@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 def garden_operations(error_type: int):
     """
     Demonstrate different types of Python errors based on error type.
