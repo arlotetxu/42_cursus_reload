@@ -43,8 +43,10 @@ def ft_show_player_info(player: str, inventory: dict) -> None:
                 else:
                     cat_items[specific["type"]] += quantity
 
-    print(f"\nInventory value: {player_data.get('total_value', 0)} gold")
-    print(f"Item count: {player_data.get('item_count', 0)} items")
+    print(f"\nInventory value: "
+          f"{player_data.get(player, {}).get('total_value', 0)} gold")
+    print(f"Item count: "
+          f"{player_data.get(player, {}).get('item_count', 0)} items")
     print("Categories: ", end="")
     cat_list = [f"{k}({v})" for k, v in cat_items.items()]
     for cat in cat_list[:-1]:

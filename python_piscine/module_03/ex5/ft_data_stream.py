@@ -93,7 +93,35 @@ def ft_primes(n):
 
 
 def ft_main() -> None:
+    """
+    Main function demonstrating game data stream processing and
+    generator usage.
 
+    This function processes a dataset of 50 game events from various
+    players, showcasing streaming data processing techniques using
+    Python generators.
+
+    The function demonstrates:
+        1. Processing game events through a generator (ft_get_events)
+        2. Collecting stream analytics (total events, high-level
+           players, treasure events, level-up events)
+        3. Fibonacci sequence generation (first 10 numbers)
+        4. Prime number generation (first 5 primes)
+
+    The game events dataset contains entries with the following
+    structure:
+        - id: Unique event identifier
+        - player: Player name (alice, bob, charlie, diana, eve, frank)
+        - event_type: Type of event (login, logout, kill, death,
+          level_up, item_found)
+        - timestamp: ISO format timestamp of the event
+        - data: Nested dict with level, score_delta, and zone
+          information
+
+    Returns:
+        None: Outputs are printed to stdout including processed
+              events, analytics summary, and generator demonstrations.
+    """
     data: list = [
         {'id': 1, 'player': 'frank', 'event_type': 'login',
          'timestamp': '2024-01-01T23:17',
@@ -249,7 +277,7 @@ def ft_main() -> None:
 
     print("=== Game Data Stream Processor ===")
 
-    print("\nProcessing 50 game events...")
+    print("\nProcessing 50 game events...\n")
     start_time: float = time.time()
     generator = ft_get_events(data)
     for n in range(0, len(data)):

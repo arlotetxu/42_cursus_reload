@@ -14,18 +14,18 @@ def ft_with_list(data: dict) -> None:
     """
 
     print("\n=== List Comprehension Examples ===")
-    player_data = data.get("players", {})
-    high_score_players = [
+    player_data: dict = data.get("players", {})
+    high_score_players: list = [
         player
         for player, player_info in player_data.items()
         if player_info["total_score"] > 2000
     ]
     print(f"High scorers (>2000): {high_score_players}")
-    scores_doubled = [
+    scores_doubled: list = [
         int(data["total_score"]) * 2 for player, data in player_data.items()
     ]
     print(f"Scores doubled: {scores_doubled}")
-    active_players = [player for player in player_data.keys()]
+    active_players: list = [player for player in player_data.keys()]
     print(f"Active players: {active_players}")
 
 
@@ -43,14 +43,14 @@ def ft_with_dict(data: dict) -> None:
     """
 
     print("\n=== Dict Comprehension Examples ===")
-    player_data = data.get("players", {})
-    player_scores = {
+    player_data: dict = data.get("players", {})
+    player_scores: dict = {
         player: player_info["total_score"]
         for player, player_info in player_data.items()
     }
     print(f"Player scores: {player_scores}")
 
-    mode_counts = {
+    mode_counts: dict = {
         mode: sum(1 for p in player_data.values()
                   if p["favorite_mode"] == mode)
         for mode in data["game_modes"]
@@ -79,14 +79,14 @@ def ft_with_set(data: dict) -> None:
     """
 
     print("\n=== Set Comprehension Examples ===")
-    player_data = data.get("players", {})
+    player_data: dict = data.get("players", {})
     session_data: list = data.get("sessions", [])
-    unique_players = {session["player"] for session in session_data}
+    unique_players: set = {session["player"] for session in session_data}
     print(f"Unique players: {unique_players}")
-    unique_achievements = {player_info["achievement"]
-                           for player, player_info in player_data.items()}
+    unique_achievements: set = {player_info["achievement"]
+                                for player, player_info in player_data.items()}
     print(f"Unique achievements: {unique_achievements}")
-    active_regions = {sesion["region"] for sesion in session_data}
+    active_regions: set = {sesion["region"] for sesion in session_data}
     print(f"Active regions: {active_regions}")
 
 
@@ -104,27 +104,28 @@ def ft_combined(data: dict) -> None:
         - Top performer with their score and achievement count.
     """
 
-    player_data = data.get("players", {})
-    unique_achievements = {player_info["achievement"]
-                           for player, player_info in player_data.items()}
-    player_scores = {
+    player_data: dict = data.get("players", {})
+    unique_achievements: set = {
+        player_info["achievement"]
+        for player, player_info in player_data.items()}
+    player_scores: dict = {
         player: player_info["total_score"]
         for player, player_info in player_data.items()
         }
 
     print("\n=== Combined Analysis ===")
-    total_players = len({player for player in player_data.keys()})
+    total_players: int = len({player for player in player_data.keys()})
     print(f"Total players: {total_players}")
     print(f"Total unique achievements: {len(unique_achievements)}")
-    average_score = sum(player_info['total_score']
-                        for player, player_info in player_data.items())\
-        / total_players
+    average_score: int = sum(
+        player_info['total_score']
+        for player, player_info in player_data.items()) / total_players
     print(f"Average score: {average_score:.1f}")
-    top_perf_player = max(player_scores, key=player_scores.get)
-    top_perf_points = player_scores[top_perf_player]
-    top_perf_achiev = [player_info['achievements_count']
-                       for player, player_info in player_data.items()
-                       if player == top_perf_player][0]
+    top_perf_player: str = max(player_scores, key=player_scores.get)
+    top_perf_points: int = player_scores[top_perf_player]
+    top_perf_achiev: int = [player_info['achievements_count']
+                            for player, player_info in player_data.items()
+                            if player == top_perf_player][0]
     print(f"Top performer: {top_perf_player} ({top_perf_points} points, "
           f"{top_perf_achiev} achievements)")
 
