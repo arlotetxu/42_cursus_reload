@@ -3,8 +3,8 @@
 if __name__ == "__main__":
     print("=== CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===")
 
-    file1_name = "list_archive.txt"
-    file1_path = "../tools/" + file1_name
+    file1_name: str = "lost_archive.txt"
+    file1_path: str = "../tools/" + file1_name
     print(f"\nCRISIS ALERT: Attempting access to '{file1_name}'...")
     try:
         with open(file1_path, mode='r') as fd1:
@@ -19,8 +19,8 @@ if __name__ == "__main__":
     data_generator_tools. I changed the file name. For testing pourpose,
     it is needed to remove the file read permission to classified_data.txt
     '''
-    file2_name = "classified_data.txt"
-    file2_path = "../tools/" + file2_name
+    file2_name: str = "classified_data.txt"
+    file2_path: str = "../tools/" + file2_name
     print(f"\nCRISIS ALERT: Attempting access to '{file2_name}'...")
     try:
         with open(file2_path, mode='r') as fd2:
@@ -30,15 +30,16 @@ if __name__ == "__main__":
     finally:
         print("STATUS: Crisis handled, security maintained")
 
-    file3_name = "standard_archive.txt"
-    file3_path = "../tools/" + file3_name
+    file3_name: str = "standard_archive.txt"
+    file3_path: str = "../tools/" + file3_name
     print(f"\nCRISIS ALERT: Attempting access to '{file3_name}'...")
     try:
         with open(file3_path, mode='r') as fd3:
             fd3_data = fd3.read()
             print(f"SUCCESS: Archive recovered - ``{fd3_data}''")
-            print("STATUS: Normal operations resumed")
     except (PermissionError, FileNotFoundError, FileExistsError):
         print("RESPONSE: Security protocols deny access or Archive not found")
+    finally:
+        print("STATUS: Normal operations resumed")
 
     print("\nAll crisis scenarios handled successfully. Archives secure.")

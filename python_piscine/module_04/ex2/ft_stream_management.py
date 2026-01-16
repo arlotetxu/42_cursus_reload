@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
 import sys
-'''
-Authorized: sys.stdin, sys.stdout, sys.stderr, input(), print(), import sys
-'''
 
 if __name__ == "__main__":
-    print("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===")
+    sys.stdout.write("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===\n")
 
     archivist_id = input("\nInput Strean active. Enter archivist ID: ")
-    system_status = input("Input Stream active. Enter status report: ")
+    # system_status = input("Input Stream active. Enter status report: ")
+    sys.stdout.write("Input Stream active. Enter status report: ")
+    sys.stdout.flush()
+    system_status = sys.stdin.readline().strip()
 
     std_message = f"\n{{[}}STANDARD{{]}} Archive status from " \
         f"{archivist_id}: {system_status}"

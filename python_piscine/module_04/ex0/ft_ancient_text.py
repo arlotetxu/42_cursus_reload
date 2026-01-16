@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
 
-'''
-open(file, mode='r', buffering=-1, encoding=None,
-        errors=None, newline=None, closefd=True, opener=None)
-'''
 if __name__ == "__main__":
     print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===")
 
     f_path = "ancient/ancient_fragment.txt"
     print(f"\nAccessing Storage Vault: {f_path}")
     fd = open(f_path, mode='r')
-    fd_data = fd.read()
+    fd_data: str = fd.read()
     fd.close()
     print("Connection established...")
 
