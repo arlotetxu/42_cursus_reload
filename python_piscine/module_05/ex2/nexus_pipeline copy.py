@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Protocol, Union
 from icecream import ic
 
+class ProgramError(Exception):
+    def __init__(self, message="STD Error"):
+        super().__init__(self, message)
+
 
 class NexusLogger:
     """
@@ -155,8 +159,7 @@ class InputStage:
         input_ret: Dict = {}
         required_keys: List[str] = ["sensor", "value", "unit"]
 
-        if isinstance(data, dict) and all(
-                key in data for key in required_keys):
+        if isinstance(data, dict) and all(key in data for key in required_keys):
             input_ret = {**data}
             input_ret["from"] = "json"
 
@@ -171,6 +174,9 @@ class InputStage:
             input_ret["from"] = "stream"
         else:
             NexusLogger().add_log("InputStage", "Invalid data format")
+
+            # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            raise ProgramError("Error detected in Stage 1: Invalid data format")
 
         return input_ret
 
@@ -248,37 +254,35 @@ class TransformStage:
                             processing)
                         - ValueError: When data cannot be converted to float
         """
-
+        ic(data)
         for k, v in data.items():
             if k == "from" and v == "json":
                 try:
                     temp: float = float(data["value"])
                     range: str = (
-                        "Normal Range" if temp > 0 and
-                        temp < 100 else "Out of Range"
+                        "Normal Range" if temp > 0 and temp < 100 else "Out of Range"
                     )
                     data["range"] = range
                     break
                 except KeyError:
                     NexusLogger().add_log("TransformStage", "Invalid key")
+                    raise ProgramError("Error detected in Stage 2: Invalid key")
                 except ValueError:
-                    NexusLogger().add_log("TransformStage",
-                                          "Invalid data format")
+                    NexusLogger().add_log("TransformStage", "Invalid data format")
+                    raise ProgramError("Error detected in Stage 2: Invalid data format")
             if k == "from" and v == "csv":
                 pass
             if k == "from" and v == "stream":
                 try:
-                    temps: List[float] = [
-                        float(temp) for temp in data.get("values")
-                        ]
+                    temps: List[float] = [float(temp) for temp in data.get("values")]
                     avg_temp: float = sum(temp for temp in temps) / sum(
                         1 for temp in temps
                     )
                     data["avg_temp"] = avg_temp
                     break
                 except ValueError:
-                    NexusLogger().add_log("TransformStage",
-                                          "Invalid data format")
+                    NexusLogger().add_log("TransformStage", "Invalid data format")
+                    raise ProgramError("Error detected in Stage 2: Invalid data format")
         return data
 
 
@@ -314,7 +318,7 @@ class OutputStage:
                     return f"Output: Processed temperature reading: {data['value']}°C ({data['range']})"
             except KeyError:
                 NexusLogger().add_log("OutputStage", "Cannot create the desire output")
-                return
+                raise ProgramError("Error detected in Stage 3: Invalid data format")
             if k == "from" and v == "csv":
                 return "Output: User activity logged: 1 actions processed"
             try:
@@ -322,7 +326,7 @@ class OutputStage:
                     return f"Output: Stream summary: {len(data['values'])} readings, avg: {data['avg_temp']}°C"
             except Exception:
                 NexusLogger().add_log("OutputStage", "Cannot create the desire output")
-                return
+                raise ProgramError("Error detected in Stage 2: Invalid data format")
 
 
 # ===========================================================================
@@ -435,7 +439,10 @@ class JSONAdapter(ProcessingPipeline):
                 stages.
         """
         for stage in self.stages:
-            data = stage.process(data)
+            try:
+                data = stage.process(data)
+            except ProgramError as p_e:
+                raise ProgramError(p_e)
         return data
 
 
@@ -489,7 +496,10 @@ class CSVAdapter(ProcessingPipeline):
                 output.
         """
         for stage in self.stages:
-            data = stage.process(data)
+            try:
+                data = stage.process(data)
+            except ProgramError as p_e:
+                raise ProgramError(p_e)
         return data
 
 
@@ -543,7 +553,10 @@ class StreamAdapter(ProcessingPipeline):
                 applied by the pipeline stages.
         """
         for stage in self.stages:
-            data = stage.process(data)
+            try:
+                data = stage.process(data)
+            except ProgramError as p_e:
+                raise ProgramError(p_e)
         return data
 
 
@@ -624,8 +637,13 @@ class NexusManager:
 
         for pipe in self.pipelines:
             for read in data:
-                pipe.process(read)
-                self.pipes_processed += 1
+                try:
+                    ic(pipe)
+                    pipe.process(read)
+                    self.pipes_processed += 1
+                except ProgramError as p_e:
+                    print(p_e.args)
+                    pass
 
         self.pipelines.clear()
 
@@ -665,10 +683,8 @@ def ft_launch_json() -> None:
             data_json = stage.process(data_json)
         elif isinstance(stage, OutputStage):
             temp: float = float(data_json.get("value"))
-            range: str = "Normal Range" if temp > 0 and temp < 100 else \
-                "Out of Range"
-            print(f"Output: Processed temperature reading: "
-                  f"{temp:.1f}°C ({range})")
+            range: str = "Normal Range" if temp > 0 and temp < 100 else "Out of Range"
+            print(f"Output: Processed temperature reading: {temp:.1f}°C ({range})")
             data_json = stage.process(data_json)
 
 
@@ -736,11 +752,8 @@ def ft_launch_stream() -> None:
             print("Transform: Aggregated and filtered")
             data_str = stage.process(data_str)
         elif isinstance(stage, OutputStage):
-            temps: List[float] = [
-                float(temp) for temp in data_str.get("values")
-                ]
-            avg_temp: float = sum(
-                temp for temp in temps) / sum(1 for temp in temps)
+            temps: List[float] = [float(temp) for temp in data_str.get("values")]
+            avg_temp: float = sum(temp for temp in temps) / sum(1 for temp in temps)
             print(
                 f"Output: Stream summary: {sum(1 for temp in temps)} "
                 f"readings, avg: {avg_temp}°C"
@@ -802,24 +815,24 @@ def ft_main():
         {"sensor": "temp", "value": "24", "unit": "C"},
         {"sensor": "temp", "value": "24.5", "unit": "C"},
         {"sensor": "temp", "value": "25", "unit": "C"},
-        {"sensor": "temp", "value": "abc", "unit": "C"}, # Forcing an error
+        {"sensor": "temp", "value": "abc", "unit": "C"},  # Forcing an error
         {"sensor": "temp", "value": 25.5, "unit": "C"},
+        "user,action,timestamp",
         {"sensor": "temp", "value": "26", "unit": "C"},
         {"sensor": "temp", "value": 26.5, "unit": "C"},
         {"sensor": "temp", "value": "27", "unit": "C"},
         {"sensor": "temp", "value": "25", "unit": "C"},
         {"sensor": "temp", "value": "25", "unit": "C"},
-        # (2, 23.5, 24, 22, 21.8), # Forcing an error stage 1
         "user,action,timestamp",
         "user,action,timestamp",
-        "user,action,timestamp",
+        [22, 23.5, 22, 22, 21.8],
         "user,action,timestamp",
         "user,action,timestamp",
         [22, 23.5, 24, 22, 21.8],
         [22, 22, 25, 22, 21.8],
-        [22, 23.5, 22, 22, 21.8],
         [22, 23.5, 24, 25, 21.8],
         [22, 23.5, 24, 21.8, 25],
+        (2, 23.5, 24, 22, 21.8),  # Forcing an error stage 1
     ]
 
     pipe_batch = [
