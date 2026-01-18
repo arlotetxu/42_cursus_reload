@@ -156,27 +156,38 @@ class InputStage:
             NexusLogger.
         """
 
+        # Identificar la instancia del adaptador mediante la referencia inyectada
+        launcher_instance = getattr(self, 'launcher', None)
         input_ret: Dict = {}
-        required_keys: List[str] = ["sensor", "value", "unit"]
+        # required_keys: List[str] = ["sensor", "value", "unit"]
 
-        if isinstance(data, dict) and all(key in data for key in required_keys):
-            input_ret = {**data}
-            input_ret["from"] = "json"
+        # if isinstance(data, dict) and all(key in data for key in required_keys):
+        try:
+            if launcher_instance and isinstance(launcher_instance, JSONAdapter):
+                input_ret = {**data}
+                input_ret["from"] = "json"
+                return input_ret       
 
-        elif isinstance(data, str) and "," in data:
-            input_ret["string"] = data.split(",")
-            input_ret["from"] = "csv"
+            # elif isinstance(data, str) and "," in data:
+            if launcher_instance and isinstance(launcher_instance, CSVAdapter):
+                input_ret["string"] = data.split(",")
+                input_ret["from"] = "csv"
+                return input_ret
 
-        elif isinstance(data, List) and all(
-            isinstance(item, (int | float)) for item in data
-        ):
-            input_ret["values"] = data
-            input_ret["from"] = "stream"
-        else:
-            NexusLogger().add_log("InputStage", "Invalid data format")
-
-            # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            raise ProgramError("Error detected in Stage 1: Invalid data format")
+        # elif isinstance(data, List) and all(
+        #     isinstance(item, (int | float)) for item in data
+        # ):
+            if launcher_instance and isinstance(launcher_instance, StreamAdapter):
+                input_ret["values"] = data
+                input_ret["from"] = "stream"
+                return input_ret
+        
+            else:
+                NexusLogger().add_log("InputStage", "Invalid data format")
+                # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                raise ProgramError("Error detected in Stage 1: Invalid input data format")
+        except Exception:
+            pass
 
         return input_ret
 
@@ -254,7 +265,6 @@ class TransformStage:
                             processing)
                         - ValueError: When data cannot be converted to float
         """
-        ic(data)
         for k, v in data.items():
             if k == "from" and v == "json":
                 try:
@@ -375,6 +385,12 @@ class ProcessingPipeline(ABC):
         Returns:
             None
         """
+        
+        '''
+         le inyecte una referencia a sí mismo (el adaptador). Luego, dentro
+         de InputStage, simplemente accedes a esa referencia.
+        '''
+        stage.launcher= self
         self.stages.append(stage)
 
     @abstractmethod
@@ -439,6 +455,7 @@ class JSONAdapter(ProcessingPipeline):
                 stages.
         """
         for stage in self.stages:
+            ic(stage)
             try:
                 data = stage.process(data)
             except ProgramError as p_e:
@@ -496,6 +513,7 @@ class CSVAdapter(ProcessingPipeline):
                 output.
         """
         for stage in self.stages:
+            ic(stage)
             try:
                 data = stage.process(data)
             except ProgramError as p_e:
@@ -553,6 +571,7 @@ class StreamAdapter(ProcessingPipeline):
                 applied by the pipeline stages.
         """
         for stage in self.stages:
+            ic(stage)
             try:
                 data = stage.process(data)
             except ProgramError as p_e:
@@ -639,6 +658,7 @@ class NexusManager:
             for read in data:
                 try:
                     ic(pipe)
+                    ic(read)
                     pipe.process(read)
                     self.pipes_processed += 1
                 except ProgramError as p_e:
@@ -737,7 +757,7 @@ def ft_launch_stream() -> None:
         None
     """
 
-    pipe_str = CSVAdapter("csv_001")
+    pipe_str = StreamAdapter("str_001")
     data_str = [22, 23.5, 24, 22, 21.8]
     pipe_str.add_stage(InputStage())
     pipe_str.add_stage(TransformStage())
