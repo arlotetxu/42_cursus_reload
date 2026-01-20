@@ -1,7 +1,32 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Protocol, Union
-from icecream import ic
+import time
+
+
+class ProgramError(Exception):
+    """
+    Exception class for program errors.
+
+    A custom exception class that extends the base Exception class
+    to handle program-specific errors with a default error message.
+
+    Attributes:
+        message (str): The error message describing the exception.
+            Defaults to "STD Error".
+
+    """
+
+    def __init__(self, message="STD Error"):
+        """
+        Initialize the exception with a custom error message.
+
+        Args:
+            message (str): The error message to be displayed. Defaults to
+                "STD Error".
+        """
+
+        super().__init__(self, message)
 
 
 class NexusLogger:
@@ -48,6 +73,7 @@ class NexusLogger:
             - "TransformStage" -> NexusLogger.logs_transf
             - "OutputStage" -> NexusLogger.logs_output
         """
+
         if stage == "InputStage":
             NexusLogger.logs_input.append(message)
         elif stage == "TransformStage":
@@ -83,7 +109,6 @@ class ProcessingStage(Protocol):
     """
 
     def process(self, data) -> Any: ...
-
     """
     Process the given data through the pipeline.
 
@@ -152,27 +177,43 @@ class InputStage:
             NexusLogger.
         """
 
+        # Identifying the injected reference to the launcher instance
+        launcher_instance = getattr(self, 'launcher', None)
         input_ret: Dict = {}
         required_keys: List[str] = ["sensor", "value", "unit"]
 
-        if isinstance(data, dict) and all(
-                key in data for key in required_keys):
-            input_ret = {**data}
-            input_ret["from"] = "json"
+        try:
+            if launcher_instance and \
+                    isinstance(launcher_instance, JSONAdapter) and \
+                    all(key in data for key in required_keys):
+                input_ret = {**data}
+                input_ret["from"] = "json"
+                return input_ret
 
-        elif isinstance(data, str) and "," in data:
-            input_ret["string"] = data.split(",")
-            input_ret["from"] = "csv"
+            elif launcher_instance and \
+                    isinstance(launcher_instance, CSVAdapter) and \
+                    "," in data:
+                input_ret["string"] = data.split(",")
+                input_ret["from"] = "csv"
+                return input_ret
 
-        elif isinstance(data, List) and all(
-            isinstance(item, (int | float)) for item in data
-        ):
-            input_ret["values"] = data
-            input_ret["from"] = "stream"
-        else:
-            NexusLogger().add_log("InputStage", "Invalid data format")
+            elif launcher_instance and \
+                    isinstance(launcher_instance, StreamAdapter) and \
+                    isinstance(data, List) and \
+                    all(isinstance(item, (int | float)) for item in data):
+                input_ret["values"] = data
+                input_ret["from"] = "stream"
+                return input_ret
 
-        return input_ret
+            else:
+                NexusLogger().add_log("InputStage", "Invalid data format")
+                raise ProgramError()
+
+        except Exception:
+            # pass
+            raise ProgramError(f"Error detected in Stage 1 "
+                               f"({launcher_instance.pipeline_id}): "
+                               f"Invalid input data format: {data}")
 
 
 class TransformStage:
@@ -249,21 +290,28 @@ class TransformStage:
                         - ValueError: When data cannot be converted to float
         """
 
+        launcher_instance = getattr(self, 'launcher', None)
         for k, v in data.items():
             if k == "from" and v == "json":
                 try:
                     temp: float = float(data["value"])
                     range: str = (
-                        "Normal Range" if temp > 0 and
-                        temp < 100 else "Out of Range"
-                    )
+                        "Normal Range" if temp > 0 and temp < 100
+                        else "Out of Range"
+                        )
                     data["range"] = range
                     break
                 except KeyError:
                     NexusLogger().add_log("TransformStage", "Invalid key")
+                    raise ProgramError(f"Error detected in Stage 2 "
+                                       f"({launcher_instance.pipeline_id}): "
+                                       f"Invalid key: {data}")
                 except ValueError:
-                    NexusLogger().add_log("TransformStage",
-                                          "Invalid data format")
+                    NexusLogger().add_log(
+                        "TransformStage", "Invalid data format")
+                    raise ProgramError(f"Error detected in Stage 2 "
+                                       f"({launcher_instance.pipeline_id}): "
+                                       f"Invalid data format: {data}")
             if k == "from" and v == "csv":
                 pass
             if k == "from" and v == "stream":
@@ -277,8 +325,12 @@ class TransformStage:
                     data["avg_temp"] = avg_temp
                     break
                 except ValueError:
-                    NexusLogger().add_log("TransformStage",
-                                          "Invalid data format")
+                    NexusLogger().add_log(
+                        "TransformStage", "Invalid data format"
+                        )
+                    raise ProgramError(f"Error detected in Stage 2 "
+                                       f"({launcher_instance.pipeline_id}): "
+                                       f"Invalid data format: {data}")
         return data
 
 
@@ -307,22 +359,35 @@ class OutputStage:
             Dict: The input data dictionary with an additional 'processed'
                 key set to True.
         """
+
+        launcher_instance = getattr(self, 'launcher', None)
         data["processed"] = True
         for k, v in data.items():
             try:
                 if k == "from" and v == "json":
-                    return f"Output: Processed temperature reading: {data['value']}°C ({data['range']})"
+                    return f"Output: Processed temperature reading: "\
+                        f"{data['value']}°C ({data['range']})"
             except KeyError:
-                NexusLogger().add_log("OutputStage", "Cannot create the desire output")
-                return
+                NexusLogger().add_log(
+                    "OutputStage", "Cannot create the desire output"
+                    )
+                raise ProgramError(f"Error detected in Stage 3 "
+                                   f"({launcher_instance.pipeline_id}): "
+                                   f"Invalid data format: {data}")
             if k == "from" and v == "csv":
                 return "Output: User activity logged: 1 actions processed"
             try:
                 if k == "from" and v == "stream":
-                    return f"Output: Stream summary: {len(data['values'])} readings, avg: {data['avg_temp']}°C"
+                    return f"Output: Stream summary: "\
+                        f"{len(data['values'])} readings, "\
+                        f"avg: {data['avg_temp']}°C"
             except Exception:
-                NexusLogger().add_log("OutputStage", "Cannot create the desire output")
-                return
+                NexusLogger().add_log(
+                    "OutputStage", "Cannot create the right output"
+                    )
+                raise ProgramError(f"Error detected in Stage 2 "
+                                   f"({launcher_instance.pipeline_id}): "
+                                   f"Invalid data format: {data}")
 
 
 # ===========================================================================
@@ -357,6 +422,7 @@ class ProcessingPipeline(ABC):
         Returns:
             None
         """
+
         self.pipeline_id: str = pipeline_id
         self.stages: List[ProcessingStage] = []
 
@@ -371,11 +437,12 @@ class ProcessingPipeline(ABC):
         Returns:
             None
         """
+
+        stage.launcher = self  # dependency injection
         self.stages.append(stage)
 
     @abstractmethod
     def process(self, data: Any) -> Union[str, Any]: ...
-
     """
     Process the input data through the pipeline.
 
@@ -418,6 +485,7 @@ class JSONAdapter(ProcessingPipeline):
         Args:
             pipeline_id (str): The unique identifier for the pipeline.
         """
+
         super().__init__(pipeline_id)
 
     def process(self, data: Any) -> Union[str, Any]:
@@ -434,8 +502,12 @@ class JSONAdapter(ProcessingPipeline):
             Union[str, Any]: The final output after processing through all
                 stages.
         """
+
         for stage in self.stages:
-            data = stage.process(data)
+            try:
+                data = stage.process(data)
+            except ProgramError as p_e:
+                raise ProgramError(p_e)
         return data
 
 
@@ -469,6 +541,7 @@ class CSVAdapter(ProcessingPipeline):
         Args:
             pipeline_id (str): The unique identifier for the pipeline.
         """
+
         super().__init__(pipeline_id)
 
     def process(self, data: Any) -> Union[str, Any]:
@@ -488,8 +561,12 @@ class CSVAdapter(ProcessingPipeline):
                 all stages. The return type depends on the last stage's
                 output.
         """
+
         for stage in self.stages:
-            data = stage.process(data)
+            try:
+                data = stage.process(data)
+            except ProgramError as p_e:
+                raise ProgramError(p_e)
         return data
 
 
@@ -524,6 +601,7 @@ class StreamAdapter(ProcessingPipeline):
         Args:
             pipeline_id (str): The unique identifier for the pipeline.
         """
+
         super().__init__(pipeline_id)
 
     def process(self, data: Any) -> Union[str, Any]:
@@ -542,8 +620,12 @@ class StreamAdapter(ProcessingPipeline):
                 all stages. The return type depends on the transformations
                 applied by the pipeline stages.
         """
+
         for stage in self.stages:
-            data = stage.process(data)
+            try:
+                data = stage.process(data)
+            except ProgramError as p_e:
+                raise ProgramError(p_e)
         return data
 
 
@@ -583,6 +665,7 @@ class NexusManager:
             pipes_processed (int): Counter for the number of pipes
                 processed, defaults to 0.
         """
+
         self.pipelines: List[Any] = []
         self.capacity: int = 1000
         self.pipes_processed: int = 0
@@ -599,6 +682,7 @@ class NexusManager:
         Returns:
             None
         """
+
         for pipeline in pipelines:
             self.pipelines.append(pipeline)
 
@@ -617,6 +701,7 @@ class NexusManager:
         Returns:
             None
         """
+
         for pipe in self.pipelines:
             pipe.add_stage(InputStage())
             pipe.add_stage(TransformStage())
@@ -624,8 +709,13 @@ class NexusManager:
 
         for pipe in self.pipelines:
             for read in data:
-                pipe.process(read)
-                self.pipes_processed += 1
+                try:
+                    pipe.process(read)
+                    self.pipes_processed += 1
+                except ProgramError:
+                    # print(p_e.args[1])
+                    # print(read)
+                    pass
 
         self.pipelines.clear()
 
@@ -665,8 +755,8 @@ def ft_launch_json() -> None:
             data_json = stage.process(data_json)
         elif isinstance(stage, OutputStage):
             temp: float = float(data_json.get("value"))
-            range: str = "Normal Range" if temp > 0 and temp < 100 else \
-                "Out of Range"
+            range: str = "Normal Range" if temp > 0 and temp < 100 \
+                else "Out of Range"
             print(f"Output: Processed temperature reading: "
                   f"{temp:.1f}°C ({range})")
             data_json = stage.process(data_json)
@@ -721,7 +811,7 @@ def ft_launch_stream() -> None:
         None
     """
 
-    pipe_str = CSVAdapter("csv_001")
+    pipe_str = StreamAdapter("str_001")
     data_str = [22, 23.5, 24, 22, 21.8]
     pipe_str.add_stage(InputStage())
     pipe_str.add_stage(TransformStage())
@@ -737,8 +827,7 @@ def ft_launch_stream() -> None:
             data_str = stage.process(data_str)
         elif isinstance(stage, OutputStage):
             temps: List[float] = [
-                float(temp) for temp in data_str.get("values")
-                ]
+                float(temp) for temp in data_str.get("values")]
             avg_temp: float = sum(
                 temp for temp in temps) / sum(1 for temp in temps)
             print(
@@ -795,31 +884,31 @@ def ft_main():
 
     print("\n=== Pipeline Chaining Demo ===")
     print("Pipeline A -> Pipeline B -> Pipeline C")
-    print("Data flow: Raw -> Processed -> Analyzed -> Stored")
+    print("Data flow: Raw -> Processed -> Analyzed -> Stored\n")
 
     data_batch = [
         {"sensor": "temp", "value": "23.5", "unit": "C"},
         {"sensor": "temp", "value": "24", "unit": "C"},
         {"sensor": "temp", "value": "24.5", "unit": "C"},
         {"sensor": "temp", "value": "25", "unit": "C"},
-        {"sensor": "temp", "value": "abc", "unit": "C"}, # Forcing an error
+        {"sensor": "temp", "value": "abc", "unit": "C"},  # Forcing an error
         {"sensor": "temp", "value": 25.5, "unit": "C"},
+        "user,action,timestamp",
         {"sensor": "temp", "value": "26", "unit": "C"},
         {"sensor": "temp", "value": 26.5, "unit": "C"},
         {"sensor": "temp", "value": "27", "unit": "C"},
         {"sensor": "temp", "value": "25", "unit": "C"},
         {"sensor": "temp", "value": "25", "unit": "C"},
-        # (2, 23.5, 24, 22, 21.8), # Forcing an error stage 1
         "user,action,timestamp",
         "user,action,timestamp",
-        "user,action,timestamp",
+        [22, 23.5, 22, 22, 21.8],
         "user,action,timestamp",
         "user,action,timestamp",
         [22, 23.5, 24, 22, 21.8],
         [22, 22, 25, 22, 21.8],
-        [22, 23.5, 22, 22, 21.8],
         [22, 23.5, 24, 25, 21.8],
         [22, 23.5, 24, 21.8, 25],
+        (2, 23.5, 24, 22, 21.8),  # Forcing an error stage 1. Not processed
     ]
 
     pipe_batch = [
@@ -829,12 +918,16 @@ def ft_main():
     ]
 
     manager.add_pipeline(pipe_batch)
+    start_time = time.time()
     manager.process(data_batch)
+    stop_time = time.time()
+
     print(
         f"\nChain result: {manager.pipes_processed} records processed "
         f"through 3-stage pipeline"
     )
-    print("Performance: 95% efficiency, 0.2s total processing time")
+    print(f"Performance: {(manager.pipes_processed/len(data_batch))*100:.2f}%"
+          f" efficiency, {stop_time - start_time:.6f}s total processing time")
 
     print("\n=== Error Recovery Test ===")
     print("Simulating pipeline failure...")

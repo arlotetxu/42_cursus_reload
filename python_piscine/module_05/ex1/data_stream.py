@@ -224,7 +224,6 @@ class SensorStream(DataStream):
         """
 
         try:
-            # Check if all the elements in the data_batch tuple list are numb
             data_clean: List[Any] = [(m, v / 1) for m, v in data_batch]
             self.read_processed = sum(1 for item in data_clean)
 
@@ -274,6 +273,37 @@ class SensorStream(DataStream):
 
 
 class TransactionStream(DataStream):
+    """
+    A class representing a transaction data stream that extends DataStream.
+
+    TransactionStream processes batches of financial transaction data
+    (buy/sell operations), maintains logs, and tracks various statistics
+    such as net balance, total volume, and large transactions.
+
+    Attributes:
+        logs (List): A list to store log entries of processed transaction
+            batches.
+        t_reads (int): Counter for the number of read/filter operations
+            performed.
+        net_balance (int): The net balance calculated from all transactions
+            (buys positive, sells negative).
+        total_ops (int): The total number of transaction operations
+            processed.
+        total_volume (int): The total absolute volume of all transactions.
+        large_trans (int): Counter for transactions with values greater
+            than 100.
+
+    Methods:
+        __init__(stream_id: str, type: str) -> None:
+            Initializes a new TransactionStream instance.
+        process_batch(data_batch: List[Any]) -> str:
+            Processes a batch of transaction data and returns a summary.
+        filter_data(data_batch: List[Any],
+            criteria: Optional[str] = None) -> List[Any]:
+            Filters and validates transaction data based on optional criteria.
+        get_stats() -> Dict[str, Union[str, int, float]]:
+            Returns statistics about processed transactions.
+    """
 
     def __init__(self, stream_id: str, type: str) -> None:
         """
@@ -727,6 +757,24 @@ class StreamProcessor:
 
 
 def ft_main():
+    """
+    Main function demonstrating the Code Nexus Polymorphic Stream System.
+
+    This function showcases the usage of different stream types
+    (SensorStream, TransactionStream, EventStream) and the StreamProcessor
+    for batch processing.
+
+    The demonstration includes:
+        - Individual stream initialization and batch processing for each
+            stream type
+        - Adding multiple streams to a centralized StreamProcessor
+        - Processing all streams simultaneously with specified criteria
+        - Displaying processing statistics
+
+    Returns:
+        None
+    """
+
     print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===")
     processor = StreamProcessor()
 
