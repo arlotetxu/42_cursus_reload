@@ -2,6 +2,8 @@
 
 
 def ft_absolute() -> None:
+    """Demonstrates absolute imports."""
+
     print()
     print("Testing Absolute Imports (from basic.py):")
     from alchemy.transmutation.basic import lead_to_gold, stone_to_gem
@@ -10,6 +12,8 @@ def ft_absolute() -> None:
 
 
 def ft_relative() -> None:
+    """Demonstrates relative imports."""
+
     print()
     print("Testing Relative Imports (from advanced.py):")
     from alchemy.transmutation.advanced import philosophers_stone, \
@@ -19,6 +23,13 @@ def ft_relative() -> None:
 
 
 def ft_pack_access() -> None:
+    """
+    Demonstrates accessing functions within a subpackage using the
+    fully qualified package name.
+
+    This method shows how to call functions from 'transmutation'
+    subpackage after importing the top-level 'alchemy' package."""
+
     print()
     print("Testing Package Access:")
     import alchemy
@@ -29,6 +40,13 @@ def ft_pack_access() -> None:
 
 
 def ft_main() -> None:
+    """
+    Main function to demonstrate absolute, relative, and package-level
+    imports.
+
+    It calls functions that showcase different import methods.
+    """
+
     print("=== Pathway Debate Mastery ===")
     ft_absolute()
     ft_relative()

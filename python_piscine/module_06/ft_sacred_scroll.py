@@ -3,6 +3,13 @@ import alchemy
 
 
 def ft_main() -> None:
+    """
+    Main function to demonstrate package structure and access.
+
+    It showcases direct module access within a package and package-level
+    access controlled by __init__.py. It also prints package metadata.
+    """
+
     print("\n=== Sacred Scroll Mastery ===")
 
     print("\nTesting direct module access:")

@@ -4,6 +4,16 @@ from alchemy.grimoire import validator
 
 
 def ft_late_import() -> None:
+    """
+    Demonstrates late import technique to avoid circular imports.
+
+    Imports spellbook at runtime instead of module load time to prevent
+    circular dependency issues. Tests record_spell with various inputs.
+
+    Returns:
+        None: Prints test results to stdout.
+    """
+
     from alchemy.grimoire import spellbook
     print("Testing spell recording with validation:")
     spell_1: str = "Fireball"
@@ -26,6 +36,15 @@ def ft_late_import() -> None:
 
 
 def ft_main() -> None:
+    """
+    Main function to demonstrate circular curse breaking.
+
+    Validates two ingredient strings using the validator module and prints
+    the results. Also calls ft_late_import to show late import usage.
+
+    Returns:
+        None
+    """
     print()
 
     print("=== Circular Curse Breaking ===")
