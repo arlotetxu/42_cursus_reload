@@ -7,7 +7,10 @@ class ArtifactCard(Card):
         self.effect = effect
 
     def play(self, game_state: dict) -> dict:
-        print("Estoy eb play de ArtifactCard")
+        game_state["card_played"] = self.name
+        game_state["mana_used"] = self.cost
+        game_state["effect"] = self.effect
+        return game_state
 
     def activate_ability(self) -> dict:
         ...

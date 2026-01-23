@@ -3,8 +3,9 @@ from ex0.Card import Card
 
 
 class CreatureCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str,
-                 attack: int, health: int) -> None:
+    def __init__(
+        self, name: str, cost: int, rarity: str, attack: int, health: int
+    ) -> None:
         super().__init__(name, cost, rarity)
         self._attack = 0
         self._health = 0
@@ -21,10 +22,12 @@ class CreatureCard(Card):
             self._attack = value
         else:
             print()
-            raise (ValueError(
-                f"\033[31mERROR. {self.name}'s attack value "
-                f"cannot be less than 1. Please, check...\033[0m")
+            raise (
+                ValueError(
+                    f"\033[31mERROR. {self.name}'s attack value "
+                    f"cannot be less than 1. Please, check...\033[0m"
                 )
+            )
 
     def get_health(self):
         return self._health
@@ -34,25 +37,20 @@ class CreatureCard(Card):
             self._health = value
         else:
             print()
-            raise (ValueError(
-                f"\033[31mERROR. {self.name}'s health "
-                f"cannot be less than 1. Please, check...\033[0m"))
+            raise (
+                ValueError(
+                    f"\033[31mERROR. {self.name}'s health "
+                    f"cannot be less than 1. Please, check...\033[0m"
+                )
+            )
 
     def play(self, game_state: dict) -> dict:
-        self.available_mana: int = 6
-        if self.is_playable(available_mana=self.available_mana):
-            print(f"Playing {self.name} with {self.available_mana} "
-                  f"mana available:")
-            print(f"Playable: "
-                  f"{self.is_playable(available_mana=self.available_mana)}")
-            game_state["card_played"] = self.name
-            game_state["mana_used"] = self.cost
-            game_state["effect"] = "Creature summoned to battlefield"
-            print(f"Play result: {game_state}")
-            return game_state
-        else:
-            raise ValueError(f"\033[31mERROR!. Not enought mana to play "
-                             f"with {self.name}\033[0m")
+        # print(f"Playable: {self.is_playable(available_mana=self.available_mana)}")
+        game_state["card_played"] = self.name
+        game_state["mana_used"] = self.cost
+        game_state["effect"] = "Creature summoned to battlefield"
+        # print(f"Play result: {game_state}")
+        return game_state
 
     def attack_target(self, target: Card) -> dict:
         print()
@@ -63,7 +61,7 @@ class CreatureCard(Card):
         attack_result["attacker"] = self.name
         attack_result["target"] = target.name
         attack_result["damage_dealt"] = self._attack
-        attack_result["combat resolved"] = combat_resolved
-        self.available_mana -= self.cost
-        print(f"Attack result: {attack_result}")
+        attack_result["combat_resolved"] = combat_resolved
+        # self.available_mana -= self.cost
+        # print(f"Attack result: {attack_result}")
         return attack_result

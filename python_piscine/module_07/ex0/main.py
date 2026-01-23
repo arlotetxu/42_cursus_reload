@@ -10,6 +10,7 @@ def ft_main() -> None:
     print("Testing Abstract Base Class Design:")
     print()
     rarity_list: list[str] = ["Legendary", "Common"]
+    player_mana = 6
 
     try:
         fire_dragon = CreatureCard(
@@ -40,13 +41,22 @@ def ft_main() -> None:
     fire_dragon_info: dict = fire_dragon.get_card_info()
     print(fire_dragon_info)
     print()
+    print(f"Playing {fire_dragon.name} with {player_mana} mana available:")
+    card_playable: bool = fire_dragon.is_playable(player_mana)
+    print(f"Playable: {card_playable}")
+    # print()
     # goblin_warrior_info: dict = goblin_warrior.get_card_info()
     # print(goblin_warrior_info)
     # print()
 
     try:
-        fire_dragon.play(game_state=game_state)
-        fire_dragon.attack_target(goblin_warrior)
+        if card_playable:
+            play_result: dict = fire_dragon.play(game_state=game_state)
+            print(f"Play result: {play_result}")
+            print()
+            attack_result: dict = fire_dragon.attack_target(goblin_warrior)
+            print(f"Attack result: {attack_result}")
+            player_mana -= fire_dragon.cost
     except ValueError as v_e:
         print(v_e)
         return

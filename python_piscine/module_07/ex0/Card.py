@@ -33,6 +33,11 @@ class Card(ABC):
         return self.card_info
 
     def is_playable(self, available_mana: int) -> bool:
-        if self._health > 0 and available_mana >= self.cost:
-            return True
-        return False
+        from ex0.CreatureCard import CreatureCard
+        if isinstance(self, CreatureCard):
+            if self._health <= 0 or available_mana < self.cost:
+                return False
+        else:
+            if available_mana < self.cost:
+                return False
+        return True
