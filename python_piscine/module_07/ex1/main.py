@@ -1,31 +1,34 @@
-# from ex0.Card import Card
 from random import randint
-
+from ex0.Card import Card_Rarity
 from ex0.CreatureCard import CreatureCard
+from ex1.SpellCard import SpellCard
 from ex1.ArtifactCard import ArtifactCard
 from ex1.Deck import Deck
-from ex1.SpellCard import SpellCard
-from icecream import ic
-
-# effect_type_list = ["damage", "heal", "buff", "debuff"]
-# effect = choice(effect_type_list)
-# print(effect)
 
 
 def ft_main() -> None:
+    """
+    Main function to demonstrate the deck builder system.
+
+    It showcases the creation of different card types (Spell, Artifact,
+    Creature), adding them to a deck, calculating deck statistics, and
+    drawing/playing cards using a generator to demonstrate polymorphism.
+    """
+    print()
     print("=== DataDeck Deck Builder ===")
     print()
-    print("Building deck with different card types...")
 
     my_deck = Deck()
     player_mana = 50
     card_list = []
     game_state = {}
+    rarity_list = [rare.value for rare in Card_Rarity]
 
+    # Creating the different Card types
     spell_1 = SpellCard(
         name="Lightning Bolt",
         cost=randint(1, 10),
-        rarity="Common",
+        rarity=rarity_list[randint(0, len(rarity_list) - 1)],
         effect_type="Deal 3 damage to target",
     )
     card_list.append(spell_1)
@@ -33,7 +36,7 @@ def ft_main() -> None:
     arti_1 = ArtifactCard(
         name="Mana Crystal",
         cost=randint(1, 10),
-        rarity="Common",
+        rarity=rarity_list[randint(0, len(rarity_list) - 1)],
         durability=randint(1, 10),
         effect="Permanent: +1 mana per turn",
     )
@@ -42,18 +45,26 @@ def ft_main() -> None:
     creat_1 = CreatureCard(
         name="Fire Dragon",
         cost=2,
-        rarity="Legendary",
+        rarity=rarity_list[randint(0, len(rarity_list) - 1)],
         attack=randint(1, 10),
         health=randint(1, 10),
     )
     card_list.append(creat_1)
 
+    # Adding cards to the deck
     for card in card_list:
         my_deck.add_card(card)
 
-    # Vamos sacando cada carta de mazo con un generador.
-    # Se ejecuta el metodo draw_card con cada next
-    # Se ejecuta el metodo play
+    print("Building deck with different card types...")
+    my_deck_stats = my_deck.get_deck_stats()
+    print(f"Deck Stats: {my_deck_stats}")
+
+    print()
+    print("Drawing and playing cards:")
+
+    # Getting the cards from the deck with a generator
+    # draw_card() is executed
+    # play() method is executed
     generator = my_deck.draw_card()
     for card in card_list:
         print()
@@ -64,11 +75,6 @@ def ft_main() -> None:
             player_mana -= card.cost
         else:
             print(f"Not enought mana to play {card.name}")
-    ic(my_deck.my_cards)
-    ic(creat_1._health)
-    spell_1.resolve_effect([creat_1,])
-    ic(creat_1._health)
-    ic(my_deck.my_cards)
 
     print()
     print("Polymorphism in action: Same interface, different card behaviors!")

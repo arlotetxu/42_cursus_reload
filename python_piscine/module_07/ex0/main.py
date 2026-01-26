@@ -1,21 +1,29 @@
 #!/usr/bin/env python3
 from random import randint
+from ex0.Card import Card_Rarity
 from ex0.CreatureCard import CreatureCard
 
 
 def ft_main() -> None:
+    """
+    Main function to demonstrate the foundation of the card system.
+
+    It showcases the creation of creature cards, checking playability,
+    playing cards, and attacking targets.
+    """
     print()
     print("=== DataDeck Card Foundation ===")
     print()
     print("Testing Abstract Base Class Design:")
     print()
-    rarity_list: list[str] = ["Legendary", "Common"]
+    rarity_list = [rare.value for rare in Card_Rarity]
+
     player_mana = 6
 
     try:
         fire_dragon = CreatureCard(
             name="Fire Dragon",
-            cost=randint(4, 10),
+            cost=randint(1, 5),
             rarity=rarity_list[randint(0, len(rarity_list) - 1)],
             attack=randint(1, 10),
             health=randint(1, 10)
