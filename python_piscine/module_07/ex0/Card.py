@@ -23,6 +23,61 @@ class Card_Rarity(Enum):
     LEGENDARY = "Legendary"
 
 
+class Creatures(Enum):
+
+    FIRE_DRAGON = "Fire Dragon"
+    GOBLIN_WARRIOR = "Goblin Warrior"
+    FROST_WYRM = "Frost Wyrm"
+    SHADOWBLADE_ASSASSIN = "Shadowblade Assassin"
+    THUNDERCLAP_TITAN = "Thunderclap Titan"
+    EMBERFANG_DRAKE = "Emberfang Drake"
+    BLOODSWORN_BERSERKER = "Bloodsworn Berserker"
+    ARCANE_NOVA = "Arcane Nova"
+    VOIDCALLER_MAGE = "Voidcaller Mage"
+    STONEHIDE_GOLEM = "Stonehide Golem"
+    VENOMSTRIKE_RANGER = "Venomstrike Ranger"
+    CELESTIAL_SMITE = "Celestial Smite"
+    DREADBONE_NECROMANCER = "Dreadbone Necromancer"
+    IRONJAW_BEHEMOTH = "Ironjaw Behemoth"
+    SOULFIRE_RITUAL = "Soulfire Ritual"
+    STORMWATCH_GRIFFIN = "Stormwatch Griffin"
+    NIGHTVEIL_STALKER = "Nightveil Stalker"
+    EARTHSHATTER_COLOSSUS = "Earthshatter Colossus"
+    SUNFLARE_PALADIN = "Sunflare Paladin"
+    MINDREND_HEX = "Mindrend Hex"
+    ASHEN_WARLOCK = "Ashen Warlock"
+    TEMPEST_BARRAGE = "Tempest Barrage"
+
+
+class Spells(Enum):
+    LIGHTNING_BOLT = "Lightning Bolt"
+    ARCANE_NOVA = "Arcane Nova"
+    CELESTIAL_SMITE = "Celestial Smite"
+    SOULFIRE_RITUAL = "Soulfire Ritual"
+    MINDREND_HEX = "Mindrend Hex"
+    TEMPEST_BARRAGE = "Tempest Barrage"
+    SHADOWFLAME = "Shadowflame"
+    FROSTBIND = "Frostbind"
+    VOID_SURGE = "Void Surge"
+    EARTHSHATTER = "Earthshatter"
+    FIRE = "Fire"
+    ICE = "Ice"
+
+
+class Artifacts(Enum):
+    MANA_CRYSTAL = "Mana Crystal"
+    SOULSTONE_AMULET = "Soulstone Amulet"
+    DRAGONFIRE_RELIC = "Dragonfire Relic"
+    VOID_COMPASS = "Void Compass"
+    RUNIC_OBELISK = "Runic Obelisk"
+    CHRONO_HOURGLASS = "Chrono Hourglass"
+    BLOODBOUND_TALISMAN = "Bloodbound Talisman"
+    STORMCORE_ENGINE = "Stormcore Engine"
+    ETHEREAL_LENS = "Ethereal Lens"
+    OBSIDIAN_IDOL = "Obsidian Idol"
+    MAGICAL_RING = "Magical Ring"
+    MAGICAL_STAFF = "Magical Staff"
+
 class Card(ABC):
     """
     Abstract base class representing a generic card in the game.
