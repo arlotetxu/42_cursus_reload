@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from enum import Enum
 
 
-class Card_Types(Enum):
+class CardTypes(Enum):
     """
     Enum representing the different types of cards.
     """
@@ -12,9 +12,10 @@ class Card_Types(Enum):
     SPELLCARD = "Spell"
     ARTIFACTCARD = "Artifact"
     ELITECARD = "Elite"
+    TOURNAMENTCARD = "Tournament"
 
 
-class Card_Rarity(Enum):
+class CardRarity(Enum):
     """
     Enum representing the rarity of cards.
     """
@@ -78,6 +79,7 @@ class Artifacts(Enum):
     MAGICAL_RING = "Magical Ring"
     MAGICAL_STAFF = "Magical Staff"
 
+
 class Card(ABC):
     """
     Abstract base class representing a generic card in the game.
@@ -111,7 +113,7 @@ class Card(ABC):
                 "name": self.name,
                 "cost": self.cost,
                 "rarity": self.rarity,
-                "type": Card_Types[type(self).__name__.upper()].value,
+                "type": CardTypes[type(self).__name__.upper()].value,
                 "attack": self._attack,
                 "health": self._health,
             }

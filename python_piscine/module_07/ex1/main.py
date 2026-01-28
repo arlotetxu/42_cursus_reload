@@ -1,5 +1,5 @@
 from random import randint
-from ex0.Card import Card_Rarity
+from ex0.Card import CardRarity
 from ex0.CreatureCard import CreatureCard
 from ex1.SpellCard import SpellCard
 from ex1.ArtifactCard import ArtifactCard
@@ -22,7 +22,7 @@ def ft_main() -> None:
     player_mana = 50
     card_list = []
     game_state = {}
-    rarity_list = [rare.value for rare in Card_Rarity]
+    rarity_list = [rare.value for rare in CardRarity]
 
     # Creating the different Card types
     spell_1 = SpellCard(

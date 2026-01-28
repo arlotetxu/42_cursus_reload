@@ -49,7 +49,7 @@ class EliteCard(Card, Combatable, Magical):
         damage = incoming_damage - self.block
         self._health -= damage
         defense_info["damage_taken"] = damage
-        defense_info["damage_block"] = self.block
+        defense_info["damage_blocked"] = self.block
         alive = True if self._health > 0 else False
         defense_info["still_alive"] = alive
 

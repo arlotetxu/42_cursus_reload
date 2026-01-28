@@ -1,4 +1,4 @@
-from ex0.Card import Card, Card_Types
+from ex0.Card import Card, CardTypes
 from random import shuffle as sf
 
 
@@ -54,7 +54,7 @@ class Deck:
             for card in self.my_cards:
                 print(
                     f"Drew: {card.name} "
-                    f"({Card_Types[(type(card).__name__).upper()].value})")
+                    f"({CardTypes[(type(card).__name__).upper()].value})")
                 yield (card)
 
     def get_deck_stats(self) -> dict:

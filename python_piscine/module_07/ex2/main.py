@@ -1,5 +1,5 @@
 from random import randint
-from ex0.Card import Card, Card_Rarity, Card_Types
+from ex0.Card import Card, CardRarity, CardTypes
 from ex0.CreatureCard import CreatureCard
 from ex1.SpellCard import SpellCard
 from ex2.Combatable import Combatable
@@ -38,7 +38,7 @@ def ft_main() -> None:
     print(f"- Magical: {magic_methods}")
 
     # === General Variables ===
-    rarity_list: list = [rare.value for rare in Card_Rarity]
+    rarity_list: list = [rare.value for rare in CardRarity]
     player_mana: int = 10
 
     # === Creating the EliteCard instance ===
@@ -55,7 +55,7 @@ def ft_main() -> None:
     print()
     print(
         f"Playing {arcane_warrior.name} "
-        f"({Card_Types[type(arcane_warrior).__name__.upper()].value})"
+        f"({CardTypes[type(arcane_warrior).__name__.upper()].value})"
     )
 
     # === Creating Enemy ===
