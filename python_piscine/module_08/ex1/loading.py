@@ -20,6 +20,6 @@ def ft_imports(pack_name: str) -> Optional[Any | None]:
 
 
 if __name__ == "__main__":
-    pack_names = ['pandas', 'requests', 'matplotlib']
+    pack_names = ['pandas', 'requests', 'matplotlib', 'abc']
     for pack in pack_names:
         ft_imports(pack)
