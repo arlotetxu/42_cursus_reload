@@ -10,7 +10,7 @@ def ft_imports(pack_name: str) -> Optional[Any | None]:
     try:
         module = __import__(pack_name)
         print(type(module))
-        print(f"[OK] {module.__class__.__name__}")
+        print(f"[OK] {type(module)}")
         return module
     except ImportError:
         print(f"[ERROR] - '{pack_name}' Module not found!!")
