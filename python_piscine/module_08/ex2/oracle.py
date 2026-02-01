@@ -3,9 +3,10 @@
 import os
 import sys
 from dotenv import load_dotenv
+from icecream import ic
 
 
-def ft_main():
+def ft_main() -> None:
     # loads .env values in memory
     load_dotenv()
 
@@ -22,7 +23,7 @@ def ft_main():
     print()
     print("ORACLE STATUS: Reading the Matrix...")
     print()
-    env_path = ".env"
+    env_path:str = ".env"
     try:
         with open(env_path, mode='r', encoding='UTF8') as fd:
             fd.readlines()
@@ -31,44 +32,32 @@ def ft_main():
               "Please, check!!")
         return
 
-    has_error = False
-    matrix_value = os.getenv("MATRIX_MODE")
-    if sys.prefix == sys.base_prefix:
+    has_error: bool = False
+    matrix_value: str = os.getenv("MATRIX_MODE")
+    if sys.prefix == sys.base_prefix and matrix_value == "development":
         matrix_value = "production"
-    else:
-        matrix_value = "development"
     if not matrix_value or matrix_value not in ["development", "production"]:
         print("- [ERROR] MATRIX_MODE parameter is empty or incorrect. "
               "(development / production).")
         has_error = True
-    # else:
-    #     print(f"Mode: {matrix_value}")
-    database_url = os.getenv("DATABASE_URL")
+    database_url: str = os.getenv("DATABASE_URL")
     if not database_url:
         print("- [ERROR] DATABASE_URL parameter is empty. "
               "(https://url/to/database)")
         has_error = True
-    # else:
-    #     print("Database: Connected to local instance")
-    api_key = os.getenv("API_KEY")
+    api_key: str = os.getenv("API_KEY")
     if not api_key:
         print("- [ERROR] API_KEY parameter is empty. (API_KEY=xxxxxxxxx)")
         has_error = True
-    # else:
-    #     print("API Access: Authenticated")
-    log_level = os.getenv("LOG_LEVEL")
+    log_level: str = os.getenv("LOG_LEVEL")
     if not log_level or log_level not in ["debug", "running"]:
         print("- [ERROR] LOG_LEVEL parameter is empty or incorrect. "
               "(debug / running)")
         has_error = True
-    # else:
-    #     print(f"Log Level: {log_level.upper()}")
-    zion_endpoint = os.getenv("ZION_ENDPOINT")
+    zion_endpoint: str = os.getenv("ZION_ENDPOINT")
     if not zion_endpoint:
-        print("- [ERROR] ZION_ENDPOINT is empty")
+        print("- [ERROR] ZION_ENDPOINT parameter is empty")
         has_error = True
-    # else:
-    #     print("Zion Network: Online")
 
     if has_error:
         print()
