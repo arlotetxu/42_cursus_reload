@@ -1,9 +1,0 @@
-annotated-types==0.7.0
-asttokens==3.0.1
-colorama==0.4.6
-executing==2.2.1
-pydantic==2.12.5
-pydantic_core==2.41.5
-Pygments==2.19.2
-typing-inspection==0.4.2
-typing_extensions==4.15.0

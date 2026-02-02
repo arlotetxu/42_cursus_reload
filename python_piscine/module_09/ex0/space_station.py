@@ -28,8 +28,8 @@ def main() -> None:
     print("========================================")
 
     ss1_data = {
-        "station_id": "ISS001",
-        "name": "International Space Station",
+        "station_id": "LGW125",
+        "name": "Titan Mining Outpost",
         "crew_size": 6,
         "power_level": 85.5,
         "oxygen_level": 92.3,
@@ -48,14 +48,15 @@ def main() -> None:
     print(f"Name: {ss1.name}")
     print(f"Crew: {ss1.crew_size} people")
     print(f"Power: {ss1.power_level}%")
-    print(f"Oxigen: {ss1.oxygen_level}%")
-    print(f"Status: {'Operational' if ss1.is_operational else "Stopped"}")
+    print(f"Oxygen: {ss1.oxygen_level}%")
+    print(f"Status: {'✅ Operational' if ss1.is_operational \
+                     else ' ⚠️ Maintenance'}")
     print()
     print("========================================")
 
     ss2_data = {
-        "station_id": "ISS001",
-        "name": "International Space Station",
+        "station_id": "QCH189",
+        "name": "Deep Space Observatory",
         "crew_size": 21,
         "power_level": 85.5,
         "oxygen_level": 92.3,
@@ -65,7 +66,8 @@ def main() -> None:
 
     try:
         print("Expected validation error:")
-        ss1 = SpaceStation(**ss2_data)
+        ss2 = SpaceStation(**ss2_data)
+        print(ss2)
     except ValidationError as v_e:
         for error in v_e.errors():
             print(error.get("msg"))
