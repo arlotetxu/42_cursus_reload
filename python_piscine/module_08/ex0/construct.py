@@ -5,7 +5,11 @@ import os
 import site
 
 
-def ft_main():
+def ft_main() -> None:
+    """
+    Checks if the script is running inside a virtual environment and
+    displays relevant system information and instructions.
+    """
     # Not in a virtual env
     if sys.prefix == sys.base_prefix:
         print()
@@ -39,7 +43,7 @@ def ft_main():
         print("the global system.")
         print()
 
-        site_packs = site.getsitepackages()[0]
+        site_packs: str = site.getsitepackages()[0]
         print("Package installation path:")
         print(site_packs)
 

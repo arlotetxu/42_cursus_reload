@@ -3,27 +3,28 @@
 import os
 import sys
 from dotenv import load_dotenv
-from icecream import ic
 
 
 def ft_main() -> None:
-    # loads .env values in memory
-    load_dotenv()
-
     """
-    os.environ
+    Main function that loads environment variables from a .env file,
+    validates the required configuration parameters, and displays
+    the status of the Oracle system.
+
+    os.environ:
     is basically a big dictionary that contains all the system environment
     variables that you programs needs to be executed and your program
-    inherits at starting time. Load_dotenv adds the information included in
-    .env file to this mentioned dictionary.
+    inherits at starting time. 'load_dotenv()' adds the information included
+    in .env file to this mentioned dictionary.
     """
-    # for key, value in os.environ.items():
-    #     print(f"{key}: {value}")
+
+    # loads .env values in memory
+    load_dotenv()
 
     print()
     print("ORACLE STATUS: Reading the Matrix...")
     print()
-    env_path:str = ".env"
+    env_path: str = ".env"
     try:
         with open(env_path, mode='r', encoding='UTF8') as fd:
             fd.readlines()
@@ -40,20 +41,24 @@ def ft_main() -> None:
         print("- [ERROR] MATRIX_MODE parameter is empty or incorrect. "
               "(development / production).")
         has_error = True
+
     database_url: str = os.getenv("DATABASE_URL")
     if not database_url:
         print("- [ERROR] DATABASE_URL parameter is empty. "
               "(https://url/to/database)")
         has_error = True
+
     api_key: str = os.getenv("API_KEY")
     if not api_key:
         print("- [ERROR] API_KEY parameter is empty. (API_KEY=xxxxxxxxx)")
         has_error = True
+
     log_level: str = os.getenv("LOG_LEVEL")
     if not log_level or log_level not in ["debug", "running"]:
         print("- [ERROR] LOG_LEVEL parameter is empty or incorrect. "
               "(debug / running)")
         has_error = True
+
     zion_endpoint: str = os.getenv("ZION_ENDPOINT")
     if not zion_endpoint:
         print("- [ERROR] ZION_ENDPOINT parameter is empty")

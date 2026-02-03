@@ -27,7 +27,7 @@ def main() -> None:
     print("Space Station Data Validation")
     print("========================================")
 
-    ss1_data = {
+    ss1_data: dict = {
         "station_id": "LGW125",
         "name": "Titan Mining Outpost",
         "crew_size": 6,
@@ -38,7 +38,7 @@ def main() -> None:
     }
 
     try:
-        ss1 = SpaceStation(**ss1_data)
+        ss1: SpaceStation = SpaceStation(**ss1_data)
     except ValidationError as v_e:
         print(v_e)
         return
@@ -49,12 +49,12 @@ def main() -> None:
     print(f"Crew: {ss1.crew_size} people")
     print(f"Power: {ss1.power_level}%")
     print(f"Oxygen: {ss1.oxygen_level}%")
-    print(f"Status: {'✅ Operational' if ss1.is_operational \
-                     else ' ⚠️ Maintenance'}")
+    status = "✅ Operational" if ss1.is_operational else "⚠️ Maintenance"
+    print(f"Status: {status}")
     print()
     print("========================================")
 
-    ss2_data = {
+    ss2_data: dict = {
         "station_id": "QCH189",
         "name": "Deep Space Observatory",
         "crew_size": 21,
@@ -66,7 +66,7 @@ def main() -> None:
 
     try:
         print("Expected validation error:")
-        ss2 = SpaceStation(**ss2_data)
+        ss2: SpaceStation = SpaceStation(**ss2_data)
         print(ss2)
     except ValidationError as v_e:
         for error in v_e.errors():

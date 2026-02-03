@@ -1,7 +1,6 @@
 from datetime import datetime
 from enum import Enum
 from typing import Optional
-
 from pydantic import BaseModel, Field, ValidationError, model_validator
 
 
@@ -49,7 +48,8 @@ class AlienContact(BaseModel):
         """
         Automatically verifies the contact if the contact_type is valid.
         """
-        if self.contact_type.value in [contact.value for contact in ContactType]:
+        if self.contact_type.value in [
+                contact.value for contact in ContactType]:
             self.is_verified = True
         return self
 
@@ -60,7 +60,8 @@ class AlienContact(BaseModel):
         witnesses.
         """
         if self.contact_type.value == "telepathic" and self.witness_count < 3:
-            raise ValueError("Telepathic contact requires at least 3 witnesses")
+            raise ValueError(
+                "Telepathic contact requires at least 3 witnesses")
         return self
 
     @model_validator(mode="after")
@@ -70,15 +71,20 @@ class AlienContact(BaseModel):
         high.
         """
         if self.signal_strength > 7 and not self.message_received:
-            raise ValueError("Signal strength >= 7 requires a message_received")
+            raise ValueError(
+                "Signal strength >= 7 requires a message_received")
         return self
 
 
 def main() -> None:
+    """
+    Main function to demonstrate AlienContact validation with valid and
+    invalid data.
+    """
     print("Alien Contact Log Validation")
     print("======================================")
     print("Valid contact report:")
-    contact_1_data = {
+    contact_1_data: dict = {
         "contact_id": "AC_2024_001",
         "timestamp": "2024-01-20T00:00:00",
         "location": "Atacama Desert, Chile",
@@ -90,7 +96,7 @@ def main() -> None:
         "is_verified": False,
     }
     try:
-        contact_1 = AlienContact(**contact_1_data)
+        contact_1: AlienContact = AlienContact(**contact_1_data)
         print(f"ID: {contact_1.contact_id}")
         print(f"Type: {contact_1.contact_type.value}")
         print(f"Location: {contact_1.location}")
@@ -105,7 +111,7 @@ def main() -> None:
     print()
     print("======================================")
     print("Expected validation error:")
-    contact_2_data = {
+    contact_2_data: dict = {
         "contact_id": "AC_2024_002",
         "timestamp": "2024-01-16T09:15:00",
         "location": "Roswell",
@@ -117,7 +123,7 @@ def main() -> None:
         "is_verified": False,
     }
     try:
-        contact_2 = AlienContact(**contact_2_data)
+        contact_2: AlienContact = AlienContact(**contact_2_data)
         print(contact_2)
     except ValidationError as v_e:
         for error in v_e.errors():
