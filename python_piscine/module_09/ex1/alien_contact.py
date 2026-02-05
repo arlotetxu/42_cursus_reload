@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import Optional
+from typing import Optional, Self
 from pydantic import BaseModel, Field, ValidationError, model_validator
 
 
@@ -31,7 +31,7 @@ class AlienContact(BaseModel):
     is_verified: bool = False
 
     @model_validator(mode="after")
-    def check_contact_id_start(self):
+    def check_contact_id_start(self) -> Self:
         """
         Validates that the contact_id starts with the prefix 'AC'.
         """
@@ -44,7 +44,7 @@ class AlienContact(BaseModel):
         return self
 
     @model_validator(mode="after")
-    def contact_validation(self):
+    def contact_validation(self) -> Self:
         """
         Automatically verifies the contact if the contact_type is valid.
         """
@@ -54,7 +54,7 @@ class AlienContact(BaseModel):
         return self
 
     @model_validator(mode="after")
-    def telepathic_validation(self):
+    def telepathic_validation(self) -> Self:
         """
         Validates that telepathic contacts have a minimum number of
         witnesses.
@@ -65,7 +65,7 @@ class AlienContact(BaseModel):
         return self
 
     @model_validator(mode="after")
-    def signal_msg_validation(self):
+    def signal_msg_validation(self) -> Self:
         """
         Validates that a message is provided when signal strength is
         high.

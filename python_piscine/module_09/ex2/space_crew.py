@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import List
+from typing import List, Self
 from pydantic import BaseModel, Field, model_validator, ValidationError
 
 
@@ -52,7 +52,7 @@ class SpaceMission(BaseModel):
         return self
 
     @model_validator(mode='after')
-    def check_rank(self):
+    def check_rank(self) -> Self:
         """
         Ensures the mission has at least one high-ranking officer (Captain
         or Commander).
@@ -67,7 +67,7 @@ class SpaceMission(BaseModel):
         return self
 
     @model_validator(mode='after')
-    def check_long_mission(self):
+    def check_long_mission(self) -> Self:
         """
         Validates that long missions have a sufficient ratio of experienced
         crew members.
@@ -83,7 +83,7 @@ class SpaceMission(BaseModel):
         return self
 
     @model_validator(mode='after')
-    def check_crew_status(self):
+    def check_crew_status(self) -> Self:
         """
         Verifies that all assigned crew members are currently active.
         """
