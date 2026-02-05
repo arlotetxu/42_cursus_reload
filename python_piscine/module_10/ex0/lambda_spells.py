@@ -58,7 +58,7 @@ def ft_main() -> None:
     result: list[dict] = power_filter(mages, 60)
     print("Testing filtering mages (power > 60)...")
     for mage in result:
-        print(f"{mage["name"]} - {mage["power"]}")
+        print(f"{mage['name']} - {mage['power']}")
     print("="*42)
     result: list[str] = spell_transformer(spells)
     print("Testing spell transformer...")
