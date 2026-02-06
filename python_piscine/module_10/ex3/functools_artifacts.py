@@ -95,7 +95,7 @@ def ft_main() -> None:
     print()
 
     print("Testing spell dispatcher...")
-    res:callable = spell_dispatcher()
+    res: callable = spell_dispatcher()
     print(f"With int: {res(1)}")
     print(f"With str: {res('string')}")
     print(f"With list: {res(['fireball', 15 , 'amazing ice'])}")
