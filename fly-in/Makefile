@@ -39,7 +39,7 @@ WHITE       = \033[0;97m
 
 MAIN_FILE = fly-in.py
 SRC = src/
-MAP = maps/easy/01_linear_path.txt
+MAP = maps/easy/01_linear_path_test.txt
 
 all: install run
 
