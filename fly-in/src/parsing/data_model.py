@@ -60,6 +60,18 @@ class HubsValidator(BaseModel):
         return self
 
     @model_validator(mode='after')
+    def check_zones(self) -> Self:
+        valid_zones = ['normal', 'blocked', 'restricted', 'priority']
+        for hub in self.map_hubs:
+            if hub.get("zone", "normal") not in valid_zones:
+                raise ValueError(
+                    f"{Colors.RED.value}[ERROR] - Hub zone definition is not valid."
+                    f" Please, check it in the map file."
+                    f"{Colors.RESET.value}"
+                    )
+        return self
+
+    @model_validator(mode='after')
     def check_unique_start_goal(self) -> Self:
         starts = sum(1 for hub in self.map_hubs if hub.get("name") == 'start')
         goals = sum(1 for hub in self.map_hubs if hub.get("name") == 'goal')
@@ -75,4 +87,3 @@ class HubsValidator(BaseModel):
 class DroneValidator(BaseModel):
 
     map_drones: int = Field(..., gt=0)
-
