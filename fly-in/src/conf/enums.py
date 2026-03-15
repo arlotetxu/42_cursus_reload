@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Colors(Enum):
     """
     ANSI color and text formatting codes for terminal output.

@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Self, Tuple
+from typing import List, Dict, Any, Self
 from pydantic import BaseModel, Field, model_validator
 from src.conf.enums import Colors
 from icecream import ic
@@ -63,7 +63,8 @@ class HubsValidator(BaseModel):
         for hub in self.map_hubs:
             if hub.get("zone", "normal") not in valid_zones:
                 raise ValueError(
-                    f"{Colors.RED.value}[ERROR] - Hub zone definition is not valid."
+                    f"{Colors.RED.value}[ERROR] - "
+                    f"Hub zone definition is not valid."
                     f" Please, check it in the map file."
                     f"{Colors.RESET.value}"
                     )
