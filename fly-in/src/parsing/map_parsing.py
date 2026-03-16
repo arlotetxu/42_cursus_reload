@@ -30,9 +30,15 @@ def get_metadata(meta: str) -> Dict:
 def get_hubs_data(map_lines: List[str]) -> List[str, str | int]:
     hubs_data = []
     num_hubs = 0
+    start_goal = 0
     for line in map_lines:
         if "hub:" in line and not line.startswith("#"):
+            hub_prefix = line.split(": ")[0]
             hub_data = line.split(": ")[1:]
+            if hub_prefix == "start_hub":
+                start_goal += 1
+            if hub_prefix == "end_hub":
+                start_goal += 1
             hub_dict = {}
             for item in hub_data:
                 # Adding metadata to the hub information dict
@@ -50,6 +56,11 @@ def get_hubs_data(map_lines: List[str]) -> List[str, str | int]:
                 hub_dict["y"] = int(obj[2])
                 num_hubs += 1
                 hubs_data.append(hub_dict)
+    if start_goal != 2:
+        print(f"{Colors.RED.value}[ERROR] - "
+              f"There are not start_hub/end_hub in the map file. "
+              f"Please, check it. {Colors.RESET.value}")
+        sys.exit(1)
     if num_hubs < 2:
         print(f"{Colors.RED.value}[ERROR] - "
               f"There are not enought hubs in the map file. "
@@ -129,5 +140,5 @@ def data_validation(map: str) -> Dict[str, Any]:
     return map_data
 
 
-def parse_map(map: str) -> None:
+def parse_map(map: str) -> Dict[str, Any]:
     return data_validation(map)
