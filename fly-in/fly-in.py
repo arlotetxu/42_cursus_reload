@@ -2,11 +2,12 @@ import sys
 from typing import Dict, Any
 from src.conf.enums import Colors
 from src.parsing.map_parsing import parse_map
-# from src.hub.hub import add_hubs
 from src.objs.connection import Connection
 from src.objs.grid import Grid
 from src.objs.a_star import AStar
 from icecream import ic
+
+ic.configureOutput(includeContext=True)
 
 
 def main(map: str):
@@ -15,16 +16,23 @@ def main(map: str):
     # Creating grid and hubs whithin it
     my_grid = Grid(map_validators)
     my_grid.create_grid()
+    # ic(my_grid.hubs.get("waypoint2", "").coord,
+    # my_grid.hubs.get("waypoint2", "").zone,
+    # my_grid.hubs.get("waypoint2", "").neighbors,
+    # my_grid.hubs.get("waypoint2", "").g_cost,
+    # my_grid.hubs.get("waypoint2", "").h_cost,
+    # my_grid.hubs.get("waypoint2", "").f_cost,
+    # my_grid.hubs.get("waypoint2", "").father)
+    my_grid.set_h_cost()
+
+
     my_astar = AStar(my_grid.hubs)
-    my_astar.init_astar()
-    # my_connecion = Connection(map_validators)
-    # my_grid.restart_costs()
+    path = my_astar.init_astar()
+    for r in path:
+        ic(r.name)
+
     # ic(map_validators.get("conns").map_connects)
-    # ic(my_grid.hubs.get("waypoint1", "").coord,
-    #    my_grid.hubs.get("waypoint1", "").zone,
-    #    my_grid.hubs.get("waypoint1", "").neighbors,
-    #    my_grid.hubs.get("waypoint1", "").g_cost,
-    #    my_grid.hubs.get("waypoint1", "").f_cost,)
+
     # ic(map_validators.get("conns", None).map_connects)
 
 
