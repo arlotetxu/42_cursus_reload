@@ -5,12 +5,12 @@ from icecream import ic
 
 ic.configureOutput(includeContext=True)
 
-class Grid:
+class Graph:
 
     def __init__(self, map_validators: Dict[str, Any]) -> None:
         self.map_validators = map_validators
 
-    def create_grid(self):
+    def create_graph(self):
         hubs_dict = {}
         hub_data = self.map_validators.get("hubs", "").map_hubs
         for hub in hub_data:
@@ -21,25 +21,29 @@ class Grid:
                 hub.get("color"),
                 hub.get("zone", "normal"),
                 hub.get("max_drones", 1),
+                hub.get("is_start", False),
+                hub.get("is_goal", False),
             )
             # Setting the hub neighbors
             new_hub.add_neighbors(self.map_validators)
             hubs_dict[new_hub.name] = new_hub
-        for hub in hubs_dict.values():
+        # for hub in hubs_dict.values():
             # Setting the neighbors cost in turns:
             # hub.define_neighbor_cost(hubs_dict)
             # Setting the hub fathers:
-            hub.set_hubs_father(hubs_dict)
+            # hub.set_hubs_father(hubs_dict)
+        Hub.set_hubs_father(self, hubs_dict)
         self.hubs = hubs_dict
 
     def get_hub(self, name: str) -> Hub:
         return self.hubs.get(name, None)
 
     def set_h_cost(self) -> None:
-        goal_hub = self.get_hub("goal")
+        for hub in self.hubs.values():
+            if hub.is_goal:
+                goal_hub = hub
         if not goal_hub:
             return
-
         #Setting all hubs h_cost to infinite
         for hub in self.hubs.values():
             hub.h_cost = float(('inf'))
@@ -65,4 +69,4 @@ class Grid:
         for _, hub in self.hubs.items():
             hub.g_cost = 0
             hub.h_cost = 0
-            hub.father = ""
+            hub.father = []

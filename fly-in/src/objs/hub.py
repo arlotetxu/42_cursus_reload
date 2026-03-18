@@ -7,14 +7,20 @@ ic.configureOutput(includeContext=True)
 
 class Hub:
 
-    def __init__(self, name: str, x: int, y: int,
-                 color: str, zone: str, max_drones: int) -> None:
+    def __init__(self, name: str, x: int, y: int, color: str,
+                 zone: str, max_drones: int, is_start: bool = False,
+                 is_goal:bool = False) -> None:
         self.name = name
-        self.coord = (x, y)
+        self.is_start = is_start
+        self.is_goal = is_goal
+        self.x = x
+        self.y = y
+        # self.coord = (x, y)
         self.color = color
         self.zone = zone
-        self.cross = True
         self.max_drones = int(max_drones)
+        self.cross = True
+
         self.curr_drones = 0
         self.neighbors: Dict[str, int] = {}
         self.g_cost = 0
@@ -37,7 +43,8 @@ class Hub:
 
     @property
     def is_crossable(self) -> bool:
-        return (self.curr_drones < self.max_drones) and not self.zone == "blocked"
+        return (self.curr_drones < self.max_drones) and \
+            not self.zone == "blocked"
 
     @property
     def f_cost(self) -> int | float:

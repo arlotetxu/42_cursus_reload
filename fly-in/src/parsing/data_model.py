@@ -26,6 +26,28 @@ class HubsValidator(BaseModel):
     map_hubs: List[Dict[str, Any]] = Field(...)
 
     @model_validator(mode='after')
+    def check_start_goal(self) -> Self:
+        count_start = 0
+        count_goal = 0
+        for hub in self.map_hubs:
+            if hub.get("is_start", False):
+                count_start += 1
+            if hub.get("is_goal", False):
+                count_goal += 1
+        if count_start > 1 or count_goal > 1:
+            raise ValueError(
+                f"{Colors.RED.value}[ERROR] - There are more than one "
+                f"start_hub/end_hub. "
+                f"Please, check the map file.{Colors.RESET.value}"
+            )
+        elif count_start < 1 or count_goal < 1:
+            raise ValueError(
+                f"{Colors.RED.value}[ERROR] - There are not start_hub/end_hub"
+                f" Please, check the map file.{Colors.RESET.value}"
+            )
+        return self
+
+    @model_validator(mode='after')
     def check_positive_coord(self) -> Self:
         for hub in self.map_hubs:
             if hub.get("x") < 0 or hub.get("y") < 0:
@@ -41,11 +63,11 @@ class HubsValidator(BaseModel):
         start = None
         goal = None
         for hub in self.map_hubs:
-            if hub.get("name") == 'start':
+            if hub.get("is_start"):
                 start_x = hub.get("x")
                 start_y = hub.get("y")
                 start = (start_x, start_y)
-            elif hub.get("name") == 'goal':
+            if hub.get("is_goal"):
                 goal_x = hub.get("x")
                 goal_y = hub.get("y")
                 goal = (goal_x, goal_y)
@@ -70,17 +92,17 @@ class HubsValidator(BaseModel):
                     )
         return self
 
-    @model_validator(mode='after')
-    def check_unique_start_goal(self) -> Self:
-        starts = sum(1 for hub in self.map_hubs if hub.get("name") == 'start')
-        goals = sum(1 for hub in self.map_hubs if hub.get("name") == 'goal')
-        if starts > 1 or goals > 1:
-            raise ValueError(
-                f"{Colors.RED.value}[ERROR] - There are more than one start/"
-                f"goal point in the map's hubs definition. Please, check it "
-                f"in the map file.{Colors.RESET.value}"
-            )
-        return self
+    # @model_validator(mode='after')
+    # def check_unique_start_goal(self) -> Self:
+    #     starts = sum(1 for hub in self.map_hubs if hub.get("name") == 'start')
+    #     goals = sum(1 for hub in self.map_hubs if hub.get("name") == 'goal')
+    #     if starts > 1 or goals > 1:
+    #         raise ValueError(
+    #             f"{Colors.RED.value}[ERROR] - There are more than one start/"
+    #             f"goal point in the map's hubs definition. Please, check it "
+    #             f"in the map file.{Colors.RESET.value}"
+    #         )
+    #     return self
 
 
 class DroneValidator(BaseModel):

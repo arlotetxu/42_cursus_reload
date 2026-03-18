@@ -20,26 +20,25 @@ def read_map(map: str) -> List[str]:
 
 def get_metadata(meta: str) -> Dict:
     meta_data_dict = {}
-    meta_data = meta.split(" ")
-    for meta in meta_data:
-        meta_key_value = meta.split("=")
-        meta_data_dict[meta_key_value[0]] = meta_key_value[1]
+    for part in meta.split():
+        if "=" in part:
+            key, value = part.split("=", 1)
+            meta_data_dict[key] = value
     return meta_data_dict
 
 
 def get_hubs_data(map_lines: List[str]) -> List[str, str | int]:
     hubs_data = []
     num_hubs = 0
-    start_goal = 0
     for line in map_lines:
         if "hub:" in line and not line.startswith("#"):
+            hub_dict = {}
             hub_prefix = line.split(": ")[0]
             hub_data = line.split(": ")[1:]
             if hub_prefix == "start_hub":
-                start_goal += 1
+                hub_dict["is_start"] = True
             if hub_prefix == "end_hub":
-                start_goal += 1
-            hub_dict = {}
+                hub_dict["is_goal"] = True
             for item in hub_data:
                 # Adding metadata to the hub information dict
                 start_meta = item.find('[')
@@ -50,17 +49,12 @@ def get_hubs_data(map_lines: List[str]) -> List[str, str | int]:
                     for k, v in meta_data_dict.items():
                         hub_dict[k] = v
                 # Adding the rest hub information
-                obj = item.split(" ")
+                obj = item.strip().split()
                 hub_dict["name"] = obj[0]
                 hub_dict["x"] = int(obj[1])
                 hub_dict["y"] = int(obj[2])
                 num_hubs += 1
                 hubs_data.append(hub_dict)
-    if start_goal != 2:
-        print(f"{Colors.RED.value}[ERROR] - "
-              f"There are not start_hub/end_hub in the map file. "
-              f"Please, check it. {Colors.RESET.value}")
-        sys.exit(1)
     if num_hubs < 2:
         print(f"{Colors.RED.value}[ERROR] - "
               f"There are not enought hubs in the map file. "
@@ -85,8 +79,8 @@ def get_conection_data(map_lines: List[str]) -> List:
                     conn_data_dict = get_metadata(meta_data)
                     for k, v in conn_data_dict.items():
                         conn_dict[k] = v
-                stop = conn_data[1].find(" ")
-                conn_tuple = tuple(conn_data[1][:stop].split("-"))
+                conn_names = item.split('[')[0].strip()
+                conn_tuple = tuple(name.strip() for name in conn_names.split("-"))
                 conn_dict["conn"] = conn_tuple
                 num_connections += 1
             connections.append(conn_dict)
