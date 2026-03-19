@@ -51,8 +51,8 @@ install: pyproject.toml
 run: install
 	@echo "$(CYAN)$$HEADER$(DEF_COLOR)"
 	uv run $(MAIN_FILE) $(MAP)
-# @read -p "Enter the path to the map: " MY_MAP; \
-# uv run $(MAIN_FILE) $$MY_MAP
+# 	@read -p "Enter the path to the map: " MY_MAP; \
+# 	uv run $(MAIN_FILE) $$MY_MAP
 
 
 

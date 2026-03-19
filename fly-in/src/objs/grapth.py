@@ -27,11 +27,7 @@ class Graph:
             # Setting the hub neighbors
             new_hub.add_neighbors(self.map_validators)
             hubs_dict[new_hub.name] = new_hub
-        # for hub in hubs_dict.values():
-            # Setting the neighbors cost in turns:
-            # hub.define_neighbor_cost(hubs_dict)
-            # Setting the hub fathers:
-            # hub.set_hubs_father(hubs_dict)
+        # Setting the hub fathers:
         Hub.set_hubs_father(self, hubs_dict)
         self.hubs = hubs_dict
 
@@ -65,8 +61,8 @@ class Graph:
                     father_.h_cost = new_dist
                     heappush(pq, (new_dist, father_.name))
 
-    def restart_costs(self) -> None:
-        for _, hub in self.hubs.items():
-            hub.g_cost = 0
-            hub.h_cost = 0
-            hub.father = []
+    # def restart_costs(self) -> None:
+    #     for _, hub in self.hubs.items():
+    #         hub.g_cost = 0
+    #         hub.h_cost = 0
+    #         hub.father = []

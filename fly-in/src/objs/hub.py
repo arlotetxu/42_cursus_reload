@@ -1,5 +1,4 @@
 from typing import List, Dict, Any
-from src.objs.connection import Connection
 from icecream import ic
 
 ic.configureOutput(includeContext=True)
@@ -8,8 +7,8 @@ ic.configureOutput(includeContext=True)
 class Hub:
 
     def __init__(self, name: str, x: int, y: int, color: str,
-                 zone: str, max_drones: int, is_start: bool = False,
-                 is_goal:bool = False) -> None:
+                 zone: str, max_drones: int, is_start: bool = True,
+                 is_goal: bool = True) -> None:
         self.name = name
         self.is_start = is_start
         self.is_goal = is_goal
@@ -20,7 +19,6 @@ class Hub:
         self.zone = zone
         self.max_drones = int(max_drones)
         self.cross = True
-
         self.curr_drones = 0
         self.neighbors: Dict[str, int] = {}
         self.g_cost = 0
