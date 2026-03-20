@@ -9,6 +9,7 @@ class Connection:
         self.father = father
         self.son = son
         self.max_link_cap = max_link_cap
+        self.curr_drones = 0
 
 
 def create_connections(map_validators: Dict[str, Any], hubs: Dict[str, Hub]) -> Dict[Tuple [str, str], Hub]:

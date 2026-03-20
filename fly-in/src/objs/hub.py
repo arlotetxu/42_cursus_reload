@@ -18,7 +18,7 @@ class Hub:
         self.color = color
         self.zone = zone
         self.max_drones = int(max_drones)
-        self.cross = True
+        # self.cross = True
         self.curr_drones = 0
         self.neighbors: Dict[str, int] = {}
         self.g_cost = 0

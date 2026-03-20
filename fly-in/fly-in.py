@@ -16,10 +16,10 @@ def main(map: str):
     print("Hello from main fly-in")
     map_validators: Dict[str, Any] = parse_map(map)
     # Creating grapth with hubs in it
-    my_grid = Graph(map_validators)
-    my_grid.create_graph()
-    my_grid.set_h_cost()
-    hubs_dict = my_grid.hubs
+    my_graph = Graph(map_validators)
+    my_graph.create_graph()
+    my_graph.set_h_cost()
+    hubs_dict = my_graph.hubs
     # Creating connections
     connections_dict = create_connections(map_validators, hubs_dict)
     # Creating drones

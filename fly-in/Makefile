@@ -39,7 +39,7 @@ WHITE       = \033[0;97m
 
 MAIN_FILE = fly-in.py
 SRC = src/
-MAP = maps/easy/01_linear_path_test.txt
+MAP = maps/medium/02_circular_loop.txt
 
 all: install run
 

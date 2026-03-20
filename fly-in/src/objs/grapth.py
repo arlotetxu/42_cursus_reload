@@ -29,7 +29,9 @@ class Graph:
             hubs_dict[new_hub.name] = new_hub
         # Setting the hub fathers:
         Hub.set_hubs_father(self, hubs_dict)
+
         self.hubs = hubs_dict
+        self.start_end_max_drones()
 
     def get_hub(self, name: str) -> Hub:
         return self.hubs.get(name, None)
@@ -60,6 +62,11 @@ class Graph:
                 if new_dist < father_.h_cost:
                     father_.h_cost = new_dist
                     heappush(pq, (new_dist, father_.name))
+
+    def start_end_max_drones(self) -> None:
+        for hub in self.hubs.values():
+            if hub.is_start or hub.is_goal:
+                hub.max_drones = float('inf')
 
     # def restart_costs(self) -> None:
     #     for _, hub in self.hubs.items():
