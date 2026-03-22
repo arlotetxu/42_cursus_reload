@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field, model_validator
 from src.conf.enums import Colors
 from icecream import ic
 
+ic.configureOutput(contextAbsPath=True)
+
 
 class ConnexValidator(BaseModel):
 
@@ -50,7 +52,7 @@ class HubsValidator(BaseModel):
     @model_validator(mode='after')
     def check_positive_coord(self) -> Self:
         for hub in self.map_hubs:
-            if hub.get("x") < 0 or hub.get("y") < 0:
+            if hub.get("x", -1) < 0 or hub.get("y", -1) < 0:
                 raise ValueError(
                     f"{Colors.RED.value}[ERROR] - hub coordinates cannot be "
                     f"negative. Please, check it in map file and try again."
@@ -91,18 +93,6 @@ class HubsValidator(BaseModel):
                     f"{Colors.RESET.value}"
                     )
         return self
-
-    # @model_validator(mode='after')
-    # def check_unique_start_goal(self) -> Self:
-    #     starts = sum(1 for hub in self.map_hubs if hub.get("name") == 'start')
-    #     goals = sum(1 for hub in self.map_hubs if hub.get("name") == 'goal')
-    #     if starts > 1 or goals > 1:
-    #         raise ValueError(
-    #             f"{Colors.RED.value}[ERROR] - There are more than one start/"
-    #             f"goal point in the map's hubs definition. Please, check it "
-    #             f"in the map file.{Colors.RESET.value}"
-    #         )
-    #     return self
 
 
 class DroneValidator(BaseModel):

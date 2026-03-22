@@ -1,13 +1,17 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
 from src.objs.hub import Hub
+
 
 class Dron:
 
-    def __init__(self, id: str, where) -> None:
+    def __init__(self, id: str, where: Hub) -> None:
         self.id = id
-        self.where: Hub = where  # Hub name wher dron is
+        self.where = where  # Hub name where dron is
         self.in_goal = False
         self.next_restricted = False
+        self.hub_index = 0
+        self.waiting_turns = 0
+        self.path: List[Hub] = []
 
 
 def create_drones(drones: int, hubs: Dict[str, Any]) -> Dict[str, Dron]:
@@ -22,5 +26,3 @@ def create_drones(drones: int, hubs: Dict[str, Any]) -> Dict[str, Dron]:
         )
         drones_dict[new_dron.id] = new_dron
     return drones_dict
-
-

@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import Dict, Any, List
 from icecream import ic
 
 ic.configureOutput(includeContext=True)
@@ -14,16 +14,14 @@ class Hub:
         self.is_goal = is_goal
         self.x = x
         self.y = y
-        # self.coord = (x, y)
         self.color = color
         self.zone = zone
-        self.max_drones = int(max_drones)
-        # self.cross = True
+        self.max_drones: int | float = int(max_drones)
         self.curr_drones = 0
         self.neighbors: Dict[str, int] = {}
         self.g_cost = 0
-        self.h_cost = 0
-        self.father = []
+        self.h_cost: int | float = 0
+        self.father: List[Hub] = []
 
     @property
     def traversal_cost(self) -> int | float:
@@ -49,21 +47,7 @@ class Hub:
         return self.g_cost + self.h_cost
 
     def add_neighbors(self, map_validators: Dict[str, Any]) -> None:
-        for conn in map_validators.get("conns").map_connects:
+        for conn in map_validators.get("conns", "").map_connects:
             origin, dest = conn.get("conn", "")
             if origin == self.name:
                 self.neighbors[dest] = 0
-
-    # def define_neighbor_cost(self, hubs_dict: Dict[str, Any]) -> None:
-    #     for neighbor in self.neighbors:
-    #         if neighbor in hubs_dict:
-    #             neighbor_hub = hubs_dict[neighbor]
-    #             self.neighbors[neighbor] = neighbor_hub.traversal_cost
-
-    def set_hubs_father(self, hubs_dict: Dict[str, Hub]) -> None:
-        for son in hubs_dict.values():
-            for father_ in hubs_dict.values():
-                if son.name in father_.neighbors:
-                    son.father.append(father_)
-
-

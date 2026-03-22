@@ -39,7 +39,7 @@ WHITE       = \033[0;97m
 
 MAIN_FILE = fly-in.py
 SRC = src/
-MAP = maps/medium/02_circular_loop.txt
+MAP = maps/medium/03_priority_puzzle.txt
 
 all: install run
 
