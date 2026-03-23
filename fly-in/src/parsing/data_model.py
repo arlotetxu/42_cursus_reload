@@ -1,4 +1,5 @@
-from typing import List, Dict, Any, Self
+from typing import List, Dict, Any
+from typing_extensions import Self
 from pydantic import BaseModel, Field, model_validator
 from src.conf.enums import Colors
 from icecream import ic

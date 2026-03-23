@@ -11,6 +11,9 @@ ic.configureOutput(contextAbsPath=True)
 
 class Simulation:
 
+    def __init__(self):
+        self.connections_to_release = set()
+
     def set_simulation_drone_attr(
         self,
         drones: Dict[str, Dron],
@@ -18,19 +21,19 @@ class Simulation:
             ) -> None:
 
         for drone in drones.values():
-            drone.hub_index = 0
+            drone.hub_index = 1
             drone.where.curr_drones += 1
             drone.waiting_turns = 0
 
-    def get_drone_path(
-        self,
-        drones: Dict[str, Dron],
-        hubs: Dict[str, Hub]
-            ) -> None:
+    # def get_drone_path(
+    #     self,
+    #     drones: Dict[str, Dron],
+    #     hubs: Dict[str, Hub],
+    #         ) -> None:
 
-        my_astar = AStar(hubs)
-        for drone in drones.values():
-            drone.path = my_astar.init_a_star()
+    #     my_astar = AStar(hubs)
+    #     for drone in drones.values():
+    #         drone.path = my_astar.init_a_star()
 
     def in_restricted(
         self,
@@ -54,13 +57,14 @@ class Simulation:
                 drone.where.curr_drones -= 1
 
         elif drone.waiting_turns == 1:  # Drone second turn
+            # if can_enter_next_hub and can_use_connection:
             if can_enter_next_hub:
                 next_connection.curr_drones -= 1
                 drone.where.curr_drones -= 1
                 drone.where = next_hub
                 drone.where.curr_drones += 1
                 # drone.hub_index = intended_next_hub_idx
-                drone.hub_index += 1
+                # drone.hub_index += 1
 
                 hub_color = drone.where.color.upper()
                 color_code = Colors.__members__.get(
@@ -68,8 +72,8 @@ class Simulation:
                     ).value
                 to_print += f"{drone.id}-{color_code}" + \
                     f"{drone.where.name}{Colors.RESET.value}  "
-                # drone.last_moved = True
                 drone.waiting_turns = 0  # Restart turns
+                # self.connections_to_release.add(next_connection)
         return to_print
 
     def not_in_restricted(
@@ -84,14 +88,16 @@ class Simulation:
         can_enter_next_hub = next_hub.is_crossable
         # checking whether next connection is crossable
         can_use_connection = next_connection.is_crossable
+        # ic("not restricted")
+        # ic(can_enter_next_hub, can_use_connection)
         if can_enter_next_hub and can_use_connection:
             next_connection.curr_drones += 1
             drone.where.curr_drones -= 1
             drone.where = next_hub
             drone.where.curr_drones += 1
-            # drone.hub_index = intended_next_hub_idx
-            drone.hub_index += 1
-            next_connection.curr_drones -= 1
+            # drone.hub_index += 1
+            # El dron ha pasado por la conexión, la marcamos para liberarla al final del turno
+            self.connections_to_release.add(next_connection)
 
             hub_color = drone.where.color.upper()
             color_code = Colors.__members__.get(
@@ -117,26 +123,26 @@ class Simulation:
                 f"{Colors.RESET.value}"
             )
         self.set_simulation_drone_attr(drones, hubs)
-        self.get_drone_path(drones, hubs)
-
         turns = 1
-        to_print = ""
+        my_astar = AStar(hubs)
 
         while not all(drone.in_goal for drone in drones.values()):
+
             print(f"TURN: {turns}")
+            to_print = ""
             for drone in drones.values():
                 next_connection = None
                 next_hub = None
+                drone.path = my_astar.init_a_star(drone.where)
 
                 if drone.in_goal:
                     continue
 
-                # check the next hub index
-                intended_next_hub_idx = drone.hub_index + 1
-                if intended_next_hub_idx >= len(drone.path):
-                    continue  # Drone in goal or in the right position
-                # getting the next hub to move in
-                next_hub = drone.path[intended_next_hub_idx]
+                #getting the next hub to move in
+                # drone.hub_index += 1
+                # if drone.hub_index >= len(drone.path):
+                #     continue
+                next_hub = drone.path[drone.hub_index]
 
                 # getting the next connection from current hub
                 for key, connection in connections.items():
@@ -151,66 +157,25 @@ class Simulation:
                         f"No connection found between {drone.where.name} "
                         f"and {next_hub.name} for drone {drone.id}")
 
-                # checking whether the next hub is crossable
-                # can_enter_next_hub = next_hub.is_crossable
-                # checking whether next connection is crossable
-                # can_use_connection = next_connection.is_crossable
-
                 if next_hub.zone == "restricted":
-                    # if drone.waiting_turns == 0: # Drone first turn
-                    #     # if can_enter_next_hub and can_use_connection:
-                    #     if can_use_connection:
-                    #         next_connection.curr_drones += 1
-                    #         drone.waiting_turns = 1
-                    #         to_print += f"{drone.id}-{drone.where.name}-" + \
-                    #             f"{next_hub.name} (In connection)  "
-                    #         drone.where.curr_drones -= 1
-                    #         continue
-                    # # TODO Añadido despues de buen funcionamiento
-
-                    # elif drone.waiting_turns == 1: # Drone second turn
-                    #     if can_enter_next_hub:
-                    #         next_connection.curr_drones -= 1
-
-                    #         drone.where.curr_drones -= 1
-                    #         drone.where = next_hub
-                    #         drone.where.curr_drones += 1
-                    #         drone.hub_index = intended_next_hub_idx
-
-                    #         hub_color = drone.where.color.upper()
-                    #         color_code = Colors.__members__.get(
-                    #             hub_color, Colors.WHITE
-                    #             ).value
-                    #         to_print += f"{drone.id}-{color_code}" + \
-                    #             f"{drone.where.name}{Colors.RESET.value}  "
-                    #         drone.last_moved = True
-                    #         drone.waiting_turns = 0 # Restart turns
-
                     to_print += self.in_restricted(
                         drone, next_connection, next_hub)
                 else:
-                    # if can_enter_next_hub and can_use_connection:
-                    #     next_connection.curr_drones += 1
-                    #     drone.where.curr_drones -= 1
-                    #     drone.where = next_hub
-                    #     drone.where.curr_drones += 1
-                    #     drone.hub_index = intended_next_hub_idx
-                    #     next_connection.curr_drones -= 1
-
-                    #     hub_color = drone.where.color.upper()
-                    #     color_code = Colors.__members__.get(
-                    #         hub_color, Colors.WHITE
-                    #         ).value
-                    #     to_print += f"{drone.id}-{color_code}" + \
-                    #         f"{drone.where.name}{Colors.RESET.value}  "
-                    #     drone.waiting_turns = 0
                     to_print += self.not_in_restricted(
                         drone, next_connection, next_hub)
 
                 if drone.where.name == goal_hub.name:
                     drone.where.curr_drones = 0
                     drone.in_goal = True
+
+            # Al final del turno, liberamos las conexiones que fueron usadas por movimientos no restringidos
+            # Esto asegura que las conexiones se mantengan ocupadas durante todo el turno, respetando max_link_cap.
+            for connection_to_release in self.connections_to_release:
+                connection_to_release.curr_drones -= 1
+            self.connections_to_release.clear() # Limpiamos el conjunto para el siguiente turno
+
             print(to_print)
             print()
-            to_print = ""
             turns += 1
+            # if turns > 150:
+            #     break

@@ -6,7 +6,7 @@ class Dron:
 
     def __init__(self, id: str, where: Hub) -> None:
         self.id = id
-        self.where = where  # Hub name where dron is
+        self.where = where  # Hub where dron is
         self.in_goal = False
         self.next_restricted = False
         self.hub_index = 0

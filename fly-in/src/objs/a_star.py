@@ -11,22 +11,18 @@ class AStar:
     def __init__(self, hubs: Dict[str, Any]) -> None:
         self.hubs = hubs
 
-    def init_a_star(self) -> List[Hub]:
+    def init_a_star(self, start_hub: Hub) -> List[Hub]:
         self.open: List[Tuple[int | float, str]] = []
         self.close: List[str] = []
         # Setting all hub's g_cost to inf
         for hub in self.hubs.values():
             hub.g_cost = float('inf')
 
-        start_hub = None
         goal_name = ""
         # Selecting the starting hub
         for hub in self.hubs.values():
-            if hub.is_start:
-                start_hub = hub
             if hub.is_goal:
                 goal_name = hub.name
-        # start_hub = self.hubs.get("start", None)
         if not start_hub:
             return []
 
@@ -57,7 +53,9 @@ class AStar:
                 for neighbor_name in current_hub_obj.neighbors:
                     neighbor_obj = self.hubs.get(neighbor_name, None)
 
-                    if neighbor_obj is None or not neighbor_obj.is_crossable \
+                    # if neighbor_obj is None or \
+                    #         not neighbor_obj.is_crossable or neighbor_name in self.close:
+                    if neighbor_obj is None \
                             or neighbor_name in self.close:
                         continue
 
