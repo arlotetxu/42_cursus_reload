@@ -10,13 +10,8 @@ class Colors(Enum):
         RESET: Resets all formatting to default.
         BLACK: Black text color.
         RED: Red text color.
-        GREEN: Green text color.
-        YELLOW: Yellow text color.
-        BLUE: Blue text color.
-        MAGENTA: Magenta text color.
-        CYAN: Cyan text color.
-        WHITE: White text color.
         BOLD: Bold/bright text formatting.
+        ...
     Example:
         >>> print(f"{Colors.RED.value}Error occurred{Colors.RESET.value}")
         Error occurred (displayed in red)
@@ -31,3 +26,12 @@ class Colors(Enum):
     CYAN = "\033[36m"
     WHITE = "\033[37m"
     BOLD = "\033[1m"
+    PURPLE = "\033[38;5;128m"
+    BROWN = "\033[38;5;130m"
+    ORANGE = "\033[38;5;208m"
+    MAROON = "\033[38;5;52m"
+    GOLD = "\033[38;5;220m"
+    DARKRED = "\033[38;5;88m"
+    CRIMSON = "\033[38;5;197m"
+    VIOLET = "\033[38;5;93m"
+    RAINBOW = "\033[1m""\033[32m"

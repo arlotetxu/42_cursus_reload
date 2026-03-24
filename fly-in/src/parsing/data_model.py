@@ -23,6 +23,24 @@ class ConnexValidator(BaseModel):
                 )
         return self
 
+    @model_validator(mode='after')
+    def check_connections_dupli(self) -> Self:
+        con_1 = None
+        con_2 = None
+
+        for item in self.map_connects:
+            con_1, con_2 = item.get("conn", ())
+            con_3, con_4 = None, None
+            for item in self.map_connects:
+                con_3, con_4 = item.get("conn", ())
+                if con_1 == con_4 and con_3 == con_2:
+                    raise ValueError(
+                        f"{Colors.RED.value}[Error] - "
+                        f"Duplicated Connection ({con_1}-{con_2}). "
+                        f"Please, check the map file.{Colors.RESET.value}"
+                    )
+        return self
+
 
 class HubsValidator(BaseModel):
 
@@ -57,6 +75,7 @@ class HubsValidator(BaseModel):
                 raise ValueError(
                     f"{Colors.RED.value}[ERROR] - hub coordinates cannot be "
                     f"negative. Please, check it in map file and try again."
+                    f"({hub.get('x', -1)} {hub.get('y', -1)})"
                     f"{Colors.RESET.value}"
                 )
         return self
@@ -89,10 +108,32 @@ class HubsValidator(BaseModel):
             if hub.get("zone", "normal") not in valid_zones:
                 raise ValueError(
                     f"{Colors.RED.value}[ERROR] - "
-                    f"Hub zone definition is not valid."
+                    f"Hub zone definition ({hub.get('zone')}) is not valid."
                     f" Please, check it in the map file."
                     f"{Colors.RESET.value}"
                     )
+        return self
+
+    @model_validator(mode='after')
+    def check_hub_names(self) -> Self:
+        hub_names = []
+        for hub in self.map_hubs:
+            hub_name = hub.get("name", "")
+            if hub_name in hub_names:
+                raise ValueError(
+                    f"{Colors.RED.value}[ERROR] - "
+                    f"There are duplicated hub names ({hub_name}). "
+                    f"Please, check the map file and try again."
+                    f"{Colors.RESET.value}"
+                )
+            hub_names.append(hub_name)
+            if "-" in hub_name:
+                raise ValueError(
+                    f"{Colors.RED.value}[ERROR] - "
+                    f"There are not allowed chars in hub names ({hub_name}). "
+                    f"Please, check the map file and try again."
+                    f"{Colors.RESET.value}"
+                )
         return self
 
 

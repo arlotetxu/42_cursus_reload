@@ -9,7 +9,7 @@ hub: loop_d 1 1 [zone=restricted color=orange]
 hub: exit_point 3 0 [color=blue]
 end_hub: goal 4 0 [color=red max_drones=6]
 
-connection: start-loop_a
+connection: start-loop_a [max_link_capacity=3]
 connection: loop_a-loop_b
 connection: loop_b-loop_c
 connection: loop_c-loop_d

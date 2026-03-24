@@ -39,7 +39,7 @@ WHITE       = \033[0;97m
 
 MAIN_FILE = fly-in.py
 SRC = src/
-# MAP = maps/easy/01_linear_path.txt
+MAP = maps/easy/01_linear_path.txt
 # MAP = maps/easy/02_simple_fork.txt
 # MAP = maps/easy/03_basic_capacity.txt
 
@@ -51,7 +51,7 @@ SRC = src/
 # MAP = maps/hard/02_capacity_hell.txt
 # MAP = maps/hard/03_ultimate_challenge.txt
 
-MAP = maps/challenger/01_the_impossible_dream.txt
+# MAP = maps/challenger/01_the_impossible_dream.txt
 
 all: install run
 
@@ -66,11 +66,11 @@ run: install
 # 	@read -p "Enter the path to the map: " MY_MAP; \
 # 	uv run $(MAIN_FILE) $$MY_MAP
 
-
-
-debug: install
+debug:
 	@echo "$(YELLOW)Entering debugging mode...$(DEF_COLOR)"
-	uv run python3 -m pdb -c continue $(MAIN_FILE)
+	@read -p "Enter the path to the map: " MY_MAP; \
+# 	uv run python3 -m pdb -c continue $(MAIN_FILE) $$MY_MAP
+	@uv run python3 -m pdb $(MAIN_FILE) $$MY_MAP
 
 clean:
 	@echo "$(YELLOW)\nRemoving __pycache__ directories...$(DEF_COLOR)"
@@ -99,7 +99,7 @@ lint-strict: clean
 	@echo "$(YELLOW)Checking with flake8 and mypy --strict...$(DEF_COLOR)"
 	@flake8_status=0; mypy_status=0; \
 	uv run flake8 $(MAIN_FILE) $(SRC) || flake8_status=1; \
-	uv run mypy $(MAIN_FILE) $(SRC) --strict --follow-imports=silent || mypy_status=1; \
+	uv run mypy $(MAIN_FILE) $(SRC) --strict --follow-imports=silent|| mypy_status=1; \
 	if [ $$flake8_status -eq 1 ]; then echo "$(RED)flake8 failed$(DEF_COLOR)"; fi; \
 	if [ $$mypy_status -eq 1 ]; then echo "$(RED)mypy failed$(DEF_COLOR)"; fi; \
 	if [ $$flake8_status -eq 1 ] || [ $$mypy_status -eq 1 ]; then exit 1; fi; \

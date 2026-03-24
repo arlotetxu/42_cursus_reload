@@ -1,5 +1,9 @@
 from typing import Dict, Tuple, Any
 from src.objs.hub import Hub
+from src.conf.enums import Colors
+from icecream import ic
+
+ic.configureOutput(contextAbsPath=True)
 
 
 class Connection:
@@ -34,6 +38,12 @@ def create_connections(
         new_con = Connection(
             father, son, max_link_cap
         )
-        connects_dict[(father.name, son.name)] = new_con
+        try:
+            connects_dict[(father.name, son.name)] = new_con
+        except Exception:
+            raise ValueError(
+                f"{Colors.RED.value}[ERROR] - There is an issue with "
+                f"connections. Please, check the map file and try again."
+                f"{Colors.RESET.value}")
 
     return connects_dict

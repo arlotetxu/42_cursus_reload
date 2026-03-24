@@ -13,30 +13,31 @@ ic.configureOutput(includeContext=True)
 
 def main(map: str) -> None:
     print("Hello from main fly-in")
-    map_validators: Dict[str, Any] = parse_map(map)
-    # Creating grapth with hubs in it
-    my_graph = Graph(map_validators)
-    my_graph.create_graph()
-    my_graph.set_h_cost()
-    hubs_dict = my_graph.hubs
-    # Creating connections
-    connections_dict = create_connections(map_validators, hubs_dict)
-    # Creating drones
-    drone_validator = map_validators.get("drones")
-    if drone_validator is not None:
-        drones_nb = drone_validator.map_drones
-    else:
-        print(f"{Colors.RED.value}[ERROR] - "
-              f"The number of drones couldn't be found in the map file."
-              f" Please, check it and try again.{Colors.RESET.value}")
-        sys.exit(1)
-    drones_dict = create_drones(drones_nb, hubs_dict)
-
     try:
+        map_validators: Dict[str, Any] = parse_map(map)
+        # Creating grapth with hubs in it
+        my_graph = Graph(map_validators)
+        my_graph.create_graph()
+        my_graph.set_h_cost()
+        hubs_dict = my_graph.hubs
+        # Creating connections
+        connections_dict = create_connections(map_validators, hubs_dict)
+
+    # Creating drones
+        drone_validator = map_validators.get("drones")
+        if drone_validator is not None:
+            drones_nb = drone_validator.map_drones
+        else:
+            print(f"{Colors.RED.value}[ERROR] - "
+                  f"The number of drones couldn't be found in the map file."
+                  f" Please, check it and try again.{Colors.RESET.value}")
+            sys.exit(1)
+        drones_dict = create_drones(drones_nb, hubs_dict)
+
         my_simulation = Simulation()
         my_simulation.start_simulation(
             drones_dict, connections_dict, hubs_dict)
-    except ValueError as ve:
+    except (ValueError) as ve:
         print(ve)
         sys.exit(1)
 

@@ -1,7 +1,11 @@
 [project]
 name = "fly-in"
 version = "0.1.0"
-description = "Add your description here"
+authors = [
+  { name="Jose Manuel Florido Pereña", email="joflorid@student.42urduliz.com" },
+]
+description = "an efficient drone routing system through connected zones"
+
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
@@ -9,3 +13,4 @@ dependencies = [
     "icecream>=2.1.10",
     "pydantic>=2.12.5",
 ]
+

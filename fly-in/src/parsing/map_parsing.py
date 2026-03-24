@@ -4,6 +4,7 @@ from pydantic import ValidationError
 from src.conf.enums import Colors
 from src.parsing.data_model import ConnexValidator, HubsValidator, \
     DroneValidator
+from src.parsing.data_load import get_hubs_data, get_conection_data
 from icecream import ic
 
 ic.configureOutput(contextAbsPath=True)
@@ -20,81 +21,6 @@ def read_map(map: str) -> List[str]:
     return lines
 
 
-def get_metadata(meta: str) -> Dict:
-    meta_data_dict = {}
-    for part in meta.split():
-        if "=" in part:
-            key, value = part.split("=", 1)
-            meta_data_dict[key] = value
-    return meta_data_dict
-
-
-def get_hubs_data(map_lines: List[str]) -> List[Dict[str, Any]]:
-    hubs_data: List[Dict[str, Any]] = []
-    num_hubs = 0
-    for line in map_lines:
-        if "hub:" in line and not line.startswith("#"):
-            hub_dict: Dict[str, Any] = {}
-            hub_prefix = line.split(": ")[0]
-            hub_data = line.split(": ")[1:]
-            if hub_prefix == "start_hub":
-                hub_dict["is_start"] = True
-            if hub_prefix == "end_hub":
-                hub_dict["is_goal"] = True
-            for item in hub_data:
-                # Adding metadata to the hub information dict
-                start_meta = item.find('[')
-                stop_meta = item.find(']')
-                if start_meta != -1 and stop_meta != -1:
-                    meta_data = item[start_meta + 1: stop_meta]
-                    meta_data_dict = get_metadata(meta_data)
-                    for k, v in meta_data_dict.items():
-                        hub_dict[k] = v
-                # Adding the rest hub information
-                obj = item.strip().split()
-                hub_dict["name"] = obj[0]
-                hub_dict["x"] = int(obj[1])
-                hub_dict["y"] = int(obj[2])
-                num_hubs += 1
-                hubs_data.append(hub_dict)
-    if num_hubs < 2:
-        print(f"{Colors.RED.value}[ERROR] - "
-              f"There are not enought hubs in the map file. "
-              f"Please, check it. {Colors.RESET.value}")
-        sys.exit(1)
-    return hubs_data
-
-
-def get_conection_data(map_lines: List[str]) -> List[Dict[str, Any]]:
-    connections: List[Dict[str, Any]] = []
-    num_connections: int = 0
-    for line in map_lines:
-        if "connection: " in line and not line.startswith("#"):
-            conn_data = line.split(": ")
-            conn_dict: Dict[str, Any] = {}
-            for item in conn_data[1:]:
-                # Adding metadata to the hub information dict
-                start_meta = item.find('[')
-                stop_meta = item.find(']')
-                if start_meta != -1 and stop_meta != -1:
-                    meta_data = item[start_meta + 1: stop_meta]
-                    conn_data_dict = get_metadata(meta_data)
-                    for k, v in conn_data_dict.items():
-                        conn_dict[k] = v
-                conn_names = item.split('[')[0].strip()
-                conn_tuple = tuple(
-                    name.strip() for name in conn_names.split("-"))
-                conn_dict["conn"] = conn_tuple
-                num_connections += 1
-            connections.append(conn_dict)
-    if num_connections < 1:
-        print(f"{Colors.RED.value}[ERROR] - "
-              f"There are not rigth connection number in the map file. "
-              f"Please, check it. {Colors.RESET.value}")
-        sys.exit(1)
-    return connections
-
-
 def get_map_info(map_lines: List[str]) -> Dict[str, Any]:
     map_info: Dict[str, Any] = {}
 
@@ -102,7 +28,15 @@ def get_map_info(map_lines: List[str]) -> Dict[str, Any]:
         if line == '\n' or line.startswith("#"):
             continue
         if "nb_drones" in line:
-            map_info["nb_drones"] = int(line.split(":")[1].strip())
+            try:
+                map_info["nb_drones"] = int(line.split(":")[1].strip())
+            except ValueError:
+                raise ValueError(
+                    f"{Colors.RED.value}[ERROR] - "
+                    f"Drones must be integers. Please, check the"
+                    f" map file and try again."
+                    f"\n{line}{Colors.RESET.value}"
+                )
         else:
             continue
 
@@ -110,6 +44,37 @@ def get_map_info(map_lines: List[str]) -> Dict[str, Any]:
     map_info["connects"] = get_conection_data(map_lines)
 
     return map_info
+
+
+def check_conn_hubs(map_data: Dict[str, Any]) -> None:
+    hubs_data = map_data.get("hubs", "").map_hubs
+    if not hubs_data:
+        raise ValueError(
+            f"{Colors.RED.value}[ERROR] - "
+            f"Hubs information couldn't be retrieved"
+            f"{Colors.RESET.value}"
+        )
+    hubs_name_list = []
+    for hub in hubs_data:
+        hub_name = hub.get("name", None)
+        hubs_name_list.append(hub_name)
+
+    conn_data = map_data.get("conns", "").map_connects
+    if not conn_data:
+        raise ValueError(
+            f"{Colors.RED.value}[ERROR] - "
+            f"Connections information couldn't be retrieved"
+            f"{Colors.RESET.value}"
+        )
+    for item in conn_data:
+        hub1, hub2 = item.get("conn", None)
+        if hub1 not in hubs_name_list or hub2 not in hubs_name_list:
+            raise ValueError(
+                f"{Colors.RED.value}[ERROR] - "
+                f"There are hubs ({hub1}-{hub2}) not defined in connections. "
+                f"Please, check the map file and try again."
+                f"{Colors.RESET.value}"
+            )
 
 
 def data_validation(map: str) -> Dict[str, Any]:
@@ -134,8 +99,10 @@ def data_validation(map: str) -> Dict[str, Any]:
     except ValueError as e:
         print(e)
         sys.exit(1)
+    check_conn_hubs(map_data)
     return map_data
 
 
 def parse_map(map: str) -> Dict[str, Any]:
+
     return data_validation(map)
