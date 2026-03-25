@@ -1,12 +1,18 @@
 import sys
 from src.conf.enums import Colors
 from typing import Dict, List, Any
-from icecream import ic
-
-ic.configureOutput(contextAbsPath=True)
 
 
 def get_metadata(meta: str) -> Dict[str, int | str]:
+    """
+    Parse metadata string into a dictionary of valid attributes.
+
+    Args:
+        meta (str): The metadata string from the map file.
+
+    Returns:
+        Dict[str, int | str]: Dictionary of parsed metadata.
+    """
     meta_data_dict: dict[str, int | str] = {}
     valid_values = ['zone', 'color', 'max_drones', 'max_link_capacity']
     for part in meta.split():
@@ -37,6 +43,15 @@ def get_metadata(meta: str) -> Dict[str, int | str]:
 
 
 def get_hubs_data(map_lines: List[str]) -> List[Dict[str, Any]]:
+    """
+    Extract hub information from map lines.
+
+    Args:
+        map_lines (List[str]): Lines of the map file.
+
+    Returns:
+        List[Dict[str, Any]]: List of dictionaries containing hub data.
+    """
     hubs_data: List[Dict[str, Any]] = []
     num_hubs = 0
     for line in map_lines:
@@ -82,6 +97,15 @@ def get_hubs_data(map_lines: List[str]) -> List[Dict[str, Any]]:
 
 
 def get_conection_data(map_lines: List[str]) -> List[Dict[str, Any]]:
+    """
+    Extract connection information from map lines.
+
+    Args:
+        map_lines (List[str]): Lines of the map file.
+
+    Returns:
+        List[Dict[str, Any]]: List of dictionaries with connection data.
+    """
     connections: List[Dict[str, Any]] = []
     num_connections: int = 0
     try:

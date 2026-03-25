@@ -1,24 +1,41 @@
 from typing import Dict, Tuple, Set
 from src.conf.enums import Colors
 from src.objs.a_star import AStar
-from src.objs.dron import Dron
+from src.objs.drone import Drone
 from src.objs.hub import Hub
 from src.objs.connection import Connection
-from icecream import ic
-
-ic.configureOutput(contextAbsPath=True)
 
 
 class Simulation:
+    """
+    Orchestrates the drone simulation, managing movement,
+    pathfinding, and constraint enforcement across turns.
+    """
 
     def __init__(self) -> None:
+        """
+        Initializes a Simulation instance.
+
+        Returns:
+            None
+        """
         self.connections_to_release: Set[Connection] = set()
 
     def set_simulation_drone_attr(
         self,
-        drones: Dict[str, Dron],
+        drones: Dict[str, Drone],
         hubs: Dict[str, Hub]
             ) -> None:
+        """
+        Initializes drone attributes and positions.
+
+        Args:
+            drones (Dict[str, Drone]): Dictionary of drone objects.
+            hubs (Dict[str, Hub]): Dictionary of hub objects.
+
+        Returns:
+            None
+        """
 
         for drone in drones.values():
             drone.hub_index = 1
@@ -27,10 +44,22 @@ class Simulation:
 
     def in_restricted(
         self,
-        drone: Dron,
+        drone: Drone,
         next_connection: Connection,
         next_hub: Hub
             ) -> str:
+        """
+        Handles drone movement through restricted zones (2-turn
+        process: connection then hub entry).
+
+        Args:
+            drone (Drone): Drone to move.
+            next_connection (Connection): Connection to traverse.
+            next_hub (Hub): Destination hub in restricted zone.
+
+        Returns:
+            str: Movement log string for this operation.
+        """
 
         to_print = ""
         # checking whether the next hub is crossable
@@ -63,10 +92,22 @@ class Simulation:
 
     def not_in_restricted(
         self,
-        drone: Dron,
+        drone: Drone,
         next_connection: Connection,
         next_hub: Hub
             ) -> str:
+        """
+        Handles drone movement through unrestricted zones (1-turn
+        instantaneous movement).
+
+        Args:
+            drone (Drone): Drone to move.
+            next_connection (Connection): Connection to traverse.
+            next_hub (Hub): Destination hub in normal zone.
+
+        Returns:
+            str: Movement log string for this operation.
+        """
 
         to_print = ""
         # checking whether the next hub is crossable
@@ -93,10 +134,27 @@ class Simulation:
 
     def start_simulation(
         self,
-        drones: Dict[str, Dron],
+        drones: Dict[str, Drone],
         connections: Dict[Tuple[str, str], Connection],
         hubs: Dict[str, Hub]
             ) -> None:
+        """
+        Executes the main simulation loop until all drones reach
+        the goal hub.
+
+        Args:
+            drones (Dict[str, Drone]): Dictionary of drone objects.
+            connections (Dict[Tuple[str, str], Connection]): Map of
+                (from_hub, to_hub) tuples to Connection objects.
+            hubs (Dict[str, Hub]): Dictionary of hub objects.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If goal hub not found, drone path not found,
+                or connection between hubs not found.
+        """
 
         goal_hub = next((hub for hub in hubs.values() if hub.is_goal), None)
         if not goal_hub:

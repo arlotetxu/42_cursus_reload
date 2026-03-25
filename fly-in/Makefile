@@ -39,7 +39,7 @@ WHITE       = \033[0;97m
 
 MAIN_FILE = fly-in.py
 SRC = src/
-MAP = maps/easy/01_linear_path.txt
+# MAP = maps/easy/01_linear_path.txt
 # MAP = maps/easy/02_simple_fork.txt
 # MAP = maps/easy/03_basic_capacity.txt
 
@@ -62,15 +62,14 @@ install: pyproject.toml
 
 run: install
 	@echo "$(CYAN)$$HEADER$(DEF_COLOR)"
-	uv run $(MAIN_FILE) $(MAP)
-# 	@read -p "Enter the path to the map: " MY_MAP; \
-# 	uv run $(MAIN_FILE) $$MY_MAP
+# 	uv run $(MAIN_FILE) $(MAP)
+	@read -p "Enter the path to the map: " MY_MAP; \
+	uv run $(MAIN_FILE) $$MY_MAP
 
 debug:
 	@echo "$(YELLOW)Entering debugging mode...$(DEF_COLOR)"
 	@read -p "Enter the path to the map: " MY_MAP; \
-# 	uv run python3 -m pdb -c continue $(MAIN_FILE) $$MY_MAP
-	@uv run python3 -m pdb $(MAIN_FILE) $$MY_MAP
+	uv run python3 -m pdb -c continue $(MAIN_FILE) $$MY_MAP
 
 clean:
 	@echo "$(YELLOW)\nRemoving __pycache__ directories...$(DEF_COLOR)"
@@ -89,8 +88,7 @@ flake8:
 mypy:
 	@echo "$(YELLOW)Checking mypy...$(DEF_COLOR)"
 	-@uv run mypy $(MAIN_FILE) $(SRC) --warn-return-any --warn-unused-ignores \
-	--ignore-missing-imports --disallow-untyped-defs --check-untyped-defs \
-	--follow-imports=silent
+	--ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 	@echo "$(GREEN)mypy completed!!$(DEF_COLOR)"
 
 lint: clean flake8 mypy

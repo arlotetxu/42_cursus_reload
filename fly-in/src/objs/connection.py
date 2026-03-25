@@ -1,14 +1,28 @@
 from typing import Dict, Tuple, Any
 from src.objs.hub import Hub
 from src.conf.enums import Colors
-from icecream import ic
-
-ic.configureOutput(contextAbsPath=True)
 
 
 class Connection:
+    """
+    Represents a link between two hubs in the graph with capacity
+    constraints for drone traversal.
+    """
 
-    def __init__(self, father: str, son: str, max_link_cap: int = 1) -> None:
+    def __init__(self, father: str, son: str, max_link_cap: int = 1
+                 ) -> None:
+        """
+        Initializes a Connection instance.
+
+        Args:
+            father (str): Name or Hub object of the source hub.
+            son (str): Name or Hub object of the destination hub.
+            max_link_cap (int): Maximum drones allowed on this
+                link simultaneously. Defaults to 1.
+
+        Returns:
+            None
+        """
         self.father = father
         self.son = son
         self.max_link_cap = int(max_link_cap)
@@ -16,6 +30,13 @@ class Connection:
 
     @property
     def is_crossable(self) -> bool:
+        """
+        Checks if a drone can traverse this connection.
+
+        Returns:
+            bool: True if current drone count is below maximum
+                capacity.
+        """
         return self.curr_drones < self.max_link_cap
 
 
@@ -23,7 +44,24 @@ def create_connections(
         map_validators: Dict[str, Any],
         hubs: Dict[str, Hub]
         ) -> Dict[Tuple[str, str], Connection]:
+    """
+    Creates Connection objects from parsed map data and hub
+    references.
 
+    Args:
+        map_validators (Dict[str, Any]): Parsed map data
+            containing connection specifications.
+        hubs (Dict[str, Hub]): Dictionary of Hub objects indexed
+            by name.
+
+    Returns:
+        Dict[Tuple[str, str], Connection]: Dictionary mapping
+            (father_name, son_name) tuples to Connection objects.
+
+    Raises:
+        ValueError: If a connection references a non-existent hub
+            or has invalid data.
+    """
     connects_dict = {}
     connections = map_validators.get("conns", "").map_connects
 

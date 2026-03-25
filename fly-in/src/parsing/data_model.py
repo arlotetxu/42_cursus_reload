@@ -2,17 +2,26 @@ from typing import List, Dict, Any
 from typing_extensions import Self
 from pydantic import BaseModel, Field, model_validator
 from src.conf.enums import Colors
-from icecream import ic
-
-ic.configureOutput(contextAbsPath=True)
 
 
 class ConnexValidator(BaseModel):
+    """
+    Validator for map connections data.
+
+    Attributes:
+        map_connects (List[Dict[str, Any]]): List of connection data.
+    """
 
     map_connects: List[Dict[str, Any]] = Field(...)
 
     @model_validator(mode='after')
     def check_connections(self) -> Self:
+        """
+        Verify that a connection does not link a hub to itself.
+
+        Returns:
+            Self: The validated instance.
+        """
         for item in self.map_connects:
             conn = item.get("conn", ())
             if len(conn) == 2 and conn[0] == conn[1]:
@@ -25,9 +34,14 @@ class ConnexValidator(BaseModel):
 
     @model_validator(mode='after')
     def check_connections_dupli(self) -> Self:
+        """
+        Check for duplicated connections in the map data.
+
+        Returns:
+            Self: The validated instance.
+        """
         con_1 = None
         con_2 = None
-
         for item in self.map_connects:
             con_1, con_2 = item.get("conn", ())
             con_3, con_4 = None, None
@@ -43,11 +57,23 @@ class ConnexValidator(BaseModel):
 
 
 class HubsValidator(BaseModel):
+    """
+    Validator for map hubs data.
+
+    Attributes:
+        map_hubs (List[Dict[str, Any]]): List of hub dictionaries.
+    """
 
     map_hubs: List[Dict[str, Any]] = Field(...)
 
     @model_validator(mode='after')
     def check_start_goal(self) -> Self:
+        """
+        Ensure exactly one start hub and one end hub are defined.
+
+        Returns:
+            Self: The validated instance.
+        """
         count_start = 0
         count_goal = 0
         for hub in self.map_hubs:
@@ -70,6 +96,12 @@ class HubsValidator(BaseModel):
 
     @model_validator(mode='after')
     def check_positive_coord(self) -> Self:
+        """
+        Verify that all hub coordinates are non-negative.
+
+        Returns:
+            Self: The validated instance.
+        """
         for hub in self.map_hubs:
             if hub.get("x", -1) < 0 or hub.get("y", -1) < 0:
                 raise ValueError(
@@ -82,6 +114,12 @@ class HubsValidator(BaseModel):
 
     @model_validator(mode='after')
     def check_start_goal_coord(self) -> Self:
+        """
+        Ensure start and goal hubs do not share the same coordinates.
+
+        Returns:
+            Self: The validated instance.
+        """
         start = None
         goal = None
         for hub in self.map_hubs:
@@ -103,6 +141,12 @@ class HubsValidator(BaseModel):
 
     @model_validator(mode='after')
     def check_zones(self) -> Self:
+        """
+        Validate that hub zones belong to the allowed set of types.
+
+        Returns:
+            Self: The validated instance.
+        """
         valid_zones = ['normal', 'blocked', 'restricted', 'priority']
         for hub in self.map_hubs:
             if hub.get("zone", "normal") not in valid_zones:
@@ -116,6 +160,12 @@ class HubsValidator(BaseModel):
 
     @model_validator(mode='after')
     def check_hub_names(self) -> Self:
+        """
+        Check for unique hub names and forbidden characters.
+
+        Returns:
+            Self: The validated instance.
+        """
         hub_names = []
         for hub in self.map_hubs:
             hub_name = hub.get("name", "")
@@ -138,5 +188,11 @@ class HubsValidator(BaseModel):
 
 
 class DroneValidator(BaseModel):
+    """
+    Validator for the number of drones.
+
+    Attributes:
+        map_drones (int): Number of drones, must be greater than zero.
+    """
 
     map_drones: int = Field(..., gt=0)

@@ -1,17 +1,36 @@
 from typing import Dict, Any, List, Tuple
 from src.objs.hub import Hub
 from heapq import heappop, heappush
-from icecream import ic
-
-ic.configureOutput(includeContext=True)
 
 
 class AStar:
+    """
+    Implements the A* pathfinding algorithm over a hub graph.
+    """
 
     def __init__(self, hubs: Dict[str, Any]) -> None:
+        """
+        Initializes an AStar solver with available hubs.
+
+        Args:
+            hubs (Dict[str, Any]): Dictionary of hubs indexed by name.
+
+        Returns:
+            None
+        """
         self.hubs = hubs
 
     def init_a_star(self, start_hub: Hub) -> List[Hub]:
+        """
+        Runs A* from a start hub to the goal hub and returns a path.
+
+        Args:
+            start_hub (Hub): Hub where pathfinding starts.
+
+        Returns:
+            List[Hub]: Ordered path from start to goal. Returns an empty
+                list when no valid path exists.
+        """
         self.open: List[Tuple[int | float, str]] = []
         self.close: List[str] = []
         # Setting all hub's g_cost to inf and selecting the goal hub
@@ -26,6 +45,7 @@ class AStar:
 
         start_hub.g_cost = 0
         heappush(self.open, (start_hub.f_cost, start_hub.name))
+
         parent_map: Dict[str, Hub] = {}
 
         while self.open:
@@ -34,7 +54,7 @@ class AStar:
 
             if current_hub_name == goal_name:
                 path = []
-                curr = current_hub_obj
+                curr = current_hub_obj  # Goal
                 # Building the path from the goal hub
                 if curr:
                     while curr.name in parent_map:
@@ -55,7 +75,8 @@ class AStar:
                     # neighbor_obj.is_crossable or \
                     # neighbor_name in self.close:
                     if neighbor_obj is None \
-                            or neighbor_name in self.close:
+                            or neighbor_name in self.close \
+                            or neighbor_obj.is_blocked:
                         continue
 
                     tentative_g_cost = \

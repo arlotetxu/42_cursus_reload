@@ -4,14 +4,20 @@ from src.conf.enums import Colors
 from src.parsing.map_parsing import parse_map
 from src.objs.connection import create_connections
 from src.objs.grapth import Graph
-from src.objs.dron import create_drones
+from src.objs.drone import create_drones
 from src.objs.simulation import Simulation
-from icecream import ic
-
-ic.configureOutput(includeContext=True)
 
 
 def main(map: str) -> None:
+    """
+    Main entry point for the fly-in simulation.
+
+    Args:
+        map (str): Path to the map file to be parsed and simulated.
+
+    Returns:
+        None
+    """
     print("Hello from main fly-in")
     try:
         map_validators: Dict[str, Any] = parse_map(map)
@@ -34,6 +40,7 @@ def main(map: str) -> None:
             sys.exit(1)
         drones_dict = create_drones(drones_nb, hubs_dict)
 
+    # Starting the simulation
         my_simulation = Simulation()
         my_simulation.start_simulation(
             drones_dict, connections_dict, hubs_dict)

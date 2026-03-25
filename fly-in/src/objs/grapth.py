@@ -1,17 +1,35 @@
 from typing import Dict, Any, List, Tuple
 from src.objs.hub import Hub
 from heapq import heappop, heappush
-from icecream import ic
-
-ic.configureOutput(includeContext=True)
 
 
 class Graph:
+    """
+    Represents a graph structure containing hubs and manages
+    pathfinding operations using A* algorithm.
+    """
 
     def __init__(self, map_validators: Dict[str, Any]) -> None:
+        """
+        Initializes a Graph instance with map data.
+
+        Args:
+            map_validators (Dict[str, Any]): Parsed map data
+                containing hub and connection information.
+
+        Returns:
+            None
+        """
         self.map_validators = map_validators
 
     def create_graph(self) -> None:
+        """
+        Initializes all hubs from map data and establishes
+        parent-child relationships between them.
+
+        Returns:
+            None
+        """
         hubs_dict = {}
         hub_data = self.map_validators.get("hubs", "").map_hubs
         for hub in hub_data:
@@ -36,15 +54,41 @@ class Graph:
         self.start_end_max_drones()
 
     def get_hub(self, name: str) -> Hub | None:
+        """
+        Retrieves a hub by its name.
+
+        Args:
+            name (str): The name identifier of the hub.
+
+        Returns:
+            Hub | None: The Hub object if found, None otherwise.
+        """
         return self.hubs.get(name, None)
 
     def set_hubs_father(self, hubs_dict: Dict[str, Hub]) -> None:
+        """
+        Establishes parent-child relationships between hubs based
+        on their neighbor connections.
+
+        Args:
+            hubs_dict (Dict[str, Hub]): Dictionary of all hubs.
+
+        Returns:
+            None
+        """
         for son in hubs_dict.values():
             for father_ in hubs_dict.values():
                 if son.name in father_.neighbors:
                     son.father.append(father_)
 
     def set_h_cost(self) -> None:
+        """
+        Calculates heuristic costs (h_cost) for all hubs using
+        a reverse Dijkstra from the goal hub.
+
+        Returns:
+            None
+        """
         for hub in self.hubs.values():
             if hub.is_goal:
                 goal_hub = hub
@@ -72,6 +116,12 @@ class Graph:
                         heappush(pq, (new_dist, father_.name))
 
     def start_end_max_drones(self) -> None:
+        """
+        Sets unlimited drone capacity for start and goal hubs.
+
+        Returns:
+            None
+        """
         for hub in self.hubs.values():
             if hub.is_start or hub.is_goal:
                 hub.max_drones = float('inf')

@@ -5,12 +5,19 @@ from src.conf.enums import Colors
 from src.parsing.data_model import ConnexValidator, HubsValidator, \
     DroneValidator
 from src.parsing.data_load import get_hubs_data, get_conection_data
-from icecream import ic
-
-ic.configureOutput(contextAbsPath=True)
 
 
 def read_map(map: str) -> List[str]:
+    """
+    Read the content of a map file.
+
+    Args:
+        map (str): Path to the map file.
+
+    Returns:
+        List[str]: A list of strings containing the file lines.
+    """
+
     if map:
         try:
             with open(map, mode='r') as fd:
@@ -22,6 +29,15 @@ def read_map(map: str) -> List[str]:
 
 
 def get_map_info(map_lines: List[str]) -> Dict[str, Any]:
+    """
+    Extract raw information from map lines.
+
+    Args:
+        map_lines (List[str]): The lines read from the map file.
+
+    Returns:
+        Dict[str, Any]: Dictionary containing hubs, connects, and drones.
+    """
     map_info: Dict[str, Any] = {}
 
     for line in map_lines:
@@ -30,10 +46,12 @@ def get_map_info(map_lines: List[str]) -> Dict[str, Any]:
         if "nb_drones" in line:
             try:
                 map_info["nb_drones"] = int(line.split(":")[1].strip())
+                if map_info["nb_drones"] < 0:
+                    raise ValueError
             except ValueError:
                 raise ValueError(
                     f"{Colors.RED.value}[ERROR] - "
-                    f"Drones must be integers. Please, check the"
+                    f"Drones must be positive integers. Please, check the"
                     f" map file and try again."
                     f"\n{line}{Colors.RESET.value}"
                 )
@@ -47,6 +65,15 @@ def get_map_info(map_lines: List[str]) -> Dict[str, Any]:
 
 
 def check_conn_hubs(map_data: Dict[str, Any]) -> None:
+    """
+    Verify that all hubs in connections are defined in the hubs list.
+
+    Args:
+        map_data (Dict[str, Any]): The validated map data dictionary.
+
+    Raises:
+        ValueError: If a hub in a connection is not defined.
+    """
     hubs_data = map_data.get("hubs", "").map_hubs
     if not hubs_data:
         raise ValueError(
@@ -78,6 +105,15 @@ def check_conn_hubs(map_data: Dict[str, Any]) -> None:
 
 
 def data_validation(map: str) -> Dict[str, Any]:
+    """
+    Load and validate map data using Pydantic models.
+
+    Args:
+        map (str): Path to the map file.
+
+    Returns:
+        Dict[str, Any]: Validated data for drones, hubs, and connections.
+    """
     map_data: Dict[str, Any] = {}
     map_lines = read_map(map)
     map_info = get_map_info(map_lines)
@@ -104,5 +140,13 @@ def data_validation(map: str) -> Dict[str, Any]:
 
 
 def parse_map(map: str) -> Dict[str, Any]:
+    """
+    Entry point for parsing and validating a map file.
 
+    Args:
+        map (str): Path to the map file.
+
+    Returns:
+        Dict[str, Any]: The fully validated map data.
+    """
     return data_validation(map)

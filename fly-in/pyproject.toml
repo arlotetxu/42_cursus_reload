@@ -4,13 +4,12 @@ version = "0.1.0"
 authors = [
   { name="Jose Manuel Florido Pereña", email="joflorid@student.42urduliz.com" },
 ]
-description = "an efficient drone routing system through connected zones"
+description = "An efficient drone routing system through connected zones"
 
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 dependencies = [
     "debugpy>=1.8.20",
-    "icecream>=2.1.10",
     "pydantic>=2.12.5",
 ]
 
