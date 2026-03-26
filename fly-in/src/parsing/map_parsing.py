@@ -50,7 +50,7 @@ def get_map_info(map_lines: List[str]) -> Dict[str, Any]:
                     raise ValueError
             except ValueError:
                 raise ValueError(
-                    f"{Colors.RED.value}[ERROR] - "
+                    f"{Colors.RED.value}[ERROR#3] - "
                     f"Drones must be positive integers. Please, check the"
                     f" map file and try again."
                     f"\n{line}{Colors.RESET.value}"
@@ -77,7 +77,7 @@ def check_conn_hubs(map_data: Dict[str, Any]) -> None:
     hubs_data = map_data.get("hubs", "").map_hubs
     if not hubs_data:
         raise ValueError(
-            f"{Colors.RED.value}[ERROR] - "
+            f"{Colors.RED.value}[ERROR#4] - "
             f"Hubs information couldn't be retrieved"
             f"{Colors.RESET.value}"
         )
@@ -89,7 +89,7 @@ def check_conn_hubs(map_data: Dict[str, Any]) -> None:
     conn_data = map_data.get("conns", "").map_connects
     if not conn_data:
         raise ValueError(
-            f"{Colors.RED.value}[ERROR] - "
+            f"{Colors.RED.value}[ERROR#5] - "
             f"Connections information couldn't be retrieved"
             f"{Colors.RESET.value}"
         )
@@ -97,7 +97,7 @@ def check_conn_hubs(map_data: Dict[str, Any]) -> None:
         hub1, hub2 = item.get("conn", None)
         if hub1 not in hubs_name_list or hub2 not in hubs_name_list:
             raise ValueError(
-                f"{Colors.RED.value}[ERROR] - "
+                f"{Colors.RED.value}[ERROR#6] - "
                 f"There are hubs ({hub1}-{hub2}) not defined in connections. "
                 f"Please, check the map file and try again."
                 f"{Colors.RESET.value}"

@@ -80,7 +80,7 @@ def create_connections(
             connects_dict[(father.name, son.name)] = new_con
         except Exception:
             raise ValueError(
-                f"{Colors.RED.value}[ERROR] - There is an issue with "
+                f"{Colors.RED.value}[ERROR#21] - There is an issue with "
                 f"connections. Please, check the map file and try again."
                 f"{Colors.RESET.value}")
 

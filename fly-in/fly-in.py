@@ -34,7 +34,7 @@ def main(map: str) -> None:
         if drone_validator is not None:
             drones_nb = drone_validator.map_drones
         else:
-            print(f"{Colors.RED.value}[ERROR] - "
+            print(f"{Colors.RED.value}[ERROR#2] - "
                   f"The number of drones couldn't be found in the map file."
                   f" Please, check it and try again.{Colors.RESET.value}")
             sys.exit(1)
@@ -52,7 +52,7 @@ def main(map: str) -> None:
 if __name__ == "__main__":
 
     if len(sys.argv) != 2:
-        print(f"{Colors.RED.value}[ERROR] - Invalid number of arguments!"
+        print(f"{Colors.RED.value}[ERROR#1] - Invalid number of arguments!"
               f"{Colors.RESET.value}")
         sys.exit(1)
     main(map=sys.argv[1])

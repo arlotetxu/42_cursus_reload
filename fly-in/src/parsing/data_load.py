@@ -20,7 +20,7 @@ def get_metadata(meta: str) -> Dict[str, int | str]:
             key, value = part.split("=", 1)
             if key not in valid_values or not value:
                 raise ValueError(
-                    f"{Colors.RED.value}[ERROR] - "
+                    f"{Colors.RED.value}[ERROR#7] - "
                     f"Invalid metadata ({part}). Please, check the"
                     f" map file and try again.\n"
                     f"{Colors.RESET.value}"
@@ -31,7 +31,7 @@ def get_metadata(meta: str) -> Dict[str, int | str]:
                         raise ValueError
                 except ValueError:
                     raise ValueError(
-                        f"{Colors.RED.value}[ERROR] - "
+                        f"{Colors.RED.value}[ERROR#8] - "
                         f"Invalid metadata ({key}={value}). Please, check the"
                         f" map file and try again.\n"
                         f"{Colors.RESET.value}"
@@ -80,7 +80,7 @@ def get_hubs_data(map_lines: List[str]) -> List[Dict[str, Any]]:
                     hub_dict["y"] = int(obj[2])
                 except ValueError:
                     raise ValueError(
-                        f"{Colors.RED.value}[ERROR] - "
+                        f"{Colors.RED.value}[ERROR#9] - "
                         f"Coordinates must be integers. Please, check the"
                         f" map file and try again.\n"
                         f"{line}{Colors.RESET.value}"
@@ -88,7 +88,7 @@ def get_hubs_data(map_lines: List[str]) -> List[Dict[str, Any]]:
                 num_hubs += 1
                 hubs_data.append(hub_dict)
     if num_hubs < 2:
-        print(f"{Colors.RED.value}[ERROR] - "
+        print(f"{Colors.RED.value}[ERROR#10] - "
               f"There are not enought hubs in the map file. "
               f"Please, check it. {Colors.RESET.value}")
         sys.exit(1)
@@ -130,11 +130,11 @@ def get_conection_data(map_lines: List[str]) -> List[Dict[str, Any]]:
                 connections.append(conn_dict)
     except Exception as e:
         raise ValueError(
-            f"{Colors.RED.value}[ERROR] - in line {line}"
+            f"{Colors.RED.value}[ERROR#11] - in line {line}"
             f"{e}{Colors.RESET.value}"
         )
     if num_connections < 1:
-        print(f"{Colors.RED.value}[ERROR] - "
+        print(f"{Colors.RED.value}[ERROR#12] - "
               f"There are not right connection number in the map file. "
               f"Please, check it. {Colors.RESET.value}")
         sys.exit(1)

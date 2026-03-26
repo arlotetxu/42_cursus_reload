@@ -159,7 +159,7 @@ class Simulation:
         goal_hub = next((hub for hub in hubs.values() if hub.is_goal), None)
         if not goal_hub:
             raise ValueError(
-                f"{Colors.RED.value}[ERROR] - "
+                f"{Colors.RED.value}[ERROR#22] - "
                 f"Goal hub couldn't be found. Please, check the map file."
                 f"{Colors.RESET.value}"
             )
@@ -177,7 +177,7 @@ class Simulation:
                 drone.path = my_astar.init_a_star(drone.where)
                 if not drone.path:
                     raise ValueError(
-                        f"{Colors.RED.value}[ERROR] - "
+                        f"{Colors.RED.value}[ERROR#23] - "
                         f"The drone {drone.id} couldn't find a path "
                         f"to the goal{Colors.RESET.value}"
                     )
@@ -197,7 +197,7 @@ class Simulation:
 
                 if next_connection is None:
                     raise ValueError(
-                        f"[ERROR] - "
+                        f"[ERROR#24] - "
                         f"No connection found between {drone.where.name} "
                         f"and {next_hub.name} for drone {drone.id}")
 
