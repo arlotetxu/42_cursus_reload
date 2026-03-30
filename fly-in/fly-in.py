@@ -18,7 +18,7 @@ def main(map: str) -> None:
     Returns:
         None
     """
-    print("Hello from main fly-in")
+    # print("Hello from main fly-in")
     try:
         map_validators: Dict[str, Any] = parse_map(map)
         # Creating grapth with hubs in it

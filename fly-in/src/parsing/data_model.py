@@ -105,8 +105,8 @@ class HubsValidator(BaseModel):
         for hub in self.map_hubs:
             if hub.get("x", -1) < 0 or hub.get("y", -1) < 0:
                 raise ValueError(
-                    f"{Colors.RED.value}[ERROR#16] - hub coordinates cannot be "
-                    f"negative. Please, check it in map file and try again."
+                    f"{Colors.RED.value}[ERROR#16] - hub coordinates cannot be"
+                    f" negative. Please, check it in map file and try again."
                     f"({hub.get('x', -1)} {hub.get('y', -1)})"
                     f"{Colors.RESET.value}"
                 )
@@ -180,8 +180,8 @@ class HubsValidator(BaseModel):
             if "-" in hub_name:
                 raise ValueError(
                     f"{Colors.RED.value}[ERROR#20] - "
-                    f"There are not allowed chars in hub names ({hub_name}). "
-                    f"Please, check the map file and try again."
+                    f"There are not allowed chars in hub names ({hub_name})."
+                    f" Please, check the map file and try again."
                     f"{Colors.RESET.value}"
                 )
         return self

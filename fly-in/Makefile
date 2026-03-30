@@ -47,7 +47,7 @@ SRC = src/
 # MAP = maps/medium/02_circular_loop.txt
 # MAP = maps/medium/03_priority_puzzle.txt
 
-# MAP = maps/hard/01_maze_nightmare.txt
+MAP = maps/hard/01_maze_nightmare.txt
 # MAP = maps/hard/02_capacity_hell.txt
 # MAP = maps/hard/03_ultimate_challenge.txt
 
@@ -62,9 +62,9 @@ install: pyproject.toml
 
 run: install
 	@echo "$(CYAN)$$HEADER$(DEF_COLOR)"
-# 	uv run $(MAIN_FILE) $(MAP)
-	@read -p "Enter the path to the map: " MY_MAP; \
-	uv run $(MAIN_FILE) $$MY_MAP
+	uv run $(MAIN_FILE) $(MAP)
+# 	@read -p "Enter the path to the map: " MY_MAP; \
+# 	uv run $(MAIN_FILE) $$MY_MAP
 
 debug:
 	@echo "$(YELLOW)Entering debugging mode...$(DEF_COLOR)"
