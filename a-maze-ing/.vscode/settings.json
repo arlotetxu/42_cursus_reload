@@ -1,0 +1,5 @@
+{
+    "geminicodeassist.customCommands": {
+        "add-long-docstring": "Include docstrings in functions and classes following PEP 257 (e.g., Google or NumPy style) to document purpose, parameters, and returns."
+    }
+}

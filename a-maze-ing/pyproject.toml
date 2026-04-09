@@ -1,0 +1,47 @@
+[project]
+name = "mazegen"
+version = "0.1.2"
+authors = [
+  { name="Jose Manuel Florido Pereña", email="joflorid@student.42urduliz.com" },
+  { name="Angela Patricia Girón Duque", email="agiron-d@student.42urduliz.com" },
+]
+description = "¡Create your own maze generator and visualize it!"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+    "flake8>=7.3.0",
+    "mypy>=1.19.1",
+    "pre-commit>=4.5.1",
+    "pydantic>=2.12.5",
+    "pytest>=9.0.2",
+    "pytest-mock>=3.15.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit>=4.0.0",
+]
+
+[project.scripts]
+a-maze-ing = "a_maze_ing:ft_make_maze"
+
+[project.urls]
+Homepage = "https://projects.intra.42.fr/a-maze-ing/joflorid"
+Issues = "https://github.com/agiron-d42/a-maze-ing/issues"
+
+[tool.setuptools]
+py-modules = ["a_maze_ing"]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "inc*"]
+
+[tool.setuptools.package-data]
+"inc.mlx" = ["libmlx.so"]
