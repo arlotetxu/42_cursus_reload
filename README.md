@@ -125,4 +125,17 @@ This table provides an overview of the module structure, pedagogical progression
 | Module 10 | for python functional programming (lambda, higher-order functions, closures, decorators)|
 
 
+---
+
+- [X] #**A-MAZE-ING**: A powerful and flexible maze generator and solver written in Python. Create perfect or imperfect mazes with customizable dimensions, visualize them in ASCII or with MLX graphics, and automatically solve them using pathfinding algorithms. First team project.
+
+<img src="a-maze-ing/a-maze-ing_mark.png" alt="Logo" height="175"/>
+
+
+---
+
+- [X] #**FLY-IN**: The "Fly-In" project is a drone simulation challenge written in python and designed to test and optimize pathfinding algorithms in complex, constrained environments. Its primary goal is to simulate multiple drones navigating a predefined map, finding the most efficient paths from their starting points to their respective destinations while adhering to various real-world constraints.
+
+<img src="fly-in/fly-in_mark.png" alt="Logo" height="175"/>
+
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arlotetxu/42_cursus_reload)
