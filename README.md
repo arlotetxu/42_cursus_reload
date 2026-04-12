@@ -101,6 +101,28 @@ Examples:
 - [X] #**SO_LONG**: a 2D graphical game implementation using the MiniLibX library for window management and graphics rendering. The so_long project serves as an introduction to graphical programming in the 42 curriculum.
 
 <img src="https://github.com/arlotetxu/42_Badges/blob/main/so_long.webp" alt="Logo" height="175"/> <img src="so_long/so_long_mark.png" alt="Logo" height="175"/>
+<br>
+<br>
+---
+<br>
+
+- [X] #**PYTHON_PISCINE**: The Python Piscine consists of ELEVEN training modules located in python_piscine/module_XX/ directories. Each module contains exercises (ex0/, ex1/, etc.) focusing on specific Python programming concepts. The curriculum progresses from object-oriented programming fundamentals through production-ready validation patterns.
+
+This table provides an overview of the module structure, pedagogical progression, and cross-module architectural patterns. For detailed documentation:
+
+| Module | Description |
+| :--- | :--- |
+| Module 00 | for reading and printing from/in terminal |
+| Module 01 | for OOP foundations with Plant classes and GardenManager |
+| Module 02 | for exception handling with custom error hierarchies |
+| Module 03 | for data structures (dicts, tuples, sets, generators, comprehensions) |
+| Module 04 | for file handling |
+| Module 05 | for polymorphism with ABC and DataProcessor patterns |
+| Module 06 | for python import system, packages structures and dependency handling |
+| Module 07 | for inheritance with Card game framework |
+| Module 08 | for environment setup and dependency management |
+| Module 09 | for Pydantic validation models |
+| Module 10 | for python functional programming (lambda, higher-order functions, closures, decorators)|
 
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arlotetxu/42_cursus_reload)
