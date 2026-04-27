@@ -134,6 +134,13 @@ This table provides an overview of the module structure, pedagogical progression
 
 ---
 
+- [X] #**EXAM RANK 03**: Success!!
+
+<img src="exams/Exam_Rank03_mark.png" height="175"/><br>
+
+---
+
+
 - [X] #**FLY-IN**: The "Fly-In" project is a drone simulation challenge written in python and designed to test and optimize pathfinding algorithms in complex, constrained environments. Its primary goal is to simulate multiple drones navigating a predefined map, finding the most efficient paths from their starting points to their respective destinations while adhering to various real-world constraints.
 
 <img src="fly-in/fly-in_mark.png" alt="Logo" height="175"/>
