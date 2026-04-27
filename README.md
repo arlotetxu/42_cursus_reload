@@ -145,4 +145,13 @@ This table provides an overview of the module structure, pedagogical progression
 
 <img src="fly-in/fly-in_mark.png" alt="Logo" height="175"/>
 
+---
+
+- [X] #**CODEXION**: Codexion is a multithreading project that simulates a variation of the classic Dining Philosophers problem. In this simulation, a number of "coders" (posix threads) need to acquire two "USB dongles" (shared resources) to perform a sequence of tasks: compiling, debugging, and refactoring. The project explores concepts of concurrency, resource management, and scheduling.
+
+  The main goal is to implement a simulation that correctly handles thread synchronization to prevent common concurrency issues like deadlocks and race conditions, while also implementing specific scheduling algorithms (FIFO and EDF) to manage resource allocation and prevent starvation.
+
+<img src="codexion/codexion_mark.png" alt="Logo" height="175"/>
+
+
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arlotetxu/42_cursus_reload)
