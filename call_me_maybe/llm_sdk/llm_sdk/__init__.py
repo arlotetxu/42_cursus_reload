@@ -100,6 +100,15 @@ class Small_LLM_Model:
 
 
     def get_path_to_vocab_file(self) -> str:
+        """Download and return the local file path to the model's vocabulary file.
+
+        This method identifies the vocabulary file name from the tokenizer configuration
+        and uses the Hugging Face Hub API to ensure the file is downloaded to the local
+        cache, returning its absolute path.
+
+        Returns:
+            str: The local file path to the vocabulary file.
+        """
         vocab_file_name = self._tokenizer.vocab_files_names.get('vocab_file', "vocab.json")
         vocab_path = hf_hub_download(
             repo_id=self._model_name,
@@ -109,6 +118,15 @@ class Small_LLM_Model:
 
 
     def get_path_to_merges_file(self) -> str:
+        """Download and return the local file path to the model's merges file.
+
+        This method identifies the merges file name from the tokenizer configuration
+        and uses the Hugging Face Hub API to ensure the file is downloaded to the local
+        cache, returning its absolute path.
+
+        Returns:
+            str: The local file path to the merges file.
+        """
         merges_file_name = self._tokenizer.vocab_files_names.get('merges_file', "merges.txt")
         merges_path = hf_hub_download(
             repo_id=self._model_name,
@@ -118,6 +136,15 @@ class Small_LLM_Model:
 
 
     def get_path_to_tokenizer_file(self) -> str:
+        """Download and return the local file path to the model's tokenizer file.
+
+        This method identifies the tokenizer file name from the tokenizer configuration
+        and uses the Hugging Face Hub API to ensure the file is downloaded to the local
+        cache, returning its absolute path.
+
+        Returns:
+            str: The local file path to the tokenizer file.
+        """
         tokenizer_file_name = self._tokenizer.vocab_files_names.get('tokenizer_file', "tokenizer.json")
         tokenizer_path = hf_hub_download(
             repo_id=self._model_name,
