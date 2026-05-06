@@ -3,9 +3,9 @@ from typing import Any
 from pathlib import Path
 from src.enums.enums import Colors
 import json
-
 from icecream import ic
 ic.configureOutput(contextAbsPath=True)
+
 
 class PathValidator(BaseModel):
 
@@ -16,17 +16,17 @@ class PathValidator(BaseModel):
         default="data/input/function_calling_tests.json"
     )
     output_path: str = Field(
-        default="data/output/"
+        default="data/output/function_calls.json"
     )
-
 
     @model_validator(mode="after")
     def check_func_def_path(self) -> Any:
         file_path = Path(self.func_def_path)
         if not file_path.is_file():
             raise ValueError(
-                f"{Colors.RED.value}[ERROR] -"
-                f"The file specified as --functions_definition "
+                f"{Colors.RED.value}[ERROR] - "
+                f"The file specified as \"--functions_definition "
+                f"{self.func_def_path}\" "
                 f"is not valid. Please, check it and try again."
                 f"{Colors.RESET.value}"
             )
@@ -35,8 +35,9 @@ class PathValidator(BaseModel):
                 json.load(fd)
         except (json.JSONDecodeError):
             raise ValueError(
-                f"{Colors.RED.value}[ERROR] -"
-                f"The json file specified as --functions_definition "
+                f"{Colors.RED.value}[ERROR] - "
+                f"The json file specified as \"--functions_definition "
+                f"{self.func_def_path}\" "
                 f"is corrupted. Please, check it and try again."
                 f"{Colors.RESET.value}"
             )
@@ -47,8 +48,8 @@ class PathValidator(BaseModel):
         file_path = Path(self.func_call_path)
         if not file_path.is_file():
             raise ValueError(
-                f"{Colors.RED.value}[ERROR] -"
-                f"The file specified as --input "
+                f"{Colors.RED.value}[ERROR] - "
+                f"The file specified as \"--input {self.func_call_path}\" "
                 f"is not valid. Please, check it and try again."
                 f"{Colors.RESET.value}"
             )
@@ -57,13 +58,22 @@ class PathValidator(BaseModel):
                 json.load(fd)
         except (json.JSONDecodeError):
             raise ValueError(
-                f"{Colors.RED.value}[ERROR] -"
-                f"The json file specified as --input "
-                f"is corrupted. Please, check it and try again."
-                # f"\n{e}"  #TODO --> Eliminar linea
+                f"{Colors.RED.value}[ERROR] - "
+                f"The json file specified as \"--input {self.func_call_path}\""
+                f" is corrupted. Please, check it and try again."
                 f"{Colors.RESET.value}"
             )
         return self
 
-    #TODO Analizar como gestionar el fichero de salida para no comprometer a
-    #TODO ficheros existentes
+    @model_validator(mode="after")
+    def check_output_path(self) -> Any:
+        file_path = Path(self.output_path)
+        if file_path.is_file():
+            raise ValueError(
+                f"{Colors.RED.value}[ERROR] - "
+                f"The file specified as \"--output {self.output_path}\" "
+                f"already exists. "
+                f"Please, select a new output file and try again."
+                f"{Colors.RESET.value}"
+            )
+        return self

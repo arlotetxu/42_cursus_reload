@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Colors(Enum):
     """
     RESET: Resets all formatting to default.
