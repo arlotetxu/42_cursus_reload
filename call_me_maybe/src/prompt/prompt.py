@@ -1,4 +1,3 @@
-import sys
 from typing import List, Dict, Any
 from src.validator.path_validator import PathValidator
 from src.validator.func_def_validator import FuncDefVal
@@ -19,7 +18,7 @@ class Prompt:
 
         self.input_paths = input_paths
 
-    def get_func_def(self) -> int | str:
+    def get_func_def(self) -> int | List[Dict[str, Any]]:
         func_def_path = self.input_paths.func_def_path
 
         try:
@@ -41,12 +40,10 @@ class Prompt:
                   f"Please, check it and try again."
                   f"{Colors.RESET.value}\n{e}")
             raise ValueError(e)
-        ic(func_def_data)
-        return (str(func_def_data))
+        return (func_def_data)
 
     def get_func_call(self) -> Any:
         func_call_path = self.input_paths.func_call_path
-
         try:
             with open(func_call_path, mode='r') as fd:
                 func_call_data = json.load(fd)
@@ -59,7 +56,7 @@ class Prompt:
 
         # CHECKING THE FILE STRUCTURE
         try:
-            validated_prompts = FuncCallVal(func_call_data)
+            validated_prompts = FuncCallVal(prompts=func_call_data)
         except ValidationError as e:
             print(f"{Colors.RED.value}[ERROR] - "
                   f"JSON file: {func_call_data} has incorrect fields. "
@@ -68,13 +65,13 @@ class Prompt:
             raise ValueError(e)
         return func_call_data
 
-    def init_prompt(self) -> int | str:
+    def init_prompt(self) -> str:
         try:
-            initial_prompt = f"You are an expert assistant. "\
+            initial_prompt = f"You are the best function calling engine. "\
                 "You have access to the following functions:\n"\
-                f"{self.get_func_def()}\n"\
-                "According to the user_input, you must respond exclusively "\
-                "with a string formatted as a JSON with the following"\
+                f"{str(self.get_func_def())}\n"\
+                "According to the user_input, you must respond EXCLUSIVELY "\
+                "with a string formatted as a JSON containing the following"\
                 "information: "\
                 "{\"prompt\": user_input, "\
                 "\"name\": corresponding function name, "\

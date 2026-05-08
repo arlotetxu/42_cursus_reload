@@ -7,7 +7,7 @@ from llm_sdk import Small_LLM_Model
 ic.configureOutput(includeContext=True)
 
 my_model = Small_LLM_Model()
-# my_prompt = "el cielo es "
+# my_prompt = "2, 4, 8, 16, 32, "
 my_prompt = (
     "<|im_start|>system\n"
     "You are an expert assistant. You have access to the following functions:"
@@ -29,12 +29,12 @@ my_prompt = (
     "-user_input as a field named \"prompt\""
     "-name of corresponding function mentioned before as a field named \"name\""
     "-parameters as a field named \"parameters\""
-    "Nothing else. Do not give the return values\n"
+    "Nothing else. Do not returning values\n"
     "<|im_end|>\n"
     "<|im_start|>user\n"
-    "user_input: Reverse the string \"world\"<|im_end|>\n"
+    "user_input: What is the sum of 2 and 3?<|im_end|>\n"
     "<|im_start|>assistant\n"
-    "{ \"prompt\":\n"
+    "{\n"
 )
 
 model_output_idxs = []
@@ -45,6 +45,10 @@ model_output_idxs = []
 # Getting the EOS (End of sequence) ID to stop the loop. For our model: 151645
 # ic(my_model._tokenizer.eos_token_id)
 
+func_def = ['fn_add_numbers', 'fn_greet', 'fn_reverse_string', 'fn_get_square_root',
+            'fn_substitute_string_with_regex']
+
+
 encoded_prompt_tensor = my_model.encode(my_prompt)  # Esto es un torch.Tensor
 encoded_prompt_list = encoded_prompt_tensor[0].tolist()  # Extrae la lista de IDs del tensor
 ic(type(encoded_prompt_list[0]))
@@ -52,10 +56,18 @@ for i in range (200):
     next_token_logits_list = my_model.get_logits_from_input_ids(encoded_prompt_list)  # Llama a la función con la lista de IDs
     logits_array_np = np.array(next_token_logits_list) # Convierte la lista de logits a un array de NumPy. Mayor velocidad
     token_idx = int(np.argmax(logits_array_np))
+
     if token_idx == 151645:
         break
-    encoded_prompt_list.append(token_idx)
-    model_output_idxs.append(token_idx)
+    for func in func_def:
+        if model_output_idxs
+    # Getting the next token (index with the highest value)
+    # max_logit = float('-inf')
+    # token_idx = 0
+    # for index, prob in enumerate(next_token_logits_list):
+    #     if prob > max_logit:
+    #         max_logit = prob
+    #         token_idx = index
 
 model_output = my_model.decode(model_output_idxs)
 print(f"{Colors.GREEN.value}Initial prompt: \n{Colors.RESET.value}{my_prompt}")

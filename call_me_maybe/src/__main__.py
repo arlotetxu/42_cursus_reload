@@ -5,13 +5,14 @@ from src.parser.parser import Parser
 from src.prompt.prompt import Prompt
 from src.validator.path_validator import PathValidator
 from pydantic import ValidationError
+from src.logic.logic import get_fn_name
 from icecream import ic
 ic.configureOutput(includeContext=True)
 
 """
 ERROR CODES
 1- Incorrect number of arguments
-2- Issues with arguments (no files / corrupted files)
+2- Issues with files (no files / corrupted files)
 3- Incorrect fields in the json files
 """
 
@@ -20,18 +21,18 @@ def main(args: List[str]) -> int:
     print("Hello from call-me-maybe!")
 
     try:
-        path_validator: PathValidator = Parser.start_parsing(args)
+        path2jsons: PathValidator = Parser.start_parsing(args)
     except ValidationError as e:
         print(e)
         return 2
         # sys.exit(2)
-    # ic(path_validator.func_call_path)
-    # ic(path_validator.func_def_path)
-    # ic(path_validator.output_path)
     try:
-        Prompt(path_validator).get_func_def()
+        initial_prompt = Prompt(path2jsons).init_prompt()
+        ic(initial_prompt)
     except (ValueError, ValidationError):
         return 3
+    get_fn_name(path2jsons, initial_prompt)
+
     return 0
 
 
