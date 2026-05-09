@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 from src.validator.path_validator import PathValidator
 from src.validator.func_def_validator import FuncDefVal
 from src.validator.func_call_validator import FuncCallVal
-from pydantic import ValidationError
+from pydantic import BaseModel, ValidationError
 from src.enums.enums import Colors
 import json
 from icecream import ic
@@ -10,23 +10,19 @@ from icecream import ic
 ic.configureOutput(includeContext=True)
 
 
-class Prompt:
-    def __init__(
-        self,
-        input_paths: PathValidator
-    ) -> None:
+class Prompt (BaseModel):
+    
+    input_paths: PathValidator
 
-        self.input_paths = input_paths
-
-    def get_func_def(self) -> int | List[Dict[str, Any]]:
-        func_def_path = self.input_paths.func_def_path
+    def get_func_def(self) -> List[Dict[str, Any]]:
+        func_def_path: str = self.input_paths.func_def_path
 
         try:
             with open(func_def_path, mode='r') as fd:
-                func_def_data = json.load(fd)
+                func_def_data: List = json.load(fd)
         except (FileExistsError, FileNotFoundError, AttributeError) as e:
             print(f"{Colors.RED.value}[ERROR] - "
-                  f"There are issue while open {func_def_data}. "
+                  f"There are issues while open {func_def_path}. "
                   f"Please, check the file and permissions and try again."
                   f"{Colors.RESET.value}\n{e}")
             raise ValueError(e)
@@ -42,7 +38,7 @@ class Prompt:
             raise ValueError(e)
         return (func_def_data)
 
-    def get_func_call(self) -> Any:
+    def get_func_call(self) -> List[Dict[str, str]]:
         func_call_path = self.input_paths.func_call_path
         try:
             with open(func_call_path, mode='r') as fd:
@@ -67,17 +63,15 @@ class Prompt:
 
     def init_prompt(self) -> str:
         try:
-            initial_prompt = f"You are the best function calling engine. "\
-                "You have access to the following functions:\n"\
-                f"{str(self.get_func_def())}\n"\
-                "According to the user_input, you must respond EXCLUSIVELY "\
-                "with a string formatted as a JSON containing the following"\
-                "information: "\
-                "{\"prompt\": user_input, "\
-                "\"name\": corresponding function name, "\
-                "\"parameters\": "\
-                "{function parameter name: \"parameter value\"}...}\n"\
-                "user_input: "
+            initial_prompt = ("You are the best function calling engine. "
+                "You have access to the following functions list:\n"
+                f"{str(self.get_func_def())}\n"
+                "According to the prompt, you must return ONLY the right function. "
+                "Put the focus on the verb or action in the prompt to "
+                "return ONLY the function that matches the action."
+                # "Do not get distracted by nouns"
+                # " or strings like 'hello'\n"
+                "The output must be a valid JSON.\n")
         except (ValueError, ValidationError) as e:
             raise ValueError(e)
         return initial_prompt

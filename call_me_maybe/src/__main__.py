@@ -22,14 +22,15 @@ def main(args: List[str]) -> int:
 
     try:
         path2jsons: PathValidator = Parser.start_parsing(args)
+        ic(path2jsons.func_def_path)
     except ValidationError as e:
         print(e)
         return 2
-        # sys.exit(2)
     try:
-        initial_prompt = Prompt(path2jsons).init_prompt()
-        ic(initial_prompt)
-    except (ValueError, ValidationError):
+        initial_prompt = Prompt(input_paths=path2jsons).init_prompt()
+        # ic(initial_prompt)
+    except (ValueError, ValidationError) as e:
+        print(e)
         return 3
     get_fn_name(path2jsons, initial_prompt)
 
