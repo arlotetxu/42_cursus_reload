@@ -2,7 +2,7 @@ from icecream import ic
 from llm_sdk import Small_LLM_Model
 from src.validator.path_validator import PathValidator
 from src.prompt.prompt import Prompt
-from typing import List, Dict, Any
+from typing import List, Dict
 import numpy as np
 from numpy.typing import NDArray
 import json
@@ -32,12 +32,14 @@ def get_fn_name(path2jsons: PathValidator, init_prompt: str):
 
     my_model = Small_LLM_Model()
     # GETTING FUNCTION NAMES LIST AND PROMPTS LIST AS FUNC_CALL
-    full_func_def = Prompt(input_paths=path2jsons).get_func_def()
-    full_func_call = Prompt(input_paths=path2jsons).get_func_call()
-    func_names = [func.get("name", "") for func in full_func_def]
-    func_call = [prompt.get("prompt", "") for prompt in full_func_call]
-    print(func_names)
+    full_func_def = Prompt(input_paths=path2jsons).get_func_def().functions
+    full_func_call = Prompt(input_paths=path2jsons).get_func_call().prompts
+    func_names = [func.name for func in full_func_def]
+    func_call = [prompt.get("prompt", None) for prompt in full_func_call]
+    # ic(func_names)
     # ic(func_call)
+    # func_params = [func.parameters for func in full_func_def]
+    # ic(func_params)
     selected_func_name = ""
 
     # GETTING ALL THE INFO TO CREATE THE NAME MASK
@@ -47,7 +49,7 @@ def get_fn_name(path2jsons: PathValidator, init_prompt: str):
             vocab_dict = json.load(vj)
     except (FileNotFoundError, AttributeError) as e:
         raise ValueError(e)
-    i = 3
+    i = 1
     ic(func_call[i])
     prompt = init_prompt + "[\n" + "{\n\tprompt:" + f"\"{func_call[i]}\",\n"
     prompt += "\"name\": \""
@@ -57,7 +59,12 @@ def get_fn_name(path2jsons: PathValidator, init_prompt: str):
         prompt_logits = my_model.get_logits_from_input_ids(prompt_ids[0].tolist())
         prompt_logits_np = np.array(prompt_logits)
         
-        masked_logits_np = put_name_mask(selected_func_name, func_names, vocab_dict, prompt_logits_np)
+        masked_logits_np = put_name_mask(
+            selected_func_name, 
+            func_names,
+            vocab_dict,
+            prompt_logits_np
+        )
         next_token_id = int(np.argmax(masked_logits_np))
         next_token = my_model.decode([next_token_id])
         if selected_func_name in func_names:

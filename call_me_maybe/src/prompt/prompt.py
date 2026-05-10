@@ -14,7 +14,7 @@ class Prompt (BaseModel):
     
     input_paths: PathValidator
 
-    def get_func_def(self) -> List[Dict[str, Any]]:
+    def get_func_def(self) -> FuncDefVal:
         func_def_path: str = self.input_paths.func_def_path
 
         try:
@@ -36,9 +36,9 @@ class Prompt (BaseModel):
                   f"Please, check it and try again."
                   f"{Colors.RESET.value}\n{e}")
             raise ValueError(e)
-        return (func_def_data)
+        return validated_function
 
-    def get_func_call(self) -> List[Dict[str, str]]:
+    def get_func_call(self) -> FuncCallVal:
         func_call_path = self.input_paths.func_call_path
         try:
             with open(func_call_path, mode='r') as fd:
@@ -59,18 +59,17 @@ class Prompt (BaseModel):
                   f"Please, check it and try again."
                   f"{Colors.RESET.value}\n{e}")
             raise ValueError(e)
-        return func_call_data
+        return validated_prompts
 
     def init_prompt(self) -> str:
         try:
-            initial_prompt = ("You are the best function calling engine. "
+            initial_prompt = (
+                "You are the best function calling engine. "
                 "You have access to the following functions list:\n"
                 f"{str(self.get_func_def())}\n"
-                "According to the prompt, you must return ONLY the right function. "
-                "Put the focus on the verb or action in the prompt to "
-                "return ONLY the function that matches the action."
-                # "Do not get distracted by nouns"
-                # " or strings like 'hello'\n"
+                "According to the prompt, you must return ONLY the right "
+                "function.Put the focus on the verb or action in the prompt "
+                "to return ONLY the function that matches the action."
                 "The output must be a valid JSON.\n")
         except (ValueError, ValidationError) as e:
             raise ValueError(e)
