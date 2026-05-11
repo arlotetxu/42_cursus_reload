@@ -5,7 +5,7 @@ from src.parser.parser import Parser
 from src.prompt.prompt import Prompt
 from src.validator.path_validator import PathValidator
 from pydantic import ValidationError
-from src.logic.logic import get_fn_name
+from src.logic.logic import get_func_info
 from icecream import ic
 ic.configureOutput(includeContext=True)
 
@@ -32,7 +32,7 @@ def main(args: List[str]) -> int:
     except (ValueError, ValidationError) as e:
         print(e)
         return 3
-    get_fn_name(path2jsons, initial_prompt)
+    get_func_info(path2jsons, initial_prompt)
 
     return 0
 
