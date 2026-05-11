@@ -7,8 +7,8 @@ from typing import List, Dict
 import numpy as np
 import json
 
-
 ic.configureOutput(includeContext=True)
+
 
 def get_func_name(
     prompt: str,
@@ -34,6 +34,7 @@ def get_func_name(
             break
         selected_func_name += next_token
         prompt += next_token
+    
     return selected_func_name
 
 def get_func_parameters(
@@ -51,15 +52,15 @@ def get_func_parameters(
 
     parameters = ""
     parameters_dict = {}
-    # while True:
     for param in func_params:
         for param_name, param_type in param.items():
             prompt += f"\"{param_name}\": "
             if param_type.type == "number":
-                ic(prompt)
+                # TODO crear mascara para signo. Posibles valores = [-, +]
                 while True:
                     prompt_ids = llm.encode(prompt)
-                    prompt_logits = llm.get_logits_from_input_ids(prompt_ids[0].tolist())
+                    prompt_logits = llm.get_logits_from_input_ids(
+                        prompt_ids[0].tolist())
                     prompt_logits_np = np.array(prompt_logits)
                     masked_logit_np = add_numeric_mask(
                         parameters,
@@ -79,8 +80,22 @@ def get_func_parameters(
                 
             if param_type.type == "string":
                 prompt += "\""
-    # parameters = ""
-    ic(parameters_dict)
+                while True:
+                    prompt_ids = llm.encode(prompt)
+                    prompt_logits = llm.get_logits_from_input_ids(
+                        prompt_ids[0].tolist())
+                    prompt_logits_np = np.array(prompt_logits)
+                    next_token_id = int(np.argmax([prompt_logits_np]))
+                    next_token_str = llm.decode([next_token_id])
+                    # print(next_token_str)
+                    if next_token_str[0] in ["\"}", "\"", "}"]:
+                        break
+                    parameters += next_token_str
+                    prompt += next_token_str
+                parameters_dict[param_name] = parameters
+                parameters = ""
+                    
+    return parameters_dict
 
 
 def get_func_info(path2jsons: PathValidator, init_prompt: str):
@@ -102,13 +117,18 @@ def get_func_info(path2jsons: PathValidator, init_prompt: str):
             vocab_dict = json.load(vj)
     except (FileNotFoundError, AttributeError) as e:
         raise ValueError(e)
-    i = 0
+    i = 11
+    ic(func_call[i])
     prompt = init_prompt + "[\n" + "{\n\t\"prompt\":" + f"\"{func_call[i]}\",\n"
     prompt += "\"name\": \""
     
     selected_func_name = get_func_name(prompt, llm, func_names, vocab_dict)
     prompt += selected_func_name + "\",\n"
-    # print(selected_func_name)
-    # print(prompt)
 
-    get_func_parameters(prompt, llm, full_func_def, selected_func_name, vocab_dict)
+    selected_func_params = get_func_parameters(
+        prompt, llm, full_func_def, selected_func_name, vocab_dict)
+
+    ic(selected_func_name)
+    ic(selected_func_params)
+
+    # funcion para generar el json de salida
