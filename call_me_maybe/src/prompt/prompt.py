@@ -11,7 +11,7 @@ ic.configureOutput(includeContext=True)
 
 
 class Prompt (BaseModel):
-    
+
     input_paths: PathValidator
 
     def get_func_def(self) -> FuncDefVal:
@@ -63,14 +63,41 @@ class Prompt (BaseModel):
 
     def init_prompt(self) -> str:
         try:
+            # initial_prompt = (
+            #     "You are the best function calling engine. "
+            #     "You have access to the following functions list:\n"
+            #     f"{str(self.get_func_def())}\n"
+            #     "According to the prompt, you must return ONLY the right "
+            #     "function.Put the focus on the verb or action in the prompt "
+            #     "to return ONLY the function that matches the action. Do not consider other non importance words"
+            #     "If the function selected uses regex, choose a right confirmed regular expression. "
+            #     "If the action is a substitution or a replacement, check if the replacement value is codified (like asterisk meaning '*') or just a simple word. "
+            #     "If a parameter has more than one value, separate them accordingly to the requested action. "
+            #     "Check the sign of each number in the prompt to apply the right sign in the output. "
+            #     "The output must be a valid JSON.\n")
             initial_prompt = (
-                "You are the best function calling engine. "
-                "You have access to the following functions list:\n"
-                f"{str(self.get_func_def())}\n"
-                "According to the prompt, you must return ONLY the right "
-                "function.Put the focus on the verb or action in the prompt "
-                "to return ONLY the function that matches the action."
-                "The output must be a valid JSON.\n")
+        "You are a strict function-calling assistant. "
+        "Your ONLY task is to extract the user's intent matching one of the provided functions.\n\n"
+
+        "<AVAILABLE_FUNCTIONS>\n"
+        f"{str(self.get_func_def())}\n"
+        "</AVAILABLE_FUNCTIONS>\n\n"
+
+        "RULES:\n"
+        "1. Focus strictly on the primary action/verb requested.\n"
+        "2. Output ONLY a valid JSON object. No explanations, no markdown formatting outside the JSON, no conversational text.\n"
+        "3. Pay strict attention to exact parameter formats (e.g., regex, codifications).\n"
+        "4. CRITICAL: If the prompt contains negative numbers, you MUST output the negative sign '-' before the digits. "
+        "I.e, Input: What is the sum of -5 and -6 → Output: {'a': '-5', 'b': '-6'}.\n"
+        "5. Pay strict attention to the number of parameter and separate them to fulfill the action\n\n"
+
+        # "OUTPUT FORMAT:\n"
+        # "{\n"
+        # '  "function": "function_name",\n'
+        # '  "arguments": {\n'
+        # '    "param_name": "value"\n'
+        # "  }\n"
+        "\n")
         except (ValueError, ValidationError) as e:
             raise ValueError(e)
         return initial_prompt

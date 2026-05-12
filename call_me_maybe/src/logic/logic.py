@@ -2,7 +2,7 @@ from icecream import ic
 from llm_sdk import Small_LLM_Model
 from src.validator.path_validator import PathValidator
 from src.prompt.prompt import Prompt
-from src.masks.masks import add_name_mask, add_numeric_mask
+from src.masks.masks import add_name_mask, add_numeric_mask, sign_mask
 from typing import List, Dict
 import numpy as np
 import json
@@ -21,9 +21,9 @@ def get_func_name(
         prompt_ids = llm.encode(prompt)
         prompt_logits = llm.get_logits_from_input_ids(prompt_ids[0].tolist())
         prompt_logits_np = np.array(prompt_logits)
-        
+
         masked_logits_np = add_name_mask(
-            selected_func_name, 
+            selected_func_name,
             func_names,
             vocab_dict,
             prompt_logits_np
@@ -34,7 +34,7 @@ def get_func_name(
             break
         selected_func_name += next_token
         prompt += next_token
-    
+
     return selected_func_name
 
 def get_func_parameters(
@@ -48,6 +48,7 @@ def get_func_parameters(
     func_obj.parameters for func_obj in full_func_def \
     if func_obj.name == selected_func_name]
     # func_params: [{'a': ParameterDef(type='number'), 'b': ParameterDef(type='number')}]
+    prompt_bak = prompt
     prompt += "\"parameters\": {"
 
     parameters = ""
@@ -57,6 +58,12 @@ def get_func_parameters(
             prompt += f"\"{param_name}\": "
             if param_type.type == "number":
                 # TODO crear mascara para signo. Posibles valores = [-, +]
+                sign = sign_mask(llm, prompt_bak, vocab_dict)
+                ic(sign)
+                if sign == '-':
+                    prompt += sign
+                    parameters += sign
+                # ic(prompt)
                 while True:
                     prompt_ids = llm.encode(prompt)
                     prompt_logits = llm.get_logits_from_input_ids(
@@ -76,8 +83,8 @@ def get_func_parameters(
                     parameters += next_token_str
                     prompt += next_token_str
                 parameters_dict[param_name] = parameters
-                parameters = ""
-                
+                # parameters = ""
+
             if param_type.type == "string":
                 prompt += "\""
                 while True:
@@ -93,8 +100,8 @@ def get_func_parameters(
                     parameters += next_token_str
                     prompt += next_token_str
                 parameters_dict[param_name] = parameters
-                parameters = ""
-                    
+            parameters = ""
+
     return parameters_dict
 
 
@@ -117,11 +124,11 @@ def get_func_info(path2jsons: PathValidator, init_prompt: str):
             vocab_dict = json.load(vj)
     except (FileNotFoundError, AttributeError) as e:
         raise ValueError(e)
-    i = 11
+    i = 0
     ic(func_call[i])
     prompt = init_prompt + "[\n" + "{\n\t\"prompt\":" + f"\"{func_call[i]}\",\n"
     prompt += "\"name\": \""
-    
+
     selected_func_name = get_func_name(prompt, llm, func_names, vocab_dict)
     prompt += selected_func_name + "\",\n"
 
