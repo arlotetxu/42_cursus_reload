@@ -48,7 +48,9 @@ def get_func_parameters(
     func_obj.parameters for func_obj in full_func_def \
     if func_obj.name == selected_func_name]
     # func_params: [{'a': ParameterDef(type='number'), 'b': ParameterDef(type='number')}]
-    prompt_bak = prompt
+    # ic(prompt)
+    # prompt_bak = prompt
+    # ic(prompt_bak)
     prompt += "\"parameters\": {"
 
     parameters = ""
@@ -58,11 +60,11 @@ def get_func_parameters(
             prompt += f"\"{param_name}\": "
             if param_type.type == "number":
                 # TODO crear mascara para signo. Posibles valores = [-, +]
-                sign = sign_mask(llm, prompt_bak, vocab_dict)
-                ic(sign)
-                if sign == '-':
-                    prompt += sign
-                    parameters += sign
+                # sign = sign_mask(llm, prompt_bak, vocab_dict)
+                # ic(sign)
+                # if sign == '-':
+                #     prompt += sign
+                #     parameters += sign
                 # ic(prompt)
                 while True:
                     prompt_ids = llm.encode(prompt)
@@ -124,7 +126,7 @@ def get_func_info(path2jsons: PathValidator, init_prompt: str):
             vocab_dict = json.load(vj)
     except (FileNotFoundError, AttributeError) as e:
         raise ValueError(e)
-    i = 0
+    i = 6
     ic(func_call[i])
     prompt = init_prompt + "[\n" + "{\n\t\"prompt\":" + f"\"{func_call[i]}\",\n"
     prompt += "\"name\": \""

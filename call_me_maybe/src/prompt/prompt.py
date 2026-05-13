@@ -42,7 +42,9 @@ class Prompt (BaseModel):
         func_call_path = self.input_paths.func_call_path
         try:
             with open(func_call_path, mode='r') as fd:
-                func_call_data = json.load(fd)
+                content = fd.read().replace('\\"', "'")
+                # func_call_data = json.load(fd)
+                func_call_data = json.loads(content)
         except (FileExistsError, FileNotFoundError, AttributeError) as e:
             print(f"{Colors.RED.value}[ERROR] - "
                   f"There are issue while open {func_call_path}. "
@@ -86,17 +88,10 @@ class Prompt (BaseModel):
         "RULES:\n"
         "1. Focus strictly on the primary action/verb requested.\n"
         "2. Output ONLY a valid JSON object. No explanations, no markdown formatting outside the JSON, no conversational text.\n"
-        "3. Pay strict attention to exact parameter formats (e.g., regex, codifications).\n"
-        "4. CRITICAL: If the prompt contains negative numbers, you MUST output the negative sign '-' before the digits. "
+        "3. Pay strict attention to EXACT parameter formats (e.g., regex, codifications), specially in regex parameters.\n"
+        "4. CRITICAL: If the prompt contains negative numbers like -5, -66, -13,..., you MUST output the negative sign '-' before the digits. "
         "I.e, Input: What is the sum of -5 and -6 → Output: {'a': '-5', 'b': '-6'}.\n"
         "5. Pay strict attention to the number of parameter and separate them to fulfill the action\n\n"
-
-        # "OUTPUT FORMAT:\n"
-        # "{\n"
-        # '  "function": "function_name",\n'
-        # '  "arguments": {\n'
-        # '    "param_name": "value"\n'
-        # "  }\n"
         "\n")
         except (ValueError, ValidationError) as e:
             raise ValueError(e)
