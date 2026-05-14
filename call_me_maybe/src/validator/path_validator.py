@@ -16,7 +16,7 @@ class PathValidator(BaseModel):
         default="data/input/function_calling_tests.json"
     )
     output_path: str = Field(
-        default="data/output/function_calls.json"
+        default="data/output/function_calling_results.json"
     )
 
     @model_validator(mode="after")
@@ -76,4 +76,5 @@ class PathValidator(BaseModel):
                 f"Please, select a new output file and try again."
                 f"{Colors.RESET.value}"
             )
+
         return self

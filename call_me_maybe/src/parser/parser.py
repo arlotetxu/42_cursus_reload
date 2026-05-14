@@ -31,7 +31,7 @@ class Parser:
     @classmethod
     def get_output_path(cls, args: List[str]) -> str:
         if "--output" not in args:
-            return ("data/output/function_calls.json")
+            return ("data/output/function_calling_results.json")
         for index, value in enumerate(args):
             if value == "--output":
                 return (args[index + 1])
