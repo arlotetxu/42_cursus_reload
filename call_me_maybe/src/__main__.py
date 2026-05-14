@@ -20,12 +20,14 @@ ERROR CODES
 7- Permission issues with output file path
 
 TO DO's
-[] - Crear funcion para generar el json de salida
-[] - Comprobar que JSON de salida está bien formateado
+[X] - Crear funcion para generar el json de salida
+[] - Comprobar que JSON de salida está bien formateado con pydantic
+[] - Hacer diferentes test de prompts (pag. 16 subject) y argumentos de entrada
 [] - Docstrings
 [] - Flake8
 [] - Mypy
 [] - Makefile
+[] - README
 """
 
 

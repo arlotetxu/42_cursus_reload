@@ -4,7 +4,7 @@ from src.enums.enums import Colors
 from src.validator.path_validator import PathValidator
 from src.prompt.prompt import Prompt
 from src.masks.masks import add_name_mask, add_numeric_mask
-from typing import List, Dict
+from typing import List, Dict, Any
 import numpy as np
 import json
 from pathlib import Path
@@ -82,7 +82,7 @@ def get_func_parameters(
                             break
                         parameters += next_token_str
                         prompt += next_token_str
-                    parameters_dict[param_name] = parameters
+                    parameters_dict[param_name] = float(parameters)
 
                 if param_type.type == "string":
                     prompt += "\""
@@ -103,6 +103,25 @@ def get_func_parameters(
         raise ValueError(e)
     return parameters_dict
 
+
+def create_output_file(
+    path2jsons: PathValidator,
+    selected_func_name: str,
+    selected_params: Dict[str, Any],
+    output_info: List[Dict[str, Any]]) -> None:
+
+    output_path = Path(path2jsons.output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with open(output_path, mode='x') as fd:
+            json.dump(output_info, fd, indent=4)
+    except PermissionError:
+        print(f"{Colors.RED.value}[ERROR] - "
+              f"The output file ({path2jsons.output_path}) couldn't be saved. "
+              "Check the folder/file permissions and try it again."
+              f"{Colors.RESET.value}")
+        return 7
+    return 0
 
 def get_output_info(path2jsons: PathValidator, init_prompt: str) -> int:
 
@@ -155,17 +174,12 @@ def get_output_info(path2jsons: PathValidator, init_prompt: str) -> int:
               f"{Colors.RESET.value}")
         return 6
 
-    # TODO: Crea nueva funcion para salvar el JSON y comprobarlo
-    output_path = Path(path2jsons.output_path)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        with open(output_path, mode='x') as fd:
-            json.dump(output_info, fd, indent=4)
-    except PermissionError:
-        print(f"{Colors.RED.value}[ERROR] - "
-              f"The output file ({path2jsons.output_path}) couldn't be saved. "
-              "Check the folder/file permissions and try it again."
-              f"{Colors.RESET.value}")
-        return 7
-
+    ret = create_output_file(
+        path2jsons,
+        selected_func_name,
+        selected_func_params,
+        output_info
+        )
+    if ret:
+        return ret
     return (0)
