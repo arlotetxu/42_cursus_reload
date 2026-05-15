@@ -1,18 +1,28 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List, Dict, Any
 
 
-class ParameterInfo(BaseModel):
-    source_string: str
-    regex: str
-    replacement: str
+class InfoVal(BaseModel):
+    """
+    Represents the structure of a single function call result.
 
-
-class OutputInfo(BaseModel):
+    Attributes:
+        prompt (str): The original input prompt.
+        name (str): The name of the function to be called.
+        parameters (Dict[str, Any]): The arguments extracted for the
+            function call.
+    """
     prompt: str
     name: str
-    parameters: Dict[str, ParameterInfo]
+    parameters: Dict[str, Any]
 
 
 class OutputVal(BaseModel):
-    item: List[OutputInfo]
+    """
+    Validator for the collection of processed function call outputs.
+
+    Attributes:
+        items (List[InfoVal]): A list of validated function call
+            information objects.
+    """
+    items: List[InfoVal]

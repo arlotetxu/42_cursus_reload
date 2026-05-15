@@ -21,18 +21,26 @@ ERROR CODES
 
 TO DO's
 [X] - Crear funcion para generar el json de salida
-[] - Comprobar que JSON de salida está bien formateado con pydantic
+[X] - Comprobar que JSON de salida está bien formateado con pydantic
 [] - Hacer diferentes test de prompts (pag. 16 subject) y argumentos de entrada
-[] - Docstrings
-[] - Flake8
-[] - Mypy
-[] - Makefile
+[X] - Docstrings
+[X] - Flake8
+[X] - Mypy (mypy strict with errors)
+[X] - Makefile
 [] - README
 """
 
 
 def main(args: List[str]) -> int:
-    print("Hello from call-me-maybe!")
+    """
+    Main entry point for the call-me-maybe application.
+
+    Args:
+        args (List[str]): A list of command-line arguments.
+
+    Returns:
+        int: Exit code (0 for success, non-zero for errors).
+    """
 
     try:
         path2jsons: PathValidator = Parser.start_parsing(args)
@@ -59,5 +67,5 @@ if __name__ == "__main__":
             f"{Colors.RED.value}"
             f"Wrong number of input arguments."
             f"{Colors.RESET.value}")
-        sys.exit(1)
+        sys.exit(99)
     sys.exit(main(sys.argv))

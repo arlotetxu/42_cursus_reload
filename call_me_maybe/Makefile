@@ -86,7 +86,7 @@ flake8:
 
 mypy:
 	@echo "$(YELLOW)Checking mypy...$(DEF_COLOR)"
-	-@uv run mypy $(SRC) --warn-return-any --warn-unused-ignores \
+	-@MYPYPATH=llm_sdk uv run mypy $(SRC) --warn-return-any --warn-unused-ignores \
 	--ignore-missing-imports --disallow-untyped-defs --check-untyped-defs \
 	--follow-imports=silent
 	@echo "$(GREEN)mypy completed!!$(DEF_COLOR)"
@@ -97,7 +97,8 @@ lint-strict: clean
 	@echo "$(YELLOW)Checking with flake8 and mypy --strict...$(DEF_COLOR)"
 	@flake8_status=0; mypy_status=0; \
 	uv run flake8 $(SRC) || flake8_status=1; \
-	uv run mypy $(SRC) --strict --follow-imports=silent || mypy_status=1; \
+	MYPYPATH=llm_sdk uv run mypy $(SRC) --strict --ignore-missing-imports \
+	--follow-imports=silent || mypy_status=1; \
 	if [ $$flake8_status -eq 1 ]; then echo "$(RED)flake8 failed$(DEF_COLOR)"; fi; \
 	if [ $$mypy_status -eq 1 ]; then echo "$(RED)mypy failed$(DEF_COLOR)"; fi; \
 	if [ $$flake8_status -eq 1 ] || [ $$mypy_status -eq 1 ]; then exit 1; fi; \

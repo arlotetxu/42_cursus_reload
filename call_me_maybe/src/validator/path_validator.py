@@ -8,6 +8,14 @@ ic.configureOutput(contextAbsPath=True)
 
 
 class PathValidator(BaseModel):
+    """
+    Validator for input and output file paths.
+
+    Attributes:
+        func_def_path (str): Path to the function definitions JSON.
+        func_call_path (str): Path to the function calling tests JSON.
+        output_path (str): Path where the results will be saved.
+    """
 
     func_def_path: str = Field(
         default="data/input/functions_definition.json"
@@ -21,6 +29,15 @@ class PathValidator(BaseModel):
 
     @model_validator(mode="after")
     def check_func_def_path(self) -> Any:
+        """
+        Validates that the function definition file exists and is valid JSON.
+
+        Returns:
+            PathValidator: The current instance if validation passes.
+
+        Raises:
+            ValueError: If the file is missing or contains invalid JSON.
+        """
         file_path = Path(self.func_def_path)
         if not file_path.is_file():
             raise ValueError(
@@ -45,6 +62,15 @@ class PathValidator(BaseModel):
 
     @model_validator(mode="after")
     def check_func_call_path(self) -> Any:
+        """
+        Validates that the function call file exists and is valid JSON.
+
+        Returns:
+            PathValidator: The current instance if validation passes.
+
+        Raises:
+            ValueError: If the file is missing or contains invalid JSON.
+        """
         file_path = Path(self.func_call_path)
         if not file_path.is_file():
             raise ValueError(
@@ -67,6 +93,15 @@ class PathValidator(BaseModel):
 
     @model_validator(mode="after")
     def check_output_path(self) -> Any:
+        """
+        Validates that the output file does not already exist.
+
+        Returns:
+            PathValidator: The current instance if validation passes.
+
+        Raises:
+            ValueError: If the output file already exists.
+        """
         file_path = Path(self.output_path)
         if file_path.is_file():
             raise ValueError(

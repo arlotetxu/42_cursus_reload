@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any
 from src.validator.path_validator import PathValidator
 from src.validator.func_def_validator import FuncDefVal
 from src.validator.func_call_validator import FuncCallVal
@@ -11,16 +11,30 @@ ic.configureOutput(includeContext=True)
 
 
 class Prompt (BaseModel):
+    """
+    Handles the loading and preparation of prompts and function
+    definitions for the function calling engine.
+    """
 
     input_paths: PathValidator
 
     def get_func_def(self) -> FuncDefVal:
+        """
+        Loads and validates function definitions from a JSON file.
+
+        Returns:
+            FuncDefVal: Validated function definitions object.
+
+        Raises:
+            ValueError: If the file cannot be read or the JSON structure
+                is invalid.
+        """
         func_def_path: str = self.input_paths.func_def_path
 
         try:
             with open(func_def_path, mode='r') as fd:
-                func_def_data: List = json.load(fd)
-        except (FileExistsError, FileNotFoundError, AttributeError) as e:
+                func_def_data: List[Any] = json.load(fd)
+        except (FileExistsError, FileNotFoundError, PermissionError) as e:
             print(f"{Colors.RED.value}[ERROR] - "
                   f"There are issues while open {func_def_path}. "
                   f"Please, check the file and permissions and try again."
@@ -39,13 +53,23 @@ class Prompt (BaseModel):
         return validated_function
 
     def get_func_call(self) -> FuncCallVal:
+        """
+        Loads and validates function call prompts from a JSON file.
+
+        Returns:
+            FuncCallVal: Validated function calls object.
+
+        Raises:
+            ValueError: If the file cannot be read or the JSON structure
+                is invalid.
+        """
         func_call_path = self.input_paths.func_call_path
         try:
             with open(func_call_path, mode='r') as fd:
                 content = fd.read().replace('\\"', "'")
                 # func_call_data = json.load(fd)
                 func_call_data = json.loads(content)
-        except (FileExistsError, FileNotFoundError, AttributeError) as e:
+        except (FileExistsError, FileNotFoundError, PermissionError) as e:
             print(f"{Colors.RED.value}[ERROR] - "
                   f"There are issue while open {func_call_path}. "
                   f"Please, check the file and permissions and try again."
@@ -64,6 +88,15 @@ class Prompt (BaseModel):
         return validated_prompts
 
     def init_prompt(self) -> str:
+        """
+        Constructs the initial system prompt for the LLM.
+
+        Returns:
+            str: The formatted system instruction string.
+
+        Raises:
+            ValueError: If function definitions cannot be retrieved.
+        """
         try:
             initial_prompt = (
                 "You are the best function calling engine. "
@@ -83,27 +116,7 @@ class Prompt (BaseModel):
                 "Check the sign of each number in the prompt to apply the"
                 "right sign in the output. "
                 "The output must be a valid JSON.\n")
-        #     initial_prompt = (
-        # "You are a strict function-calling assistant. "
-        # "Your ONLY task is to extract the user's intent matching one of the provided functions.\n\n"
 
-        # "<AVAILABLE_FUNCTIONS>\n"
-        # f"{str(self.get_func_def())}\n"
-        # "</AVAILABLE_FUNCTIONS>\n\n"
-
-        # "RULES:\n"
-        # "1. Focus strictly on the primary action/verb requested.\n"
-        # "2. Output ONLY a valid JSON object. No explanations, no markdown "
-        # "formatting outside the JSON, no conversational text.\n"
-        # "3. Pay strict attention to EXACT parameter formats (e.g., regex, "
-        # "codifications), SPECIALLY in regex parameters.\n"
-        # # "4. CRITICAL: If the prompt contains negative numbers like -5, -66, "
-        # # "-13,..., you MUST output the negative sign '-' before the digit token. "
-        # # "I.e, Input: What is the sum of -5 and -6 → Output: {'a': '-5', 'b': '-6'}.\n"
-        # # "5. Pay strict attention to the number of parameter and separate them to fulfill the action\n\n"
-        # # "5. If a parameter has more than one value, separate them accordingly"
-        # "5. One parameter could have more then one value. If so, separate them to fulfill the action requested"
-        # "\n")
         except (ValueError, ValidationError) as e:
             raise ValueError(e)
         return initial_prompt
