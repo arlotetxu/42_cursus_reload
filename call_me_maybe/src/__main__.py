@@ -6,8 +6,6 @@ from src.prompt.prompt import Prompt
 from src.validator.path_validator import PathValidator
 from pydantic import ValidationError
 from src.logic.logic import get_output_info
-from icecream import ic
-ic.configureOutput(includeContext=True)
 
 """
 ERROR CODES

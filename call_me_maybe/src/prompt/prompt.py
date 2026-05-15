@@ -5,9 +5,6 @@ from src.validator.func_call_validator import FuncCallVal
 from pydantic import BaseModel, ValidationError
 from src.enums.enums import Colors
 import json
-from icecream import ic
-
-ic.configureOutput(includeContext=True)
 
 
 class Prompt (BaseModel):

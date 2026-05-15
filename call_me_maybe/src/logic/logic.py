@@ -1,4 +1,3 @@
-from icecream import ic
 from llm_sdk import Small_LLM_Model
 from src.enums.enums import Colors
 from src.validator.path_validator import PathValidator
@@ -10,8 +9,6 @@ from typing import List, Dict, Any
 import numpy as np
 import json
 from pathlib import Path
-
-ic.configureOutput(includeContext=True)
 
 
 def get_func_name(

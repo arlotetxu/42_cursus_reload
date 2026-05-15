@@ -2,9 +2,6 @@ import sys
 from typing import List, Dict
 from pydantic import ValidationError
 from src.validator.path_validator import PathValidator
-from icecream import ic
-
-ic.configureOutput(includeContext=True)
 
 
 class Parser:
@@ -27,7 +24,6 @@ class Parser:
             return ("data/input/functions_definition.json")
         for index, value in enumerate(args):
             if value == "--functions_definition":
-                ic(args[index + 1])
                 return (args[index + 1])
         return ""
 

@@ -3,8 +3,6 @@ from typing import Any
 from pathlib import Path
 from src.enums.enums import Colors
 import json
-from icecream import ic
-ic.configureOutput(contextAbsPath=True)
 
 
 class PathValidator(BaseModel):

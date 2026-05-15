@@ -2,9 +2,6 @@ from typing import List, Dict, Any
 from llm_sdk import Small_LLM_Model
 import numpy as np
 from numpy.typing import NDArray
-from icecream import ic
-
-ic.configureOutput(includeContext=True)
 
 
 def add_name_mask(
