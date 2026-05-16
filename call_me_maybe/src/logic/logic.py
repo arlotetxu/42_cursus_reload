@@ -4,6 +4,7 @@ from src.validator.path_validator import PathValidator
 from src.validator.output_json_validator import OutputVal
 from src.prompt.prompt import Prompt
 from src.masks.masks import add_name_mask, add_numeric_mask
+from src.logic.print_result import print_result
 from pydantic import ValidationError
 from typing import List, Dict, Any
 import numpy as np
@@ -225,6 +226,9 @@ def get_output_info(path2jsons: PathValidator, init_prompt: str) -> int:
             selected_func_params = get_func_parameters(
                 prompt, llm, full_func_def, selected_func_name, vocab_dict)
 
+            print_result(
+                func_call[i], selected_func_name, selected_func_params
+                )
             output_info.append(dict(
                 prompt=func_call[i],
                 name=selected_func_name,

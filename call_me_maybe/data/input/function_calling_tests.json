@@ -34,5 +34,14 @@
   },
   {
     "prompt": "What is the sum of -5 and -66"
+  },
+  {
+    "prompt": ""
+  },
+    {
+    "prompt": "Give me the square root of 9"
+  },
+    {
+    "prompt": "Substitute the word 'pen' with 'pencil' in 'I have a pen in my desktop.'"
   }
 ]
