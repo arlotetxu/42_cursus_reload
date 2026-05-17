@@ -33,7 +33,7 @@ def get_func_name(
     Raises:
         ValueError: If an error occurs during LLM inference.
     """
-
+    print(prompt)
     selected_func_name = ""
     try:
         while True:
@@ -97,7 +97,7 @@ def get_func_parameters(
         for param in func_params:
             for param_name, param_type in param.items():
                 prompt += f"\"{param_name}\": "
-                if param_type.type == "number":
+                if param_type.type in ["number", "integer"]:
                     while True:
                         prompt_ids = llm.encode(prompt)
                         prompt_logits = llm.get_logits_from_input_ids(
@@ -116,7 +116,12 @@ def get_func_parameters(
                             break
                         parameters += next_token_str
                         prompt += next_token_str
-                    parameters_dict[param_name] = float(parameters)
+                    if param_type.type == "number":
+                        parameters_dict[param_name] = float(parameters)
+                    else:
+                        parameters_dict[param_name] = int(parameters)
+
+
 
                 if param_type.type == "string":
                     prompt += "\""
@@ -128,7 +133,8 @@ def get_func_parameters(
                         next_token_id = int(np.argmax([prompt_logits_np]))
                         next_token_str = llm.decode([next_token_id])
                         if any(
-                            c in next_token_str for c in ["\"}", "\"", "}"]
+                            # c in next_token_str for c in ["\"}", "\"", "}"]
+                            c in next_token_str for c in ["\""]
                         ):
                             break
                         parameters += next_token_str
