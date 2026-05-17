@@ -213,7 +213,7 @@ def get_output_info(path2jsons: PathValidator, init_prompt: str) -> int:
         return 5
 
     try:
-        for i in range(len(func_call) - 1):
+        for i in range(len(func_call)):
             prompt = (init_prompt +
                       "[\n" + "{\n\t\"prompt\":" + f"\"{func_call[i]}\",\n")
             prompt += "\"name\": \""
