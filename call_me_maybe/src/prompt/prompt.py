@@ -66,7 +66,6 @@ class Prompt (BaseModel):
             with open(func_call_path, mode='r') as fd:
                 content = fd.read().replace('\\"', "'")
                 func_call_data = json.loads(content)
-                # func_call_data = json.load(fd)
         except (
             FileExistsError, FileNotFoundError, ValueError,
                 PermissionError, json.JSONDecodeError) as e:

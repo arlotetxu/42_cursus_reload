@@ -16,16 +16,6 @@ ERROR CODES
 5- The vocab file cannot be read
 6- Issues getting info from LLM
 7- Permission issues with output file path
-
-TO DO's
-[X] - Crear funcion para generar el json de salida
-[X] - Comprobar que JSON de salida está bien formateado con pydantic
-[] - Hacer diferentes test de prompts (pag. 16 subject) y argumentos de entrada
-[X] - Docstrings
-[X] - Flake8
-[X] - Mypy (mypy strict with errors)
-[X] - Makefile
-[] - README
 """
 
 
