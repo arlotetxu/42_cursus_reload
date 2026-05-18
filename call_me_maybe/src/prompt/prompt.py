@@ -31,7 +31,8 @@ class Prompt (BaseModel):
         try:
             with open(func_def_path, mode='r') as fd:
                 func_def_data: List[Any] = json.load(fd)
-        except (FileExistsError, FileNotFoundError, PermissionError) as e:
+        except (FileExistsError, FileNotFoundError, ValueError,
+                PermissionError, json.JSONDecodeError) as e:
             print(f"{Colors.RED.value}[ERROR] - "
                   f"There are issues while open {func_def_path}. "
                   f"Please, check the file and permissions and try again."
@@ -64,9 +65,11 @@ class Prompt (BaseModel):
         try:
             with open(func_call_path, mode='r') as fd:
                 content = fd.read().replace('\\"', "'")
-                # func_call_data = json.load(fd)
                 func_call_data = json.loads(content)
-        except (FileExistsError, FileNotFoundError, PermissionError) as e:
+                # func_call_data = json.load(fd)
+        except (
+            FileExistsError, FileNotFoundError, ValueError,
+                PermissionError, json.JSONDecodeError) as e:
             print(f"{Colors.RED.value}[ERROR] - "
                   f"There are issue while open {func_call_path}. "
                   f"Please, check the file and permissions and try again."

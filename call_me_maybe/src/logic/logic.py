@@ -5,6 +5,7 @@ from src.validator.output_json_validator import OutputVal
 from src.prompt.prompt import Prompt
 from src.masks.masks import add_name_mask, add_numeric_mask
 from src.logic.print_result import print_result
+from src.logic.param_adaptor import str_param_adaptor
 from pydantic import ValidationError
 from typing import List, Dict, Any
 import numpy as np
@@ -33,7 +34,6 @@ def get_func_name(
     Raises:
         ValueError: If an error occurs during LLM inference.
     """
-    print(prompt)
     selected_func_name = ""
     try:
         while True:
@@ -121,8 +121,6 @@ def get_func_parameters(
                     else:
                         parameters_dict[param_name] = int(parameters)
 
-
-
                 if param_type.type == "string":
                     prompt += "\""
                     while True:
@@ -130,16 +128,15 @@ def get_func_parameters(
                         prompt_logits = llm.get_logits_from_input_ids(
                             prompt_ids[0].tolist())
                         prompt_logits_np = np.array(prompt_logits)
-                        next_token_id = int(np.argmax([prompt_logits_np]))
+                        next_token_id = int(np.argmax(prompt_logits_np))
                         next_token_str = llm.decode([next_token_id])
-                        if any(
-                            # c in next_token_str for c in ["\"}", "\"", "}"]
-                            c in next_token_str for c in ["\""]
-                        ):
+                        if "\"" in next_token_str:
+                            parameters += next_token_str.split("\"")[0]
+                            prompt += parameters + "\""
                             break
                         parameters += next_token_str
                         prompt += next_token_str
-                    parameters_dict[param_name] = parameters
+                    parameters_dict[param_name] = str_param_adaptor(parameters)
                 parameters = ""
     except Exception as e:
         raise ValueError(e)

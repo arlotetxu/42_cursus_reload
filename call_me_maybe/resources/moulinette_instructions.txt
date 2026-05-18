@@ -1,0 +1,8 @@
+0. Copy the moulinette folder to the root project directory
+1. cd moulinette
+2. uv sync
+3. uv run python -m moulinette prepare_exercises --set private
+    This will generate 2 json (prompts and function definitions). Copy them to the data->input folder of your project
+4. cd ..
+5. Execute the project. It should generate an output json
+5. uv run python -m moulinette grade_student_answers --set private --student_answer_path <path al json de salida>

@@ -43,5 +43,8 @@
   },
     {
     "prompt": "Substitute the word 'pen' with 'pencil' in 'I have a pen in my desktop.'"
+  },
+    {
+    "prompt": "Continue the following fragment of 'El Quijote': 'En un lugar de la mancha '"
   }
 ]

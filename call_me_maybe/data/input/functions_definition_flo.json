@@ -67,5 +67,17 @@
     "returns": {
       "type": "string"
     }
+  },
+  {
+    "name": "fn_continue_quijote",
+    "description": "Continues a fragment of 'El Quijote'",
+    "parameters": {
+      "cont": {
+        "type": "string"
+      }
+    },
+    "returns": {
+      "type": "string"
+    }
   }
 ]
