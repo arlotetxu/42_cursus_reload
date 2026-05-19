@@ -33,10 +33,7 @@
     "prompt": "Substitute the word 'cat' with 'dog' in 'The cat sat on the mat with another cat'"
   },
   {
-    "prompt": "What is the sum of -5 and -66"
-  },
-  {
-    "prompt": ""
+    "prompt": "Sum 5 and 66"
   },
     {
     "prompt": "Give me the square root of 9"

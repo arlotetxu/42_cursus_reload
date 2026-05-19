@@ -106,13 +106,14 @@ class Prompt (BaseModel):
                 "to return ONLY the function that matches the action. "
                 "Do not consider other non importance words. "
                 "If the function selected uses regex, choose a right "
-                "validated and proved regular expression. "
+                "validated  and proved regular expression. "
                 "If the action is a substitution or replacement, check if "
                 "the replacement value is codified (like asterisk meaning "
-                "the symbol \"*\") and pay attention to the words mentioned "
-                "to avoid repeat them. "
+                "the symbol \"*\"). "
                 "If a parameter has more than one value, separate them"
                 "accordingly to the requested action. "
+                "Check the sign of each number in the prompt to apply the"
+                "right sign in the output. "
                 "The output must be a valid JSON.\n")
 
         except (ValueError, ValidationError) as e:

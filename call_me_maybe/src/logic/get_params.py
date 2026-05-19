@@ -83,8 +83,9 @@ def get_str_params(
         next_token_id = int(np.argmax(prompt_logits_np))
         next_token_str = llm.decode([next_token_id])
         if "\"" in next_token_str:
-            parameters += next_token_str.split("\"")[0]
-            prompt += parameters + "\""
+            clean_token = next_token_str.split("\"")[0]
+            parameters += clean_token
+            prompt += clean_token + "\""
             break
         parameters += next_token_str
         prompt += next_token_str
