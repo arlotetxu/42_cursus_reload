@@ -13,14 +13,14 @@ To run the training interface and test the configurations:
 3. Alternatively, if the script does not work, you can start the server manually by running `python3 -m http.server 49242` and navigating to `http://localhost:49242`.
 4. Enter your intranet login in the interface so the configuration is linked to your user.
 
-## Submission details
-1. Once the level is validated, press the button "Get my config" to download a JSON file with your exercise configuration on your project root folder.
-2. Because there are 10 levels available in the training interface, you will have to submit 10 files in your repository root (one file per level).
-Don’t forget to enter your login in the training interface.
+	## Submission details
+	1. Once the level is validated, press the button "Get my config" to download a JSON file with your exercise configuration on your project root folder.
+	2. Because there are 10 levels available in the training interface, you will have to submit 10 files in your repository root (one file per level).
+	Don’t forget to enter your login in the training interface.
 
 ## Resources
 To successfully complete this project, it is highly recommended to study and understand the following networking concepts:
-* TCP/IP addressing.
+* TCP/IP addressing: TCP/IP (Transmission Control Protocol/Internet Protocol) addressing is the system of unique numeric identifiers used to locate and route data between devices on a network. It functions much like a postal address, allowing routers to direct digital data packets precisely to their intended destination.
 * [Subnet masks.](https://youtube.com/playlist?list=PLINy58Bvq5_L2WfuQeZ4t77EEhj-sG675&si=M7P2A-7dKRYSrG9k)
 * [Subnet masks 2.](https://youtube.com/watch?v=ZNqBmVwZdoQ&amp;si=41HXWc5J5Ndsu2an)
 * Default gateways: the node or device in a computer network (usually a router) that serves as the primary exit point for traffic (Google)
