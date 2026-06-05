@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="9XwtXdAOsjrtrnt1_WSO">
+    <mxGraphModel dx="1763" dy="759" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="T0eUP9NettROyDMU9pQO-6" edge="1" parent="1" source="T0eUP9NettROyDMU9pQO-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="T0eUP9NettROyDMU9pQO-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-11" edge="1" parent="1" source="T0eUP9NettROyDMU9pQO-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="T0eUP9NettROyDMU9pQO-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-1" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="PARSEO" vertex="1">
+          <mxGeometry height="60" width="120" x="-120" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-2" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="List" vertex="1">
+          <mxGeometry height="230" width="270" x="-240" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-3" parent="T0eUP9NettROyDMU9pQO-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Solo un argumento de entrada" vertex="1">
+          <mxGeometry height="30" width="270" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-4" parent="T0eUP9NettROyDMU9pQO-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Extension JSON" vertex="1">
+          <mxGeometry height="30" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-7" parent="T0eUP9NettROyDMU9pQO-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Estructura de JSON valida" vertex="1">
+          <mxGeometry height="30" width="270" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-5" parent="T0eUP9NettROyDMU9pQO-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Valores JSON validos (tipos str, numeros,...)" vertex="1">
+          <mxGeometry height="30" width="270" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-8" parent="T0eUP9NettROyDMU9pQO-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Gestionar comentarios (diferentes tipos como C, CPP, Python,...)" vertex="1">
+          <mxGeometry height="50" width="270" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-9" parent="T0eUP9NettROyDMU9pQO-2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Aplicar valores por defecto cuando haya valores incorrectos y mostrar mensaje" vertex="1">
+          <mxGeometry height="30" width="270" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-16" edge="1" parent="1" source="T0eUP9NettROyDMU9pQO-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="T0eUP9NettROyDMU9pQO-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-10" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="GENERAR ESCENARIO JUEGO" vertex="1">
+          <mxGeometry height="60" width="120" x="180" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-12" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="List" vertex="1">
+          <mxGeometry height="120" width="180" x="150" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-13" parent="T0eUP9NettROyDMU9pQO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Definir ancho de las paredes" vertex="1">
+          <mxGeometry height="30" width="180" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-14" parent="T0eUP9NettROyDMU9pQO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Rellenar con pacgums" vertex="1">
+          <mxGeometry height="30" width="180" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="T0eUP9NettROyDMU9pQO-17" parent="T0eUP9NettROyDMU9pQO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="# Colocar personajes" vertex="1">
+          <mxGeometry height="30" width="180" y="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
