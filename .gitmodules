@@ -1,3 +1,3 @@
-[submodule "pac_man"]
-	path = pac_man
+[submodule "pac-man"]
+	path = pac-man
 	url = git@github.com:agiron-d42/Pac-Man.git
